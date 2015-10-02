@@ -11,6 +11,17 @@
             </intent-filter>
         </activity>
 
+
+
+        <activity
+            android:name=".preferences.PreferencesNewActivity"
+            android:label="@string/preferences_title" >
+        </activity>
+        <activity
+            android:name=".preferences.PreferencesOldActivity"
+            android:label="@string/preferences_title" >
+        </activity>
+
     </application>
 
 </manifest>

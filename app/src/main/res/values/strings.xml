@@ -3,7 +3,10 @@
 
     <string name="search_title">Search</string>
     <string name="nav_menu_item_article">Статьи</string>
+    <string name="nav_menu_item_settings">Настройки</string>
 
     <string name="navigation_view_open">Open</string>
     <string name="navigation_view_close">Close</string>
+
+    <string name="preferences_title">Настройки</string>
 </resources>
