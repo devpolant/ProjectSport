@@ -3,6 +3,9 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="192dp"
-    android:background="@color/ColorPrimaryDark">
+    android:background="@drawable/navigation_header"
+    >
+
+
 
 </LinearLayout>
