@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Project Sport</string>
+
+    <string name="search_title">Search</string>
+    <string name="nav_menu_item_article">Статьи</string>
 </resources>
