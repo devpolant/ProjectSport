@@ -6,5 +6,4 @@
         android:title="@string/nav_menu_item_article"
         android:orderInCategory="1"
         android:icon="@mipmap/ic_message_text"/>
-
 </menu>
