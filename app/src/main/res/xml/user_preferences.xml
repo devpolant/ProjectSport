@@ -1,12 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <ListPreference
-        android:key="APP_THEME"
-        android:title="Choose your color theme"
-        android:summary="You can choose color of application theme"
-        android:entries="@array/app_theme_color"
-        android:entryValues="@array/app_theme_color"
-        android:dialogTitle="Theme"
-        android:defaultValue="Dark"
-        />
+
+    <PreferenceCategory
+        android:title="Обновления">
+
+        <CheckBoxPreference
+            android:key="PREF_AUTO_UPDATE"
+            android:title="Автоматическое обновление"
+            android:summary="Выберите для автоматического обновления"
+            android:defaultValue="false"
+            />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="Цвет">
+
+        <ListPreference
+            android:key="PREF_APP_THEME"
+            android:title="Выберите тему оформления"
+            android:summary="Вы можете выбрать цвет интерфейса приложения"
+            android:entries="@array/app_theme_color"
+            android:entryValues="@array/app_theme_color"
+            android:dialogTitle="Тема"
+            android:defaultValue="Светлая"
+            />
+    </PreferenceCategory>
+
 </PreferenceScreen>

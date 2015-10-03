@@ -100,9 +100,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    //Открытие таба "Напоминнания" из NavigationView.
+    //Открытие таба "Статьи" из NavigationView.
     private void showNotificationTab() {
         viewPager.setCurrentItem(Constants.TAB_TWO);
     }
 
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == SHOW_PREFERENCES){
+            //TODO: сделать обработчик применения выбранных настроек.
+        }
+
+    }
 }
