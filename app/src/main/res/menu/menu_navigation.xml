@@ -5,10 +5,10 @@
         android:id="@+id/actionArticleItem"
         android:title="@string/nav_menu_item_article"
         android:orderInCategory="1"
-        android:icon="@mipmap/ic_message_text"/>
+        android:icon="@drawable/ic_subject_black_24dp"/>
     <item
         android:id="@+id/settingsItem"
         android:title="@string/nav_menu_item_settings"
         android:orderInCategory="1"
-        android:icon="@mipmap/ic_message_text"/>
+        android:icon="@drawable/ic_settings_black_24dp"/>
 </menu>
