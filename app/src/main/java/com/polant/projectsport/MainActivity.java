@@ -1,8 +1,10 @@
 package com.polant.projectsport;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -28,10 +30,12 @@ public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
     DrawerLayout drawerLayout;
     ViewPager viewPager;
+    TabLayout tabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTheme(R.style.AppDefault);
+        //setTheme(R.style.AppDefault);
+        setCurrentTheme(PreferenceManager.getDefaultSharedPreferences(getApplicationContext()));
         super.onCreate(savedInstanceState);
         setContentView(LAYOUT);
 
@@ -59,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         TabsPagerFragmentAdapter adapter = new TabsPagerFragmentAdapter(getSupportFragmentManager());
         viewPager.setAdapter(adapter);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         tabLayout.setupWithViewPager(viewPager);
     }
 
@@ -79,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
 
                 drawerLayout.closeDrawers();
 
-                switch (item.getItemId()){
+                switch (item.getItemId()) {
                     case R.id.actionArticleItem:
                         showNotificationTab();
                         break;
@@ -111,8 +115,44 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == SHOW_PREFERENCES){
-            //TODO: сделать обработчик применения выбранных настроек.
+            updateFromPreferences();
         }
 
+    }
+
+    //Применение настроек приложения.
+    private void updateFromPreferences(){
+        //TODO: сделать обработчик применения выбранных настроек.
+
+        //Применяю тему.
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        setUpdatedTheme(sp);
+    }
+
+    private void setUpdatedTheme(SharedPreferences sp) {
+        String theme = sp.getString(PreferencesNewActivity.PREF_APP_THEME, "Light");
+        switch (theme){
+            case "Light":
+                toolbar.setBackgroundColor(getResources().getColor(R.color.ColorPrimary));
+                tabLayout.setBackgroundColor(getResources().getColor(R.color.ColorPrimary));
+                break;
+            case "Dark":
+                toolbar.setBackgroundColor(getResources().getColor(R.color.DarkColorPrimary));
+                tabLayout.setBackgroundColor(getResources().getColor(R.color.DarkColorPrimary));
+                break;
+        }
+    }
+
+    //Применение темы из настроек. Вызывается в OnCreate().
+    private void setCurrentTheme(SharedPreferences sp){
+        String theme = sp.getString(PreferencesNewActivity.PREF_APP_THEME, "Light");
+        switch (theme){
+            case "Light":
+                setTheme(R.style.AppDefault);
+                break;
+            case "Dark":
+                setTheme(R.style.AppDark);
+                break;
+        }
     }
 }

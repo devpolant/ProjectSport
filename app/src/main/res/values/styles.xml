@@ -8,4 +8,11 @@
         <item name="colorControlNormal">@color/colorWhite</item>
     </style>
 
+
+    <style name="AppDark" parent="AppTheme">
+        <item name="colorPrimary">@color/DarkColorPrimary</item>
+        <item name="colorPrimaryDark">@color/DarkColorPrimaryDark</item>
+        <item name="colorControlNormal">@color/DarkMainBackground</item>
+    </style>
+
 </resources>
