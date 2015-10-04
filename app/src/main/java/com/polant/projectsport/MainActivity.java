@@ -1,5 +1,6 @@
 package com.polant.projectsport;
 
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -7,6 +8,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -14,8 +16,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.polant.projectsport.adapter.TabsPagerFragmentAdapter;
+import com.polant.projectsport.fragment.ArticleFragment;
+import com.polant.projectsport.fragment.CalculateFoodFragment;
 import com.polant.projectsport.preferences.PreferencesNewActivity;
 import com.polant.projectsport.preferences.PreferencesOldActivity;
 
@@ -24,13 +29,18 @@ import com.polant.projectsport.preferences.PreferencesOldActivity;
  */
 public class MainActivity extends AppCompatActivity {
 
-    public static final int LAYOUT = R.layout.activity_main;
+    private static final int LAYOUT = R.layout.activity_main;
     public static final int SHOW_PREFERENCES = 1;
 
-    Toolbar toolbar;
+    //находится в разметке самой активити.
     DrawerLayout drawerLayout;
+
+    //находятся в разметке фрагментов, которые содержит MainActivity.
+    Toolbar toolbar;
     ViewPager viewPager;
     TabLayout tabLayout;
+
+    IToolbarFragment fragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,13 +49,26 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(LAYOUT);
 
-        initToolbar();
-        initNavigationView();
-        initTabLayout();
+        fragment = new ArticleFragment();
+
+        //добавляю Fragment динамически, чтобы я имел возможность его потом заменить методом replace()
+        android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.add(
+                R.id.container,
+                (ArticleFragment) fragment,
+                getResources().getString(R.string.tag_fragment_article));
+        transaction.commit();
+
+//        initToolbar();
+//        initNavigationView();
+//        initTabLayout();
     }
 
-    private void initToolbar() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+    //используется во фрагментах.
+    public void initToolbar(Toolbar tool) {
+        //Получаю ссылку на инициализированный во фрагменте Toolbar.
+        toolbar = tool;
+
         toolbar.setTitle(R.string.app_name);
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
@@ -57,20 +80,23 @@ public class MainActivity extends AppCompatActivity {
         toolbar.inflateMenu(R.menu.menu);
     }
 
-    private void initTabLayout() {
-        viewPager = (ViewPager) findViewById(R.id.viewPager);
+    //используется во фрагментах.
+    public void initTabLayout(ViewPager pager, TabLayout tab) {
+        //Получаю ссылку на инициализированные во фрагменте ViewPager и TabLayout.
+        viewPager = pager;
+        tabLayout = tab;
 
         TabsPagerFragmentAdapter adapter = new TabsPagerFragmentAdapter(getSupportFragmentManager());
         viewPager.setAdapter(adapter);
 
-        tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        tabLayout = (TabLayout) ((ArticleFragment) fragment).getTabLayout();
         tabLayout.setupWithViewPager(viewPager);
     }
 
-    private void initNavigationView() {
+    public void initNavigationView(Toolbar tool) {
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_view_open,
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, tool, R.string.navigation_view_open,
                 R.string.navigation_view_close);
 
         drawerLayout.setDrawerListener(toggle);
@@ -87,7 +113,17 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.actionArticleItem:
                         showNotificationTab();
                         break;
-                    case R.id.settingsItem:
+                    case R.id.actionCaloriesCounterItem:
+                        android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                        fragment = null;
+                        transaction.replace(
+                                R.id.container,
+                                new CalculateFoodFragment(),
+                                getResources().getString(R.string.tag_fragment_calories_counter)
+                        );
+                        transaction.commit();
+                        break;
+                    case R.id.actionSettingsItem:
                         //добавим совместимость со старыми версиями платформы.
                         Class c = Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB ?
                                 PreferencesOldActivity.class : PreferencesNewActivity.class;
@@ -106,6 +142,7 @@ public class MainActivity extends AppCompatActivity {
 
     //Открытие таба "Статьи" из NavigationView.
     private void showNotificationTab() {
+        //viewPager = (ViewPager) ((ArticleFragment) fragment).getViewPager(); //сейчас не обязательно.
         viewPager.setCurrentItem(Constants.TAB_TWO);
     }
 
@@ -129,8 +166,19 @@ public class MainActivity extends AppCompatActivity {
         setUpdatedTheme(sp);
     }
 
+    //Вызывается после применения новой темы в настройках приложения, просто меняя фон старой темы.
     private void setUpdatedTheme(SharedPreferences sp) {
         String theme = sp.getString(PreferencesNewActivity.PREF_APP_THEME, "Light");
+
+//        toolbar = (Toolbar) fragment.getToolbar();
+//        if (fragment instanceof ArticleFragment){
+//            tabLayout = (TabLayout) ((ArticleFragment) fragment).getTabLayout();
+//        }
+
+        if (fragment == null || fragment instanceof ArticleFragment == false || fragment instanceof IToolbarFragment == false){
+            return;
+        }
+
         switch (theme){
             case "Light":
                 toolbar.setBackgroundColor(getResources().getColor(R.color.ColorPrimary));
