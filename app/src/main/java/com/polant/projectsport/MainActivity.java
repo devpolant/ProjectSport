@@ -112,6 +112,14 @@ public class MainActivity extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.actionArticleItem:
                         showNotificationTab();
+//                        android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+//                        fragment = null;
+//                        transaction.replace(
+//                                R.id.container,
+//                                new ArticleFragment(),
+//                                getResources().getString(R.string.tag_fragment_article)
+//                        );
+//                        transaction.commit();
                         break;
                     case R.id.actionCaloriesCounterItem:
                         android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();

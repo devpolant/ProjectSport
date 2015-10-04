@@ -24,7 +24,7 @@ public class CalculateFoodFragment extends Fragment {
     private View view;
 
     private MainActivity mainActivity;
-    //private Toolbar toolbar;
+    private Toolbar toolbar;
 
     @Nullable
     @Override
@@ -37,12 +37,12 @@ public class CalculateFoodFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        //toolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        toolbar = (Toolbar) view.findViewById(R.id.toolbar);
 
         //ссылку на toolbar получаю здесь (и передаю методам активити
         //для доп. инициализации), а на NavigationView в Активити.
-        //mainActivity.initToolbar(toolbar);
-        mainActivity.initNavigationView(null);
+        mainActivity.initToolbar(toolbar);
+        mainActivity.initNavigationView(toolbar);
     }
 
     @Override
