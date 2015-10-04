@@ -12,6 +12,8 @@ import java.util.List;
  */
 public class PreferencesNewActivity extends PreferenceActivity {
 
+    public static final int SHOW_PREFERENCES = 1;
+
     public static final String PREF_APP_THEME = "PREF_APP_THEME";
     public static final String PREF_AUTO_UPDATE = "PREF_AUTO_UPDATE";
 

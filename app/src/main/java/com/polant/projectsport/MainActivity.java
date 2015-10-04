@@ -1,6 +1,5 @@
 package com.polant.projectsport;
 
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -8,7 +7,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -16,8 +14,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 
+import com.polant.projectsport.activity.ActivityCalculateFood;
 import com.polant.projectsport.adapter.TabsPagerFragmentAdapter;
 import com.polant.projectsport.fragment.ArticleFragment;
 import com.polant.projectsport.fragment.CalculateFoodFragment;
@@ -30,7 +28,8 @@ import com.polant.projectsport.preferences.PreferencesOldActivity;
 public class MainActivity extends AppCompatActivity {
 
     private static final int LAYOUT = R.layout.activity_main;
-    public static final int SHOW_PREFERENCES = 1;
+
+    public static final int SHOW_ACTIVITY_CALCULATE_FOOD = 4;
 
     //находится в разметке самой активити.
     DrawerLayout drawerLayout;
@@ -122,14 +121,8 @@ public class MainActivity extends AppCompatActivity {
 //                        transaction.commit();
                         break;
                     case R.id.actionCaloriesCounterItem:
-                        android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                        fragment = null;
-                        transaction.replace(
-                                R.id.container,
-                                new CalculateFoodFragment(),
-                                getResources().getString(R.string.tag_fragment_calories_counter)
-                        );
-                        transaction.commit();
+                        Intent foodCaloriesCouter = new Intent(MainActivity.this, ActivityCalculateFood.class);
+                        startActivityForResult(foodCaloriesCouter, SHOW_ACTIVITY_CALCULATE_FOOD);
                         break;
                     case R.id.actionSettingsItem:
                         //добавим совместимость со старыми версиями платформы.
@@ -138,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
 
                         Intent intent = new Intent(MainActivity.this, c);
                         Log.d("Class in intent", c.getName());
-                        startActivityForResult(intent, SHOW_PREFERENCES);
+                        startActivityForResult(intent, PreferencesNewActivity.SHOW_PREFERENCES);
                         break;
                 }
 
@@ -150,7 +143,6 @@ public class MainActivity extends AppCompatActivity {
 
     //Открытие таба "Статьи" из NavigationView.
     private void showNotificationTab() {
-        //viewPager = (ViewPager) ((ArticleFragment) fragment).getViewPager(); //сейчас не обязательно.
         viewPager.setCurrentItem(Constants.TAB_TWO);
     }
 
@@ -159,9 +151,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == SHOW_PREFERENCES){
-            updateFromPreferences();
-        }
+        updateFromPreferences();
+//        if (requestCode == PreferencesNewActivity.SHOW_PREFERENCES){
+//            updateFromPreferences();
+//        }
 
     }
 
@@ -177,11 +170,6 @@ public class MainActivity extends AppCompatActivity {
     //Вызывается после применения новой темы в настройках приложения, просто меняя фон старой темы.
     private void setUpdatedTheme(SharedPreferences sp) {
         String theme = sp.getString(PreferencesNewActivity.PREF_APP_THEME, "Light");
-
-//        toolbar = (Toolbar) fragment.getToolbar();
-//        if (fragment instanceof ArticleFragment){
-//            tabLayout = (TabLayout) ((ArticleFragment) fragment).getTabLayout();
-//        }
 
         if (fragment == null || fragment instanceof ArticleFragment == false || fragment instanceof IToolbarFragment == false){
             return;

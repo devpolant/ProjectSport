@@ -1,55 +1,38 @@
 package com.polant.projectsport.fragment;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
-import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import com.polant.projectsport.MainActivity;
-import com.polant.projectsport.R;
+import android.support.v4.app.ListFragment;
+import android.widget.ArrayAdapter;
 
 /**
  * Created by Антон on 04.10.2015.
  */
-public class CalculateFoodFragment extends Fragment {
+public class CalculateFoodFragment extends ListFragment {
 
-    private static final int LAYOUT = R.layout.fragment_calories_counter;
+    private Context context;
 
-    private View view;
-
-    private MainActivity mainActivity;
-    private Toolbar toolbar;
-
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(LAYOUT, container, false);
-        return view;
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        context = activity;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        toolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        String fruits = "фрукты";
 
-        //ссылку на toolbar получаю здесь (и передаю методам активити
-        //для доп. инициализации), а на NavigationView в Активити.
-        mainActivity.initToolbar(toolbar);
-        mainActivity.initNavigationView(toolbar);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1,
+                new String[] { fruits, "Овощи", "Мясо", "Грибы", "Молочные продукты"});
+        setListAdapter(adapter);
+
     }
 
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
 
-        mainActivity = (MainActivity) activity;
-    }
 
 }

@@ -11,8 +11,7 @@
             </intent-filter>
         </activity>
 
-
-
+        <activity android:name=".activity.ActivityCalculateFood"/>
         <activity
             android:name=".preferences.PreferencesNewActivity"
             android:label="@string/preferences_title" >
