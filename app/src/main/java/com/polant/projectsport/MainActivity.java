@@ -18,7 +18,6 @@ import android.view.MenuItem;
 import com.polant.projectsport.activity.ActivityCalculateFood;
 import com.polant.projectsport.adapter.TabsPagerFragmentAdapter;
 import com.polant.projectsport.fragment.ArticleFragment;
-import com.polant.projectsport.fragment.CalculateFoodFragment;
 import com.polant.projectsport.preferences.PreferencesNewActivity;
 import com.polant.projectsport.preferences.PreferencesOldActivity;
 
@@ -120,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
 //                        );
 //                        transaction.commit();
                         break;
-                    case R.id.actionCaloriesCounterItem:
+                    case R.id.ActionCalculateFood:
                         Intent foodCaloriesCouter = new Intent(MainActivity.this, ActivityCalculateFood.class);
                         startActivityForResult(foodCaloriesCouter, SHOW_ACTIVITY_CALCULATE_FOOD);
                         break;

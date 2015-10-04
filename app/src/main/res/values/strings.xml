@@ -3,7 +3,10 @@
 
     <string name="search_title">Search</string>
     <string name="nav_menu_item_article">Статьи</string>
-    <string name="nav_menu_item_calories_counter">Счетчик калорий</string>
+    <string name="nav_menu_item_calories_counter">Калькуляторы</string>
+    <string name="nav_menu_item_index_body_weight">Индекс массы тела</string>
+    <string name="nav_menu_item_day_need_cal">Потребность в калориях</string>
+    <string name="nav_menu_item_calc_food">Пищевой калькулятор</string>
     <string name="nav_menu_item_settings">Настройки</string>
 
     <string name="navigation_view_open">Open</string>

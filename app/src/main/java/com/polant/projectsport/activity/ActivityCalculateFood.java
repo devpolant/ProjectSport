@@ -50,7 +50,7 @@ public class ActivityCalculateFood extends AppCompatActivity {
     public void initToolbar() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-        toolbar.setTitle("Пищевой калькулятор");
+        toolbar.setTitle(getResources().getString(R.string.nav_menu_item_calc_food));
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
