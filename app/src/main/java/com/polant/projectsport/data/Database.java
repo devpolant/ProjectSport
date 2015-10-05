@@ -1,124 +1,108 @@
 package com.polant.projectsport.data;
 
-import android.content.ContentProvider;
+
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.net.Uri;
-import android.support.annotation.Nullable;
 import android.util.Log;
-
-import java.sql.Time;
-import java.util.Date;
 
 /**
  * Created by Антон on 05.10.2015.
  */
-public class MyContentProvider extends ContentProvider {
+public class Database {
 
-    public static final Uri CONTENT_URI = Uri.parse("content://com.polant.projectsport.data/information");
+    Context context;
 
-    public static final int ALL_ROWS = 1;
-    public static final int SINGLE_ROW = 2;
+    SportOpenHelper openHelper;
+    SQLiteDatabase sqLiteDatabase;
 
-    //--------------------------//
+    public Database(Context _context) {
+        context = _context;
+    }
+
+    public void open(){
+        openHelper = new SportOpenHelper(context);
+        sqLiteDatabase = openHelper.getWritableDatabase();
+    }
+
+    public void close(){
+        if (openHelper != null) openHelper.close();
+    }
+
+    public SQLiteDatabase getSqLiteDatabase(){
+        return sqLiteDatabase;
+    }
+
+    public Cursor getFoodData(){
+        String[] projection = new String[] {ID_FOOD + " AS " + "_id", FOOD_CATEGORY};
+        return sqLiteDatabase.query(TABLE_FOOD, projection, null, null, null, null, null);
+    }
+
+    public Cursor getSpecificFoodData(){
+        String query = "SELECT " + ID_SPECIFIC_FOOD + ", " + FOOD_NAME + ", " +
+                FOOD_CATEGORY + ", " + CAL_COUNT +
+                " FROM " + TABLE_FOOD + ", " + TABLE_SPECIFIC_FOOD + " " +
+                "WHERE " + TABLE_FOOD + "." + ID_FOOD + "="
+                         + TABLE_SPECIFIC_FOOD + "." + ID_FOOD + ";";
+        return sqLiteDatabase.rawQuery(query, null);
+    }
+
+    public static int getDatabaseVersion() {
+        return SportOpenHelper.DATABASE_VERSION;
+    }
+
+    //----------------------------------------------------------//
+
+    //все таблицы.
+    public static final String TABLE_USER = "USER_TABLE";
+    public static final String TABLE_STATISTICS = "STATISTICS_TABLE";
+    public static final String TABLE_SPECIFIC_FOOD = "SPECIFIC_FOOD_TABLE";
+    public static final String TABLE_FOOD = "FOOD_TABLE";
+
+
     //все столбцы всех таблиц.
-
     //USER
     public static final String ID_USER = "ID_USER";
+    public static final String USER_NAME = "USER_NAME";
     public static final String USER_WEIGHT = "USER_WEIGHT";
     public static final String USER_HEIGHT = "USER_HEIGHT";
     public static final String USER_SEX = "USER_SEX";
 
     //FOOD
-    public static final String ID_FOOD = "_id";
+    public static final String ID_FOOD = "food_id";
     public static final String FOOD_CATEGORY = "FOOD_CATEGORY";
 
     //SPECIFIC_FOOD
     public static final String ID_SPECIFIC_FOOD = "_id";
     public static final String FOOD_NAME = "FOOD_NAME";
-    //+ в таблице есть FOOD_CATEGORY как внешний ключ.
+    //+ в таблице есть ID_FOOD как внешний ключ.
     public static final String CAL_COUNT = "CAL_COUNT";
 
     //STATISTICS
     public static final String ID_STATISTICS = "ID_STATISTICS";
-    ////+ в таблице есть ID_USER как внешний ключ.
     ////+ в таблице есть FOOD_NAME как внешний ключ.
     public static final String DAY = "DAY";
-    public static final String MONTH = "DAY";
+    public static final String MONTH = "MONTH";
     public static final String YEAR = "YEAR";
 
-
-    //---------------------------//
-
-    public static final UriMatcher uriMatcher;
-
-    static {
-        uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
-        uriMatcher.addURI("com.polant.projectsport.data", "information", ALL_ROWS);
-        uriMatcher.addURI("com.polant.projectsport.data", "information/#", SINGLE_ROW);
-    }
-
-
-    @Override
-    public boolean onCreate() {
-        return false;
-    }
-
-    public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
-        return null;
-    }
-
-    @Nullable
-    @Override
-    public String getType(Uri uri) {
-        switch (uriMatcher.match(uri))
-        {
-            case ALL_ROWS:
-                return "vnd.android.cursor.dir/vnd.polant.information";
-            case SINGLE_ROW:
-                return "vnd.android.cursor.item/vnd.polant.information";
-            default:
-                throw new IllegalArgumentException("Unsupported URI: " + uri);
-        }
-    }
-
-    @Nullable
-    @Override
-    public Uri insert(Uri uri, ContentValues values) {
-        return null;
-    }
-
-    @Override
-    public int delete(Uri uri, String selection, String[] selectionArgs) {
-        return 0;
-    }
-
-    @Override
-    public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
-        return 0;
-    }
+//----------------------------------------------------------//
 
 
     private static class SportOpenHelper extends SQLiteOpenHelper {
 
         private static final String LOG = SportOpenHelper.class.getName();
 
-        private static final int DATABASE_VERSION = 1;
+        private static final int DATABASE_VERSION = 6;
 
         private static final String DATABASE_NAME = "sport.db";
 
-        //все таблицы.
-        private static final String TABLE_USER = "USER_TABLE";
-        private static final String TABLE_STATISTICS = "STATISTICS_TABLE";
-        private static final String TABLE_SPECIFIC_FOOD = "SPECIFIC_FOOD_TABLE";
-        private static final String TABLE_FOOD = "FOOD_TABLE";
 
+        //В данных момент я не связываю таблицу TABLE_USER с другими таблицами.
         private static final String CREATE_TABLE_USER = "Create table " + TABLE_USER + " (" +
                 ID_USER + " integer primary key autoincrement, " +
+                USER_NAME + " TEXT, " +
                 USER_HEIGHT + " FLOAT, " +
                 USER_WEIGHT + " FLOAT, " +
                 USER_SEX + " TEXT);";
@@ -132,15 +116,14 @@ public class MyContentProvider extends ContentProvider {
                 "Create table " + TABLE_SPECIFIC_FOOD + " (" +
                         ID_SPECIFIC_FOOD + " integer primary key autoincrement, " +
                         FOOD_NAME + " TEXT, " +
-                        FOOD_CATEGORY + " TEXT " +
+                        ID_FOOD + " INTEGER, " +
                         CAL_COUNT + " INTEGER);";
 
         private static final String CREATE_TABLE_STATISTICS =
                 "Create table " + TABLE_STATISTICS + " (" +
                         ID_STATISTICS + " integer primary key autoincrement, " +
-                        ID_USER + " INTEGER, " +
-                        FOOD_NAME + " TEXT, " +
-                        FOOD_CATEGORY + " TEXT, " +
+                        //ID_USER + " INTEGER, " +
+                        ID_SPECIFIC_FOOD + " INTEGER, " +
                         DAY + " TEXT, " +
                         MONTH + " TEXT, " +
                         YEAR + " TEXT);";
@@ -158,16 +141,22 @@ public class MyContentProvider extends ContentProvider {
             db.execSQL(CREATE_TABLE_FOOD);
             db.execSQL(CREATE_TABLE_SPECIFIC_FOOD);
             db.execSQL(CREATE_TABLE_STATISTICS);
+
+            ContentValues cv = new ContentValues();
+            cv.put(USER_NAME, "Антон");
+            cv.put(USER_HEIGHT, 184);
+            cv.put(USER_WEIGHT, 75);
+            db.insert(TABLE_USER, null, cv);
         }
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             Log.w(LOG, "Update database from " + oldVersion + " to " + newVersion + ", which will destroy all old data");
 
-            db.execSQL("DROP TABLE IF EXISTS " + CREATE_TABLE_USER + ";");
-            db.execSQL("DROP TABLE IF EXISTS " + CREATE_TABLE_FOOD + ";");
-            db.execSQL("DROP TABLE IF EXISTS " + CREATE_TABLE_SPECIFIC_FOOD + ";");
-            db.execSQL("DROP TABLE IF EXISTS " + CREATE_TABLE_STATISTICS + ";");
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER + ";");
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_FOOD + ";");
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_SPECIFIC_FOOD + ";");
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_STATISTICS + ";");
 
             onCreate(db);
         }

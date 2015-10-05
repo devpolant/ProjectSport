@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.widget.SimpleAdapter;
 
 import com.polant.projectsport.R;
@@ -25,7 +26,7 @@ public class CalculateDetailsFoodFragment extends ListFragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-
+        Log.d("MY_DB_LOGS", "OnAttachSF");
         context = activity;
     }
 
@@ -58,5 +59,25 @@ public class CalculateDetailsFoodFragment extends ListFragment {
         //подписали ListView на адаптер.
         setListAdapter(adapter);
         //------------------------------------//
+
+        Log.d("MY_DB_LOGS", "OnActivityCreatedSF");
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Log.d("MY_DB_LOGS", "OnDestroyViewSF");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d("MY_DB_LOGS", "OnDestroySF");
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        Log.d("MY_DB_LOGS", "OnDetachSF");
     }
 }

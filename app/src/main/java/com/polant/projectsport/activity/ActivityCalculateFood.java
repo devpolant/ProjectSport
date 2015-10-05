@@ -15,6 +15,7 @@ import android.view.MenuItem;
 
 import com.polant.projectsport.MainActivity;
 import com.polant.projectsport.R;
+import com.polant.projectsport.data.Database;
 import com.polant.projectsport.fragment.CalculateFoodFragment;
 import com.polant.projectsport.preferences.PreferencesNewActivity;
 import com.polant.projectsport.preferences.PreferencesOldActivity;
@@ -29,22 +30,37 @@ public class ActivityCalculateFood extends AppCompatActivity {
     DrawerLayout drawerLayout;
     Toolbar toolbar;
 
+    Database DB;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setCurrentTheme(PreferenceManager.getDefaultSharedPreferences(getApplicationContext()));
         super.onCreate(savedInstanceState);
         setContentView(LAYOUT);
 
+        DB = new Database(this);
+        DB.open();
+
+        CalculateFoodFragment fragment = new CalculateFoodFragment();
         //добавляю Fragment динамически, чтобы я имел возможность его потом заменить методом replace()
         android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(
                 R.id.containerKindsFood,
-                new CalculateFoodFragment(),
+                fragment,
                 getResources().getString(R.string.tag_fragment_calculate_food));
         transaction.commit();
 
         initToolbar();
         initNavigationView();
+
+        Log.d("MY_DB_LOGS", "OnCreate");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("MY_DB_LOGS", "OnDestroy");
+        DB.close();
     }
 
     public void initToolbar() {

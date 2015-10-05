@@ -17,6 +17,7 @@ import android.view.MenuItem;
 
 import com.polant.projectsport.activity.ActivityCalculateFood;
 import com.polant.projectsport.adapter.TabsPagerFragmentAdapter;
+import com.polant.projectsport.data.Database;
 import com.polant.projectsport.fragment.ArticleFragment;
 import com.polant.projectsport.preferences.PreferencesNewActivity;
 import com.polant.projectsport.preferences.PreferencesOldActivity;
@@ -27,6 +28,9 @@ import com.polant.projectsport.preferences.PreferencesOldActivity;
 public class MainActivity extends AppCompatActivity {
 
     private static final int LAYOUT = R.layout.activity_main;
+
+    public static final int DBVersion = Database.getDatabaseVersion();
+    public static final String DB_VERSION_KEY = "DB_VERSION_KEY";
 
     public static final int SHOW_ACTIVITY_CALCULATE_FOOD = 4;
 
