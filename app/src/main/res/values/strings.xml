@@ -28,6 +28,7 @@
 
     <string name="tag_fragment_article">ArticleFragment</string>
     <string name="tag_fragment_calculate_food">CalculateFoodFragment</string>
+    <string name="tag_fragment_calculate_details_food">CalculateDetailsFoodFragment</string>
 
 
 </resources>
