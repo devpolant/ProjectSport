@@ -43,7 +43,8 @@ public class ParserTXT {
                 Cursor c = database.query(Database.TABLE_FOOD, new String[]{Database.ID_FOOD, Database.FOOD_CATEGORY},
                         Database.FOOD_CATEGORY + "=?", new String[]{ category }, null, null, null);
                 c.moveToFirst();
-                int id = c.getInt(c.getColumnIndex(Database.FOOD_CATEGORY));
+                //int id = c.getInt(c.getColumnIndex(Database.FOOD_CATEGORY));
+                int id = c.getInt(c.getColumnIndex(Database.ID_FOOD));
                 c.close();
 
                 while(true) {

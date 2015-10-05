@@ -35,17 +35,20 @@ public class Database {
         return sqLiteDatabase;
     }
 
+    //Категории пищи. Работаетв верно.
     public Cursor getFoodData(){
         String[] projection = new String[] {ID_FOOD + " AS " + "_id", FOOD_CATEGORY};
         return sqLiteDatabase.query(TABLE_FOOD, projection, null, null, null, null, null);
     }
 
+    //Конкретная еда выбранной категории. Работает верно.
     public Cursor getSpecificFoodData(String category){
         String query = "SELECT " + ID_SPECIFIC_FOOD + ", " + FOOD_NAME + ", " +
                 FOOD_CATEGORY + ", " + CAL_COUNT +
                 " FROM " + TABLE_FOOD + ", " + TABLE_SPECIFIC_FOOD + " " +
                 "WHERE " + TABLE_FOOD + "." + ID_FOOD + "="
-                         + TABLE_SPECIFIC_FOOD + "." + ID_FOOD + ";";
+                         + TABLE_SPECIFIC_FOOD + "." + ID_FOOD +
+                " AND " + FOOD_CATEGORY + "='" + category + "';";
         return sqLiteDatabase.rawQuery(query, null);
     }
 
@@ -94,7 +97,7 @@ public class Database {
 
         private static final String LOG = SportOpenHelper.class.getName();
 
-        private static final int DATABASE_VERSION = 6;
+        private static final int DATABASE_VERSION = 7;
 
         private static final String DATABASE_NAME = "sport.db";
 

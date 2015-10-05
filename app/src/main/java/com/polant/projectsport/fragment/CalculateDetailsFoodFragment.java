@@ -2,26 +2,33 @@ package com.polant.projectsport.fragment;
 
 import android.app.Activity;
 import android.content.Context;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.util.Log;
-import android.widget.SimpleAdapter;
+import android.widget.CursorAdapter;
 
-import com.polant.projectsport.R;
+import com.polant.projectsport.adapter.AdapterCalculateDetailsFood;
+import com.polant.projectsport.data.Database;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Created by Антон on 05.10.2015.
  */
-public class CalculateDetailsFoodFragment extends ListFragment {
+public class CalculateDetailsFoodFragment extends ListFragment implements LoaderManager.LoaderCallbacks<Cursor>{
 
     public interface FoodCheckListener{
         void changeSelectedCaloriesCount(int delta);
     }
 
     private Context context;
+    //Категория пищи.
+    private String categoryFood;
+    private AdapterCalculateDetailsFood adapter;
+    private Database DB;
 
     @Override
     public void onAttach(Activity activity) {
@@ -34,31 +41,42 @@ public class CalculateDetailsFoodFragment extends ListFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+//        //------------------------------------//
+//        //заглушка чисто для пробы.
+//        ArrayList<HashMap<String, String>> arrayList = new ArrayList<HashMap<String, String>>();
+//
+//        String[] mas = new String[] {"Абрикос", "Авокадо", "Апельсин"};
+//        String[] cal = new String[] {"47", "100", "30"};
+//
+//        //HashMap<String, String> temp = new HashMap<String, String>() {"Иванов И. И" : "Директор"};
+//
+//        for(int i = 0; i < mas.length; i++)
+//        {
+//            HashMap<String, String> map = new HashMap<String, String>();
+//            map.put("Food", mas[i]);
+//            map.put("Img", String.valueOf(R.drawable.fab_small));
+//            map.put("Cals", cal[i]);
+//            arrayList.add(map);
+//        }
+//
+//        //создаем адаптер.
+//        SimpleAdapter adapter = new SimpleAdapter(getActivity(), arrayList, R.layout.list_adapter_details_food,
+//                new String[] {"Food", "Img","Cals"},
+//                new int[] {R.id.textViewDetailFood, R.id.imageButtonDetailFood, R.id.textViewCalInFood});
+//        //подписали ListView на адаптер.
+//        setListAdapter(adapter);
         //------------------------------------//
-        //заглушка чисто для пробы.
-        ArrayList<HashMap<String, String>> arrayList = new ArrayList<HashMap<String, String>>();
 
-        String[] mas = new String[] {"Абрикос", "Авокадо", "Апельсин"};
-        String[] cal = new String[] {"47", "100", "30"};
+        DB = new Database(context);
+        DB.open();
 
-        //HashMap<String, String> temp = new HashMap<String, String>() {"Иванов И. И" : "Директор"};
-
-        for(int i = 0; i < mas.length; i++)
-        {
-            HashMap<String, String> map = new HashMap<String, String>();
-            map.put("Food", mas[i]);
-            map.put("Img", String.valueOf(R.drawable.fab_small));
-            map.put("Cals", cal[i]);
-            arrayList.add(map);
+        if (getArguments() != null){
+            categoryFood = getArguments().getString(Database.FOOD_CATEGORY);
         }
-
-        //создаем адаптер.
-        SimpleAdapter adapter = new SimpleAdapter(getActivity(), arrayList, R.layout.list_adapter_details_food,
-                new String[] {"Food", "Img","Cals"},
-                new int[] {R.id.textViewDetailFood, R.id.imageButtonDetailFood, R.id.textViewCalInFood});
-        //подписали ListView на адаптер.
+        adapter = new AdapterCalculateDetailsFood(context, null, 0);
         setListAdapter(adapter);
-        //------------------------------------//
+
+        getLoaderManager().initLoader(0, null, this);
 
         Log.d("MY_DB_LOGS", "OnActivityCreatedSF");
     }
@@ -80,4 +98,28 @@ public class CalculateDetailsFoodFragment extends ListFragment {
         super.onDetach();
         Log.d("MY_DB_LOGS", "OnDetachSF");
     }
+
+
+
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        return new CursorLoader(getActivity(), null, null, null, null, null){
+            @Override
+            public Cursor loadInBackground() {
+                return DB.getSpecificFoodData(categoryFood);
+            }
+        };
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        adapter.swapCursor(data);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        adapter.swapCursor(null);
+    }
+
 }

@@ -15,6 +15,7 @@ import android.support.v4.content.CursorLoader;
 import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.polant.projectsport.MainActivity;
 import com.polant.projectsport.R;
@@ -110,10 +111,20 @@ public class CalculateFoodFragment extends ListFragment implements LoaderManager
         super.onListItemClick(l, v, position, id);
 
         //TODO : сделать выбор, учитывая выбранный элемент.
+        TextView categoryTextView = (TextView) v.findViewById(R.id.textViewCategoryFood);
+        String category = categoryTextView.getText().toString();
+
+        CalculateDetailsFoodFragment fragment = new CalculateDetailsFoodFragment();
+        Bundle args = new Bundle();
+        args.putString(Database.FOOD_CATEGORY, category);
+        fragment.setArguments(args);
 
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        //анимации не работают.
+//        transaction.setCustomAnimations(R.animator.slide_new, R.animator.slide_exit,
+//                                        R.animator.slide_new_back, R.animator.slide_exit_back);
         transaction.replace(R.id.containerKindsFood,
-                new CalculateDetailsFoodFragment(),
+                fragment,
                 getResources().getString(R.string.tag_fragment_calculate_details_food)
         );
         transaction.addToBackStack(null);
