@@ -40,7 +40,7 @@ public class Database {
         return sqLiteDatabase.query(TABLE_FOOD, projection, null, null, null, null, null);
     }
 
-    public Cursor getSpecificFoodData(){
+    public Cursor getSpecificFoodData(String category){
         String query = "SELECT " + ID_SPECIFIC_FOOD + ", " + FOOD_NAME + ", " +
                 FOOD_CATEGORY + ", " + CAL_COUNT +
                 " FROM " + TABLE_FOOD + ", " + TABLE_SPECIFIC_FOOD + " " +

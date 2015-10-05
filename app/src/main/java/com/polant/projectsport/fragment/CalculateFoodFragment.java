@@ -2,7 +2,6 @@ package com.polant.projectsport.fragment;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Loader;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -15,12 +14,11 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
 
 import com.polant.projectsport.MainActivity;
 import com.polant.projectsport.R;
+import com.polant.projectsport.adapter.AdapterCategoryFood;
 import com.polant.projectsport.data.Database;
 import com.polant.projectsport.data.parse.ParserTXT;
 
@@ -33,7 +31,7 @@ public class CalculateFoodFragment extends ListFragment implements LoaderManager
     private Handler handler = new Handler();
     private Database DB;
 
-    private SimpleCursorAdapter adapter;
+    private AdapterCategoryFood adapter;
 
     @Override
     public void onAttach(Activity activity) {
@@ -46,25 +44,12 @@ public class CalculateFoodFragment extends ListFragment implements LoaderManager
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-//        String fruits = "фрукты";
-//        String[] arr = new String[] { fruits, "Овощи", "Мясо", "Грибы", "Молочные продукты"};
-//
-//        //----------------заглушка----------------//
-//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1,
-//                arr);
-//        setListAdapter(adapter);
-
         Log.d("MY_DB_LOGS", "OnActivityCreatedF");
 
-        DB = new Database(getActivity());
+        DB = new Database(context);
         DB.open();
 
-        //формируем столбцы сопоставления
-        String[] from = new String[] { Database.FOOD_CATEGORY };
-        int[] to = new int[] { android.R.id.text1 };
-        adapter = new SimpleCursorAdapter(getActivity(), android.R.layout.simple_list_item_1, null, from, to);
-        // создааем адаптер и настраиваем список
-        //scAdapter = new SimpleCursorAdapter(this, R.layout.item, cursor, from, to);
+        adapter = new AdapterCategoryFood(context, null, 0);
         setListAdapter(adapter);
 
         getLoaderManager().initLoader(0, null, this);
@@ -80,6 +65,7 @@ public class CalculateFoodFragment extends ListFragment implements LoaderManager
 
     }
 
+    //Парсинг raw ресурса текстового файла.
     private void parse() {
         //получаем сохраненные настройки.
         Context context = getActivity().getApplicationContext();
