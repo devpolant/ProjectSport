@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.polant.projectsport.data.model.UserParametersInfo;
+
 /**
  * Created by Антон on 05.10.2015.
  */
@@ -51,6 +53,43 @@ public class Database {
                 " AND " + FOOD_CATEGORY + "='" + category + "';";
         return sqLiteDatabase.rawQuery(query, null);
     }
+
+    //Рассчитано на одного пользователя.
+    public UserParametersInfo getUserParametersInfo(){
+        String[] projection = new String[] {
+                USER_NAME, USER_WEIGHT, USER_HEIGHT, USER_SEX
+        };
+        //Получаю данные одного единственного на данный момент юзера.
+        Cursor c = sqLiteDatabase.query(TABLE_USER, projection, null, null, null, null, null);
+        c.moveToFirst();
+
+        float weight = c.getFloat(c.getColumnIndex(USER_WEIGHT));
+        float height = c.getFloat(c.getColumnIndex(USER_HEIGHT));
+        String sex = c.getString(c.getColumnIndex(USER_SEX));
+        String name = c.getString(c.getColumnIndex(USER_NAME));
+
+        c.close();
+
+        return new UserParametersInfo(name, weight, height, sex);
+    }
+
+    public void setUserParametersInfo(UserParametersInfo user){
+        float weight = user.getWeight();
+        float height = user.getHeight();
+        String sex = user.getSex();
+        String name = user.getName();
+
+        ContentValues cv = new ContentValues();
+        cv.put(USER_WEIGHT, weight);
+        cv.put(USER_HEIGHT, height);
+        cv.put(USER_SEX, sex);
+
+        String where = USER_NAME + "=?";
+        String[] whereArgs = new String[] {name};
+
+        sqLiteDatabase.update(TABLE_USER, cv, where, whereArgs);
+    }
+
 
     public static int getDatabaseVersion() {
         return SportOpenHelper.DATABASE_VERSION;
@@ -97,7 +136,7 @@ public class Database {
 
         private static final String LOG = SportOpenHelper.class.getName();
 
-        private static final int DATABASE_VERSION = 7;
+        private static final int DATABASE_VERSION = 9;
 
         private static final String DATABASE_NAME = "sport.db";
 
@@ -149,6 +188,7 @@ public class Database {
             cv.put(USER_NAME, "Антон");
             cv.put(USER_HEIGHT, 184);
             cv.put(USER_WEIGHT, 75);
+            cv.put(USER_SEX, "M");
             db.insert(TABLE_USER, null, cv);
         }
 

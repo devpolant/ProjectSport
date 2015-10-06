@@ -12,10 +12,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.polant.projectsport.MainActivity;
 import com.polant.projectsport.R;
 import com.polant.projectsport.data.Database;
+import com.polant.projectsport.data.model.UserParametersInfo;
 import com.polant.projectsport.fragment.CalculateFoodFragment;
 import com.polant.projectsport.preferences.PreferencesNewActivity;
 import com.polant.projectsport.preferences.PreferencesOldActivity;
@@ -52,9 +56,21 @@ public class ActivityCalculateFood extends AppCompatActivity {
 
         initToolbar();
         initNavigationView();
+        initButtonChangeYourInfo();
 
         Log.d("MY_DB_LOGS", "OnCreate");
     }
+
+    private void initButtonChangeYourInfo() {
+        Button bt = (Button) findViewById(R.id.buttonChangeYourHW);
+        bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+    }
+
 
     @Override
     protected void onDestroy() {
