@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        toolbar.inflateMenu(R.menu.menu);
+        //toolbar.inflateMenu(R.menu.menu);
     }
 
     //используется во фрагментах.

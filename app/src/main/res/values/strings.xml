@@ -8,6 +8,12 @@
     <string name="nav_menu_item_day_need_cal">Потребность в калориях</string>
     <string name="nav_menu_item_calc_food">Пищевой калькулятор</string>
     <string name="nav_menu_item_settings">Настройки</string>
+    <string name="nav_menu_item_step_counter">Шагомер</string>
+    <string name="nav_menu_item_statistics">Моя статистика</string>
+    <string name="nav_menu_item_help">Помощь</string>
+    <string name="nav_menu_item_about_us">О нас</string>
+    <string name="nav_menu_item_additional_info">Доп. информация</string>
+
 
     <string name="navigation_view_open">Open</string>
     <string name="navigation_view_close">Close</string>
@@ -30,5 +36,6 @@
     <string name="tag_fragment_calculate_food">CalculateFoodFragment</string>
     <string name="tag_fragment_calculate_details_food">CalculateDetailsFoodFragment</string>
 
+    <string name="temp_text_example_fragment">Здесь будут статьи</string>
 
 </resources>
