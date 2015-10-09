@@ -129,7 +129,7 @@ public class CalculateFoodFragment extends ListFragment implements LoaderManager
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
 
-        //TODO : сделать выбор, учитыва€ выбранный элемент.
+        //сделал выбор, учитыва€ выбранный элемент списка.
         TextView categoryTextView = (TextView) v.findViewById(R.id.textViewCategoryFood);
         String category = categoryTextView.getText().toString();
 

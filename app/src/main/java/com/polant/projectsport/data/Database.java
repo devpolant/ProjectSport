@@ -37,7 +37,7 @@ public class Database {
         return sqLiteDatabase;
     }
 
-    //Категории пищи. Работаетв верно.
+    //Категории пищи. Работает верно.
     public Cursor getFoodData(){
         String[] projection = new String[] {ID_FOOD + " AS " + "_id", FOOD_CATEGORY};
         return sqLiteDatabase.query(TABLE_FOOD, projection, null, null, null, null, null);
