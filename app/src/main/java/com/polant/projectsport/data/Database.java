@@ -8,7 +8,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.polant.projectsport.data.model.SpecificFood;
 import com.polant.projectsport.data.model.UserParametersInfo;
+
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by Антон on 05.10.2015.
@@ -54,6 +58,48 @@ public class Database {
         return sqLiteDatabase.rawQuery(query, null);
     }
 
+    public Cursor getTodayFoodStatistics(){
+
+        Calendar calendar = Calendar.getInstance();
+        //Но если надо будет использовать это в CursorAdapter-е, то надо для поля ID_STATISTICS обозначить псевдоним _id.
+        String query = "SELECT " +
+                    ID_STATISTICS + ", " +
+                    //TABLE_SPECIFIC_FOOD + "." + ID_SPECIFIC_FOOD + ", " +
+                    FOOD_CATEGORY + ", " +
+                    FOOD_NAME + ", " +
+                    CAL_COUNT + ", " +
+                    DELTA + ", " +
+                    DAY + ", " +
+                    MONTH + ", " +
+                    YEAR +
+                " FROM " + TABLE_FOOD + ", " + TABLE_SPECIFIC_FOOD + ", " + TABLE_STATISTICS +
+                " WHERE " + TABLE_FOOD + "." + ID_FOOD + "="
+                         + TABLE_SPECIFIC_FOOD + "." + ID_FOOD +
+                    " AND " + TABLE_STATISTICS + "." + ID_SPECIFIC_FOOD + "="
+                         + TABLE_SPECIFIC_FOOD + "." + ID_SPECIFIC_FOOD +
+                    " AND " + DAY + "=" + calendar.get(Calendar.DATE) +
+                    " AND " + MONTH + "=" + calendar.get(Calendar.MONTH) +
+                    " AND " + YEAR + "=" + calendar.get(Calendar.YEAR) + ";";
+        return sqLiteDatabase.rawQuery(query, null);
+    }
+
+    //добавляю пищу в базу.
+    public void addSpecificFood(SpecificFood food, float delta){
+        ContentValues cv = new ContentValues();
+
+        //Использую для получения сегодняшней даты.
+        Calendar calendar = Calendar.getInstance();
+
+        cv.put(ID_SPECIFIC_FOOD, food.getIdSpecificFood());
+        cv.put(DELTA, delta);
+        cv.put(DAY, calendar.get(Calendar.DATE));
+        cv.put(MONTH, calendar.get(Calendar.MONTH));
+        cv.put(YEAR, calendar.get(Calendar.YEAR));
+
+        sqLiteDatabase.insert(TABLE_STATISTICS, null, cv);
+    }
+
+
     //Рассчитано на одного пользователя.
     public UserParametersInfo getUserParametersInfo(){
         String[] projection = new String[] {
@@ -74,18 +120,13 @@ public class Database {
     }
 
     public void setUserParametersInfo(UserParametersInfo user){
-        float weight = user.getWeight();
-        float height = user.getHeight();
-        String sex = user.getSex();
-        String name = user.getName();
-
         ContentValues cv = new ContentValues();
-        cv.put(USER_WEIGHT, weight);
-        cv.put(USER_HEIGHT, height);
-        cv.put(USER_SEX, sex);
+        cv.put(USER_WEIGHT, user.getWeight());
+        cv.put(USER_HEIGHT, user.getHeight());
+        cv.put(USER_SEX, user.getSex());
 
         String where = USER_NAME + "=?";
-        String[] whereArgs = new String[] {name};
+        String[] whereArgs = new String[] { user.getName() };
 
         sqLiteDatabase.update(TABLE_USER, cv, where, whereArgs);
     }
@@ -124,7 +165,8 @@ public class Database {
 
     //STATISTICS
     public static final String ID_STATISTICS = "ID_STATISTICS";
-    ////+ в таблице есть FOOD_NAME как внешний ключ.
+    ////+ в таблице есть ID_SPECIFIC_FOOD как внешний ключ.
+    public static final String DELTA = "DELTA";//или вместо разницы ("DELTA") хранить вес пищи?
     public static final String DAY = "DAY";
     public static final String MONTH = "MONTH";
     public static final String YEAR = "YEAR";
@@ -136,7 +178,7 @@ public class Database {
 
         private static final String LOG = SportOpenHelper.class.getName();
 
-        private static final int DATABASE_VERSION = 9;
+        private static final int DATABASE_VERSION = 12;
 
         private static final String DATABASE_NAME = "sport.db";
 
@@ -166,9 +208,10 @@ public class Database {
                         ID_STATISTICS + " integer primary key autoincrement, " +
                         //ID_USER + " INTEGER, " +
                         ID_SPECIFIC_FOOD + " INTEGER, " +
-                        DAY + " TEXT, " +
-                        MONTH + " TEXT, " +
-                        YEAR + " TEXT);";
+                        DELTA + " FLOAT, " + //или вместо разницы ("DELTA") хранить вес пищи?
+                        DAY + " INTEGER, " +
+                        MONTH + " INTEGER, " +
+                        YEAR + " INTEGER);";
 
         //конструктор.
         public SportOpenHelper(Context context) {

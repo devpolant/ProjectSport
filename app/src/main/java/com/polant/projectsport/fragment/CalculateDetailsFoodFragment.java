@@ -13,6 +13,7 @@ import android.widget.CursorAdapter;
 
 import com.polant.projectsport.adapter.AdapterCalculateDetailsFood;
 import com.polant.projectsport.data.Database;
+import com.polant.projectsport.data.model.SpecificFood;
 
 
 /**
@@ -21,7 +22,7 @@ import com.polant.projectsport.data.Database;
 public class CalculateDetailsFoodFragment extends ListFragment implements LoaderManager.LoaderCallbacks<Cursor>{
 
     public interface FoodCheckListener{
-        void changeSelectedCaloriesCount(int delta);
+        void changeSelectedCaloriesCount(SpecificFood specificFood, boolean isInserting);
     }
 
     private Context context;

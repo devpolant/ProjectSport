@@ -60,10 +60,6 @@ public class MainActivity extends AppCompatActivity {
                 (ArticleFragment) fragment,
                 getResources().getString(R.string.tag_fragment_article));
         transaction.commit();
-
-//        initToolbar();
-//        initNavigationView();
-//        initTabLayout();
     }
 
     //используется во фрагментах.

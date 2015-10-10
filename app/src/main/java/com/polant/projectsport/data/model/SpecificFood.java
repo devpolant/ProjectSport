@@ -5,14 +5,25 @@ package com.polant.projectsport.data.model;
  */
 public class SpecificFood {
 
+    private int idSpecificFood;
     private String foodCategory;
     private String foodName;
     private int caloriesCount;
 
-    public SpecificFood(String foodCategory, String foodName, int caloriesCount) {
+
+    public SpecificFood(int idSpecificFood, String foodCategory, String foodName, int caloriesCount) {
+        this.idSpecificFood = idSpecificFood;
         this.foodCategory = foodCategory;
         this.foodName = foodName;
         this.caloriesCount = caloriesCount;
+    }
+
+    public int getIdSpecificFood() {
+        return idSpecificFood;
+    }
+
+    public void setIdSpecificFood(int idSpecificFood) {
+        this.idSpecificFood = idSpecificFood;
     }
 
     public String getFoodCategory() {

@@ -7,10 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CursorAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.polant.projectsport.R;
+import com.polant.projectsport.activity.ActivityCalculateFood;
 import com.polant.projectsport.data.Database;
+import com.polant.projectsport.data.model.SpecificFood;
 
 /**
  * Created by Антон on 05.10.2015.
@@ -18,11 +21,11 @@ import com.polant.projectsport.data.Database;
 public class AdapterCalculateDetailsFood extends CursorAdapter{
 
     private LayoutInflater layoutInflater;
-    private Context context;
+    private final Context mContext;
 
     public AdapterCalculateDetailsFood(Context _context, Cursor c, int flags) {
         super(_context, c, flags);
-        context = _context;
+        mContext = _context;
         layoutInflater = LayoutInflater.from(_context);
     }
 
@@ -33,15 +36,30 @@ public class AdapterCalculateDetailsFood extends CursorAdapter{
 
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
-        String nameFood = cursor.getString(cursor.getColumnIndex(Database.FOOD_NAME));
+        final String nameFood = cursor.getString(cursor.getColumnIndex(Database.FOOD_NAME));
         //столбец имеет INTEGER значение, но можно получить и через метод cursor.getString(). Я пробовал - работает и так.
-        String caloriesCount = String.valueOf(cursor.getInt(cursor.getColumnIndex(Database.CAL_COUNT)));
+        final String caloriesCount = String.valueOf(cursor.getInt(cursor.getColumnIndex(Database.CAL_COUNT)));
 
+        //Проинициализирую визуальные значения в списке.
         TextView nameTextView = (TextView) view.findViewById(R.id.textViewDetailFood);
         TextView caloriesTextView = (TextView) view.findViewById(R.id.textViewCalInFood);
-
         nameTextView.setText(nameFood);
         caloriesTextView.setText(caloriesCount);
+
+
+        //далее все, что нужно для обработчика клика по ImageView для добавления.
+        final int idSpecificFood = cursor.getInt(cursor.getColumnIndex(Database.ID_SPECIFIC_FOOD));
+        final String foodCategory = cursor.getString(cursor.getColumnIndex(Database.FOOD_CATEGORY));
+
+        ImageView imageClickable = (ImageView) view.findViewById(R.id.imageViewDetailFood);
+        imageClickable.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SpecificFood sf = new SpecificFood(idSpecificFood, foodCategory, nameFood, Integer.valueOf(caloriesCount));
+                //Передаю параметры, которые будут обрабатываться уже в самой Активити.
+                ((ActivityCalculateFood) mContext).changeSelectedCaloriesCount(sf, true);
+            }
+        });
     }
 
 }
