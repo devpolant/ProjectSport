@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.DialogPreference;
 import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -28,13 +27,15 @@ import com.polant.projectsport.data.Database;
 import com.polant.projectsport.data.model.SpecificFood;
 import com.polant.projectsport.fragment.CalculateDetailsFoodFragment;
 import com.polant.projectsport.fragment.CalculateFoodFragment;
+import com.polant.projectsport.fragment.dialog.TodayFoodDialogFragment;
 import com.polant.projectsport.preferences.PreferencesNewActivity;
 import com.polant.projectsport.preferences.PreferencesOldActivity;
 
 /**
  * Created by Антон on 04.10.2015.
  */
-public class ActivityCalculateFood extends AppCompatActivity implements CalculateDetailsFoodFragment.FoodCheckListener{
+public class ActivityCalculateFood extends AppCompatActivity
+        implements CalculateDetailsFoodFragment.FoodCheckListener, TodayFoodDialogFragment.TodayListFoodChangeListener{
 
     private static final int LAYOUT = R.layout.activity_calculate_food;
 
@@ -67,11 +68,17 @@ public class ActivityCalculateFood extends AppCompatActivity implements Calculat
         initToolbar();
         initNavigationView();
         initButtonChangeYourInfo();
+        initButtonShowListTodayFood();
 
         //Передаю false - значит, что использую не при добавлении новой пищи.
         notifyLayoutTextViews(false);
 
         Log.d("MY_DB_LOGS", "OnCreate");
+    }
+
+    @Override
+    public void changeTodayListFood() {
+
     }
 
     //Выбор элемента из списка в CalculateDetailsFoodFragment.
@@ -131,6 +138,7 @@ public class ActivityCalculateFood extends AppCompatActivity implements Calculat
         dialog.show();
     }
 
+
     //Обновление значения калорий в TextView.
     private void notifyLayoutTextViews(boolean isInserting) {
 
@@ -162,7 +170,6 @@ public class ActivityCalculateFood extends AppCompatActivity implements Calculat
         }
     }
 
-
     private void initButtonChangeYourInfo() {
         Button bt = (Button) findViewById(R.id.buttonChangeYourHW);
         bt.setOnClickListener(new View.OnClickListener() {
@@ -173,12 +180,24 @@ public class ActivityCalculateFood extends AppCompatActivity implements Calculat
         });
     }
 
+    private void initButtonShowListTodayFood(){
+        Button bt = (Button) findViewById(R.id.buttonShowListTodayFood);
+        bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TodayFoodDialogFragment fragment = TodayFoodDialogFragment.newInstance();
+                fragment.show(getSupportFragmentManager(), "show_today_food");
+            }
+        });
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
         Log.d("MY_DB_LOGS", "OnDestroy");
         DB.close();
     }
+
 
     public void initToolbar() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -243,7 +262,6 @@ public class ActivityCalculateFood extends AppCompatActivity implements Calculat
         });
     }
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -254,7 +272,6 @@ public class ActivityCalculateFood extends AppCompatActivity implements Calculat
     }
 
     //---------------Настройки---------------------//
-
     //Применение настроек приложения.
     private void updateFromPreferences(){
         //TODO: сделать обработчик применения выбранных настроек.
@@ -263,6 +280,7 @@ public class ActivityCalculateFood extends AppCompatActivity implements Calculat
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         setUpdatedTheme(sp);
     }
+
     //Вызывается после применения новой темы в настройках приложения, просто меняя фон старой темы.
     private void setUpdatedTheme(SharedPreferences sp) {
         String theme = sp.getString(PreferencesNewActivity.PREF_APP_THEME, "Light");

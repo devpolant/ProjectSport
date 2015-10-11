@@ -44,5 +44,6 @@
     <string name="alertAddFoodNegativeBt">Отмена</string>
     <string name="toastMistake">Введите количество выбранной пищи!</string>
     <string name="alertAddFoodEditTextHintText">100</string>
+    <string name="alertChangeTodayList">Сегодня :</string>
 
 </resources>
