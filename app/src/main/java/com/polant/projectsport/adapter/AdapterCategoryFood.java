@@ -16,6 +16,8 @@ import com.polant.projectsport.data.Database;
  */
 public class AdapterCategoryFood extends CursorAdapter {
 
+    private static final int LAYOUT = R.layout.list_adapter_category_food;
+
     private LayoutInflater layoutInflater;
     private Context context;
 
@@ -27,7 +29,7 @@ public class AdapterCategoryFood extends CursorAdapter {
 
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
-        return layoutInflater.inflate(R.layout.list_adapter_category_food, parent, false);
+        return layoutInflater.inflate(LAYOUT, parent, false);
     }
 
     @Override

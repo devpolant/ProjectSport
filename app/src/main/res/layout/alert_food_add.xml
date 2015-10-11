@@ -11,6 +11,6 @@
         android:id="@+id/editTextCountFood"
         android:textSize="20sp"
         android:padding="20dp"
-        android:hint="@string/alertAddFoodEditTextHintText" />
+        android:hint="@string/hint_food_weight" />
 
 </LinearLayout>

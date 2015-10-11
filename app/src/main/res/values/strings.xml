@@ -27,6 +27,7 @@
     <string name="text_your_sex_F">Ж</string>
     <string name="text_your_goal">Цель : </string>
     <string name="text_your_time">Время : </string>
+    <string name="text_your_age">Возраст :</string>
     <string name="text_bt_change_your_hw">Изменить параметры</string>
     <string name="buttonShowListTodayFoodText">Список</string>
 
@@ -59,5 +60,7 @@
 
     <string name="hint_weight">Вес</string>
     <string name="hint_height">Рост</string>
+    <string name="hint_age">Возраст</string>
+    <string name="hint_food_weight">Вес в граммах</string>
 
 </resources>

@@ -26,12 +26,12 @@ import com.polant.projectsport.data.Database;
  */
 public class TodayFoodDialogFragment extends DialogFragment implements LoaderManager.LoaderCallbacks<Cursor>{
 
+    private static final int LAYOUT = R.layout.alert_food_today_list;
+    
     public interface TodayListFoodChangeListener{
         void changeTodayListFood();
     }
     TodayListFoodChangeListener mListener;
-
-    public static final int MENU_DELETE = 1;
 
     private Database DB;
     private AdapterTodayFoodDialog adapter;
@@ -51,7 +51,7 @@ public class TodayFoodDialogFragment extends DialogFragment implements LoaderMan
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.alert_food_today_list, container, false);
+        view = inflater.inflate(LAYOUT, container, false);
         return view;
     }
 

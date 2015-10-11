@@ -20,6 +20,8 @@ import com.polant.projectsport.data.model.SpecificFood;
  */
 public class AdapterCalculateDetailsFood extends CursorAdapter{
 
+    private static final int LAYOUT = R.layout.list_adapter_details_food;
+
     private LayoutInflater layoutInflater;
     private final Context mContext;
 
@@ -31,7 +33,7 @@ public class AdapterCalculateDetailsFood extends CursorAdapter{
 
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
-        return layoutInflater.inflate(R.layout.list_adapter_details_food, parent, false);
+        return layoutInflater.inflate(LAYOUT, parent, false);
     }
 
     @Override

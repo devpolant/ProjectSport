@@ -54,6 +54,15 @@
 
         </LinearLayout>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/text_your_age"
+            android:id="@+id/textViewYourAge"
+            android:padding="6dp"
+            android:textSize="18sp"
+            android:gravity="center_horizontal" />
+
         <Button
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"

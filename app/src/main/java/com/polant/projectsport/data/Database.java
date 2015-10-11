@@ -108,7 +108,7 @@ public class Database {
     //Рассчитано на одного пользователя.
     public UserParametersInfo getUserParametersInfo(){
         String[] projection = new String[] {
-                USER_NAME, USER_WEIGHT, USER_HEIGHT, USER_SEX
+                USER_NAME, USER_AGE, USER_WEIGHT, USER_HEIGHT, USER_SEX
         };
         //Получаю данные одного единственного на данный момент юзера.
         Cursor c = sqLiteDatabase.query(TABLE_USER, projection, null, null, null, null, null);
@@ -118,10 +118,11 @@ public class Database {
         float height = c.getFloat(c.getColumnIndex(USER_HEIGHT));
         String sex = c.getString(c.getColumnIndex(USER_SEX));
         String name = c.getString(c.getColumnIndex(USER_NAME));
+        int age = c.getInt(c.getColumnIndex(USER_AGE));
 
         c.close();
 
-        return new UserParametersInfo(name, weight, height, sex);
+        return new UserParametersInfo(name, age, weight, height, sex);
     }
 
     public void updateUserParametersInfo(UserParametersInfo user){
@@ -129,6 +130,7 @@ public class Database {
         cv.put(USER_WEIGHT, user.getWeight());
         cv.put(USER_HEIGHT, user.getHeight());
         cv.put(USER_SEX, user.getSex());
+        cv.put(USER_AGE, user.getAge());
 
         String where = USER_NAME + "=?";
         String[] whereArgs = new String[] { user.getName() };
@@ -157,7 +159,7 @@ public class Database {
     public static final String USER_WEIGHT = "USER_WEIGHT";
     public static final String USER_HEIGHT = "USER_HEIGHT";
     public static final String USER_SEX = "USER_SEX";
-    //public static final String USER_AGE = "USER_AGE";
+    public static final String USER_AGE = "USER_AGE";
 
     //FOOD
     public static final String ID_FOOD = "food_id";
@@ -184,7 +186,7 @@ public class Database {
 
         private static final String LOG = SportOpenHelper.class.getName();
 
-        private static final int DATABASE_VERSION = 15;
+        private static final int DATABASE_VERSION = 18;
 
         private static final String DATABASE_NAME = "sport.db";
 
@@ -193,6 +195,7 @@ public class Database {
         private static final String CREATE_TABLE_USER = "Create table " + TABLE_USER + " (" +
                 ID_USER + " integer primary key autoincrement, " +
                 USER_NAME + " TEXT, " +
+                USER_AGE + " INTEGER, " +
                 USER_HEIGHT + " FLOAT, " +
                 USER_WEIGHT + " FLOAT, " +
                 USER_SEX + " TEXT);";
@@ -237,6 +240,7 @@ public class Database {
             cv.put(USER_NAME, "Антон");
             cv.put(USER_HEIGHT, 184);
             cv.put(USER_WEIGHT, 75);
+            cv.put(USER_AGE, 17);
             cv.put(USER_SEX, "M");
             db.insert(TABLE_USER, null, cv);
         }

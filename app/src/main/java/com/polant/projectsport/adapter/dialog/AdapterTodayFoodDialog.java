@@ -16,6 +16,8 @@ import com.polant.projectsport.data.Database;
  */
 public class AdapterTodayFoodDialog extends CursorAdapter {
 
+    private static final int LAYOUT = R.layout.list_dialog_adapter_today_food;
+
     private LayoutInflater layoutInflater;
     private Context mContext;
 
@@ -27,7 +29,7 @@ public class AdapterTodayFoodDialog extends CursorAdapter {
 
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
-        return layoutInflater.inflate(R.layout.list_dialog_adapter_today_food, parent, false);
+        return layoutInflater.inflate(LAYOUT, parent, false);
     }
 
     @Override
@@ -54,9 +56,6 @@ public class AdapterTodayFoodDialog extends CursorAdapter {
         dayTV.setText(String.valueOf(day).concat(" /"));
         monthTV.setText(String.valueOf(month).concat(" /"));
         yearTV.setText(String.valueOf(year));
-
-        TextView textViewID = (TextView) view.findViewById(R.id.textViewDialogTodayID);
-        textViewID.setText(String.valueOf(cursor.getInt(cursor.getColumnIndex("_id"))));
     }
 
 }

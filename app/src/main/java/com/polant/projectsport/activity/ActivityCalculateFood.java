@@ -160,21 +160,21 @@ public class ActivityCalculateFood extends AppCompatActivity
         }
         else {
             Cursor c = DB.getTodayFoodStatistics();
-            if (c != null){
-                c.moveToFirst();
+            if (c != null && c.moveToFirst()){
+
                 int indexDelta = c.getColumnIndex(Database.DELTA);
 
-                int countTodayCal = 0;
-                int temp = 0;
+                float countTodayCal = 0;
+                float temp = 0;
 
-                temp = c.getInt(indexDelta);
+                temp = c.getFloat(indexDelta);
                 countTodayCal += temp;
 
                 while (c.moveToNext()){
-                    temp = c.getInt(indexDelta);
+                    temp = c.getFloat(indexDelta);
                     countTodayCal += temp;
                 }
-                countCalText.setText(String.valueOf(countTodayCal));
+                countCalText.setText(String.valueOf((int)countTodayCal));
                 c.close();
             }
             else{
@@ -211,6 +211,7 @@ public class ActivityCalculateFood extends AppCompatActivity
                     public void onClick(DialogInterface dialog, int which) {
                         EditText wText = (EditText) alertView.findViewById(R.id.editTextAlertUserWeight);
                         EditText hText = (EditText) alertView.findViewById(R.id.editTextAlertUserHeight);
+                        EditText aText = (EditText) alertView.findViewById(R.id.editTextAlertUserAge);
                         RadioGroup group = (RadioGroup) alertView.findViewById(R.id.radioSexGroup);
 
                         int idSelectedSex = group.getCheckedRadioButtonId();
@@ -219,15 +220,17 @@ public class ActivityCalculateFood extends AppCompatActivity
                         String userSex = radioBtSex.getText().toString();
                         String userWeight = wText.getText().toString();
                         String userHeight = hText.getText().toString();
+                        String userAge = aText.getText().toString();
 
                         UserParametersInfo user = DB.getUserParametersInfo();
                         user.setSex(userSex);
+                        user.setAge(Integer.valueOf(userAge));
                         user.setWeight(Float.valueOf(userWeight));
                         user.setHeight(Float.valueOf(userHeight));
                         DB.updateUserParametersInfo(user);
 
-                        //А здесь уже заполняю TextView.
-                        initInfoWHS(Float.valueOf(userWeight), Float.valueOf(userHeight), userSex);
+                        //А здесь уже заполняю все нужные TextView.
+                        initInfoWHS(user);
                     }
                 })
                 .setNegativeButton(getString(R.string.alertChangeUserInfoButtonNegative), new DialogInterface.OnClickListener() {
@@ -267,33 +270,43 @@ public class ActivityCalculateFood extends AppCompatActivity
         TextView textWeight = (TextView) findViewById(R.id.textViewYourWeight);
         TextView textHeight = (TextView) findViewById(R.id.textViewYourHeight);
         TextView textSex = (TextView) findViewById(R.id.textViewYourSex);
+        TextView textAge = (TextView) findViewById(R.id.textViewYourAge);
 
         UserParametersInfo user = DB.getUserParametersInfo();
 
-        String w = getResources().getString(R.string.text_your_weight) + String.valueOf(user.getWeight());
-        String h = getResources().getString(R.string.text_your_height) + String.valueOf(user.getHeight());
-        String s = getResources().getString(R.string.text_your_sex) + String.valueOf(user.getSex());
+        String w = getString(R.string.text_your_weight) + String.valueOf(user.getWeight());
+        String h = getString(R.string.text_your_height) + String.valueOf(user.getHeight());
+        String s = getString(R.string.text_your_sex) + String.valueOf(user.getSex());
+        String a = getString(R.string.text_your_age) + String.valueOf(user.getAge());
 
         textWeight.setText(w);
         textHeight.setText(h);
         textSex.setText(s);
+        textAge.setText(a);
 
-        //TextView normalCaloriesCount = (TextView) findViewById(R.id.textViewMaxCalories);
-        //int normalCal =
+        TextView normalCaloriesCount = (TextView) findViewById(R.id.textViewMaxCalories);
+        int normalCalories = user.normalCaloriesCount(this);
+        normalCaloriesCount.setText(String.valueOf(normalCalories).concat(" ").concat(getString(R.string.text_ccal)));
     }
-
-    private void initInfoWHS(float weight, float height, String sex){
+    private void initInfoWHS(UserParametersInfo user){
         TextView textWeight = (TextView) findViewById(R.id.textViewYourWeight);
         TextView textHeight = (TextView) findViewById(R.id.textViewYourHeight);
         TextView textSex = (TextView) findViewById(R.id.textViewYourSex);
+        TextView textAge = (TextView) findViewById(R.id.textViewYourAge);
 
-        String w = getResources().getString(R.string.text_your_weight) + String.valueOf(weight);
-        String h = getResources().getString(R.string.text_your_height) + String.valueOf(height);
-        String s = getResources().getString(R.string.text_your_sex) + sex;
+        String w = getString(R.string.text_your_weight) + String.valueOf(user.getWeight());
+        String h = getString(R.string.text_your_height) + String.valueOf(user.getHeight());
+        String s = getString(R.string.text_your_sex) + user.getSex();
+        String a = getString(R.string.text_your_age) + user.getAge();
 
         textWeight.setText(w);
         textHeight.setText(h);
         textSex.setText(s);
+        textAge.setText(a);
+
+        TextView normalCaloriesCount = (TextView) findViewById(R.id.textViewMaxCalories);
+        int normalCalories = user.normalCaloriesCount(this);
+        normalCaloriesCount.setText(String.valueOf(normalCalories).concat(" ").concat(getString(R.string.text_ccal)));
     }
 
     public void initToolbar() {
@@ -309,7 +322,6 @@ public class ActivityCalculateFood extends AppCompatActivity
 
         toolbar.inflateMenu(R.menu.menu);
     }
-
 
     public void initNavigationView() {
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
