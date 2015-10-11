@@ -58,6 +58,11 @@ public class Database {
         return sqLiteDatabase.rawQuery(query, null);
     }
 
+    public void deleteStatisticsRecord(int id){
+        String where = ID_STATISTICS + "=" + String.valueOf(id);
+        sqLiteDatabase.delete(TABLE_STATISTICS, where, null);
+    }
+
     public Cursor getTodayFoodStatistics(){
 
         Calendar calendar = Calendar.getInstance();
@@ -178,7 +183,7 @@ public class Database {
 
         private static final String LOG = SportOpenHelper.class.getName();
 
-        private static final int DATABASE_VERSION = 12;
+        private static final int DATABASE_VERSION = 15;
 
         private static final String DATABASE_NAME = "sport.db";
 

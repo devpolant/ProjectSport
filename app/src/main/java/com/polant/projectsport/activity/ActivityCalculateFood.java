@@ -78,7 +78,8 @@ public class ActivityCalculateFood extends AppCompatActivity
 
     @Override
     public void changeTodayListFood() {
-
+        //Передаю false, так как я не добавляю новую запись о новой пище.
+        notifyLayoutTextViews(false);
     }
 
     //Выбор элемента из списка в CalculateDetailsFoodFragment.
@@ -157,8 +158,14 @@ public class ActivityCalculateFood extends AppCompatActivity
                 int indexDelta = c.getColumnIndex(Database.DELTA);
 
                 int countTodayCal = 0;
+                int temp = 0;
+
+                temp = c.getInt(indexDelta);
+                countTodayCal += temp;
+
                 while (c.moveToNext()){
-                    countTodayCal += c.getInt(indexDelta);
+                    temp = c.getInt(indexDelta);
+                    countTodayCal += temp;
                 }
                 countCalText.setText(String.valueOf(countTodayCal));
                 c.close();

@@ -49,5 +49,7 @@
 
     <string name="alertChangeTodayListCategoryFood">Категория :</string>
     <string name="alertChangeTodayListNameFood">Название :</string>
-
+    <string name="alertChangeTodayListDeleteTitle">Удаление записи</string>
+    <string name="alertChangeTodayListDeleteMessage">Удалить запись?</string>
+    <string name="alertChangeTodayListDeleteButtonText">Удалить</string>
 </resources>

@@ -54,6 +54,9 @@ public class AdapterTodayFoodDialog extends CursorAdapter {
         dayTV.setText(String.valueOf(day).concat(" /"));
         monthTV.setText(String.valueOf(month).concat(" /"));
         yearTV.setText(String.valueOf(year));
+
+        TextView textViewID = (TextView) view.findViewById(R.id.textViewDialogTodayID);
+        textViewID.setText(String.valueOf(cursor.getInt(cursor.getColumnIndex("_id"))));
     }
 
 }
