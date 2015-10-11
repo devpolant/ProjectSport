@@ -54,23 +54,34 @@
 
         </LinearLayout>
 
-        <TextView
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/text_your_age"
-            android:id="@+id/textViewYourAge"
-            android:padding="6dp"
-            android:textSize="18sp"
-            android:gravity="center_horizontal" />
+            android:layout_height="wrap_content">
 
-        <Button
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/text_bt_change_your_hw"
-            android:id="@+id/buttonChangeYourHW"
-            android:paddingBottom="10dp"
-            android:layout_gravity="center_horizontal" />
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/text_bt_change_your_hw"
+                android:id="@+id/buttonChangeYourHW"
+                android:paddingBottom="10dp"
+                android:background="@drawable/ripple_green"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_vertical"
+                android:textAlignment="center"
+                android:layout_weight="1" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/text_your_age"
+                android:id="@+id/textViewYourAge"
+                android:padding="6dp"
+                android:textSize="18sp"
+                android:gravity="center_vertical|center_horizontal"
+                android:layout_weight="1" />
+        </LinearLayout>
 
         <View
             android:layout_width="match_parent"
@@ -94,6 +105,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/buttonShowListTodayFoodText"
+                    android:background="@drawable/ripple_blue"
                     android:id="@+id/buttonShowListTodayFood" />
 
                 <TextView
