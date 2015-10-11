@@ -73,16 +73,31 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
+
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="1000"
-                android:id="@+id/textViewCurrentCalories"
-                android:layout_weight="1"
-                android:padding="10dp"
-                android:gravity="center_vertical|end"
-                android:textColor="@android:color/holo_blue_light"
-                android:textSize="20dp" />
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <Button
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/buttonShowListTodayFoodText"
+                    android:id="@+id/buttonShowListTodayFood" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="1000"
+                    android:id="@+id/textViewCurrentCalories"
+                    android:layout_weight="1"
+                    android:padding="10dp"
+                    android:gravity="center_vertical|end"
+                    android:textColor="@android:color/holo_blue_light"
+                    android:textSize="20sp" />
+            </LinearLayout>
 
             <View
                 android:layout_width="1dp"
@@ -98,7 +113,8 @@
                 android:padding="10dp"
                 android:gravity="start|center_vertical"
                 android:textColor="@android:color/holo_green_light"
-                android:textSize="20dp" />
+                android:textSize="20sp" />
+
         </LinearLayout>
         <View
             android:layout_width="match_parent"

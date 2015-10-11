@@ -20,14 +20,15 @@
 
     <string name="preferences_title">Настройки</string>
 
-    <string name="text_your_height">Ваш рост : </string>
-    <string name="text_your_weight">Ваш вес : </string>
+    <string name="text_your_height">Рост : </string>
+    <string name="text_your_weight">Вес : </string>
     <string name="text_your_sex">Пол : </string>
     <string name="text_your_sex_M">М</string>
     <string name="text_your_sex_F">Ж</string>
     <string name="text_your_goal">Цель : </string>
     <string name="text_your_time">Время : </string>
     <string name="text_bt_change_your_hw">Изменить параметры</string>
+    <string name="buttonShowListTodayFoodText">Список</string>
 
     <string name="text_ccal">кКал</string>
 
