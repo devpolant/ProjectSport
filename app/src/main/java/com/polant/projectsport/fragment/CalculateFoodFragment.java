@@ -65,24 +65,6 @@ public class CalculateFoodFragment extends ListFragment implements LoaderManager
         });
         thread.start();
 
-        //Заполняю поля информации о пользователе.
-        initInfoWHS();
-    }
-
-    private void initInfoWHS() {
-        TextView textWeight = (TextView) getActivity().findViewById(R.id.textViewYourWeight);
-        TextView textHeight = (TextView) getActivity().findViewById(R.id.textViewYourHeight);
-        TextView textSex = (TextView) getActivity().findViewById(R.id.textViewYourSex);
-
-        UserParametersInfo user = DB.getUserParametersInfo();
-
-        String w = getResources().getString(R.string.text_your_weight) + String.valueOf(user.getWeight());
-        String h = getResources().getString(R.string.text_your_height) + String.valueOf(user.getHeight());
-        String s = getResources().getString(R.string.text_your_sex) + String.valueOf(user.getSex());
-
-        textWeight.setText(w);
-        textHeight.setText(h);
-        textSex.setText(s);
     }
 
     //Парсинг raw ресурса текстового файла.

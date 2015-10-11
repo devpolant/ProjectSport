@@ -52,4 +52,12 @@
     <string name="alertChangeTodayListDeleteTitle">Удаление записи</string>
     <string name="alertChangeTodayListDeleteMessage">Удалить запись?</string>
     <string name="alertChangeTodayListDeleteButtonText">Удалить</string>
+    <string name="alertChangeUserInfoTitle">Ваши физические параметры</string>
+    <string name="alertChangeUserInfoMessage">Введите новые значения пола, роста и веса :</string>
+    <string name="alertChangeUserInfoButtonPositive">Подтвердить</string>
+    <string name="alertChangeUserInfoButtonNegative">Отмена</string>
+
+    <string name="hint_weight">Вес</string>
+    <string name="hint_height">Рост</string>
+
 </resources>

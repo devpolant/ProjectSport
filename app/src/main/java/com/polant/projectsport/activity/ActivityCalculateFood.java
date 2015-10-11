@@ -19,12 +19,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.polant.projectsport.R;
 import com.polant.projectsport.data.Database;
 import com.polant.projectsport.data.model.SpecificFood;
+import com.polant.projectsport.data.model.UserParametersInfo;
 import com.polant.projectsport.fragment.CalculateDetailsFoodFragment;
 import com.polant.projectsport.fragment.CalculateFoodFragment;
 import com.polant.projectsport.fragment.dialog.TodayFoodDialogFragment;
@@ -65,6 +68,9 @@ public class ActivityCalculateFood extends AppCompatActivity
                 getResources().getString(R.string.tag_fragment_calculate_food));
         transaction.commit();
 
+        //Заполняю поля информации о пользователе.
+        initInfoWHS();
+
         initToolbar();
         initNavigationView();
         initButtonChangeYourInfo();
@@ -76,6 +82,7 @@ public class ActivityCalculateFood extends AppCompatActivity
         Log.d("MY_DB_LOGS", "OnCreate");
     }
 
+    //Реализация интерфейса для обработки данных из TodayFoodDialogFragment.
     @Override
     public void changeTodayListFood() {
         //Передаю false, так как я не добавляю новую запись о новой пище.
@@ -87,12 +94,12 @@ public class ActivityCalculateFood extends AppCompatActivity
     public void changeSelectedCaloriesCount(SpecificFood specificFood, boolean isInserting) {
 
         if (isInserting) {
-            buildAlertDialog(specificFood);
+            buildAlertDialogAddFood(specificFood);
         }
     }
 
     //Построение AlertDialog для добавления пищи для подсчета калорий.
-    private void buildAlertDialog(final SpecificFood food) {
+    private void buildAlertDialogAddFood(final SpecificFood food) {
 
         //Построение диалога, в котором пользователь введет количество съеденной еды.
         final AlertDialog.Builder builder = new AlertDialog.Builder(ActivityCalculateFood.this);
@@ -182,9 +189,60 @@ public class ActivityCalculateFood extends AppCompatActivity
         bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                buildAlertDialogChangeUserInfo();
             }
         });
+    }
+
+    private void buildAlertDialogChangeUserInfo(){
+
+        //Построение диалога, в котором пользователь введет количество съеденной еды.
+        final AlertDialog.Builder builder = new AlertDialog.Builder(ActivityCalculateFood.this);
+        //Передаю не id лайаута, а ссылку View, чтобы потом получить доступ к нему.
+        final View alertView = getLayoutInflater().inflate(R.layout.alert_user_info, null);
+
+        builder.setTitle(R.string.alertChangeUserInfoTitle)
+                .setMessage(R.string.alertChangeUserInfoMessage)
+                .setCancelable(true)
+                .setIcon(R.drawable.alert_change_user_parameters_info_icon)
+                .setView(alertView)
+                .setPositiveButton(getString(R.string.alertChangeUserInfoButtonPositive), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        EditText wText = (EditText) alertView.findViewById(R.id.editTextAlertUserWeight);
+                        EditText hText = (EditText) alertView.findViewById(R.id.editTextAlertUserHeight);
+                        RadioGroup group = (RadioGroup) alertView.findViewById(R.id.radioSexGroup);
+
+                        int idSelectedSex = group.getCheckedRadioButtonId();
+                        RadioButton radioBtSex = (RadioButton) alertView.findViewById(idSelectedSex);
+
+                        String userSex = radioBtSex.getText().toString();
+                        String userWeight = wText.getText().toString();
+                        String userHeight = hText.getText().toString();
+
+                        UserParametersInfo user = DB.getUserParametersInfo();
+                        user.setSex(userSex);
+                        user.setWeight(Float.valueOf(userWeight));
+                        user.setHeight(Float.valueOf(userHeight));
+                        DB.updateUserParametersInfo(user);
+
+                        //А здесь уже заполняю TextView.
+                        initInfoWHS(Float.valueOf(userWeight), Float.valueOf(userHeight), userSex);
+                    }
+                })
+                .setNegativeButton(getString(R.string.alertChangeUserInfoButtonNegative), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                })
+                .setOnCancelListener(new DialogInterface.OnCancelListener() {
+                    @Override
+                    public void onCancel(DialogInterface dialog) {
+                    }
+                });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     private void initButtonShowListTodayFood(){
@@ -205,6 +263,38 @@ public class ActivityCalculateFood extends AppCompatActivity
         DB.close();
     }
 
+    private void initInfoWHS() {
+        TextView textWeight = (TextView) findViewById(R.id.textViewYourWeight);
+        TextView textHeight = (TextView) findViewById(R.id.textViewYourHeight);
+        TextView textSex = (TextView) findViewById(R.id.textViewYourSex);
+
+        UserParametersInfo user = DB.getUserParametersInfo();
+
+        String w = getResources().getString(R.string.text_your_weight) + String.valueOf(user.getWeight());
+        String h = getResources().getString(R.string.text_your_height) + String.valueOf(user.getHeight());
+        String s = getResources().getString(R.string.text_your_sex) + String.valueOf(user.getSex());
+
+        textWeight.setText(w);
+        textHeight.setText(h);
+        textSex.setText(s);
+
+        //TextView normalCaloriesCount = (TextView) findViewById(R.id.textViewMaxCalories);
+        //int normalCal =
+    }
+
+    private void initInfoWHS(float weight, float height, String sex){
+        TextView textWeight = (TextView) findViewById(R.id.textViewYourWeight);
+        TextView textHeight = (TextView) findViewById(R.id.textViewYourHeight);
+        TextView textSex = (TextView) findViewById(R.id.textViewYourSex);
+
+        String w = getResources().getString(R.string.text_your_weight) + String.valueOf(weight);
+        String h = getResources().getString(R.string.text_your_height) + String.valueOf(height);
+        String s = getResources().getString(R.string.text_your_sex) + sex;
+
+        textWeight.setText(w);
+        textHeight.setText(h);
+        textSex.setText(s);
+    }
 
     public void initToolbar() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);

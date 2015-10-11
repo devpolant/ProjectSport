@@ -124,7 +124,7 @@ public class Database {
         return new UserParametersInfo(name, weight, height, sex);
     }
 
-    public void setUserParametersInfo(UserParametersInfo user){
+    public void updateUserParametersInfo(UserParametersInfo user){
         ContentValues cv = new ContentValues();
         cv.put(USER_WEIGHT, user.getWeight());
         cv.put(USER_HEIGHT, user.getHeight());
@@ -157,6 +157,7 @@ public class Database {
     public static final String USER_WEIGHT = "USER_WEIGHT";
     public static final String USER_HEIGHT = "USER_HEIGHT";
     public static final String USER_SEX = "USER_SEX";
+    //public static final String USER_AGE = "USER_AGE";
 
     //FOOD
     public static final String ID_FOOD = "food_id";
