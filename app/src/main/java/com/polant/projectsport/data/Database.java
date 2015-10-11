@@ -63,7 +63,7 @@ public class Database {
         Calendar calendar = Calendar.getInstance();
         //Ќо если надо будет использовать это в CursorAdapter-е, то надо дл€ пол€ ID_STATISTICS обозначить псевдоним _id.
         String query = "SELECT " +
-                    ID_STATISTICS + ", " +
+                    ID_STATISTICS + " AS _id, " +
                     //TABLE_SPECIFIC_FOOD + "." + ID_SPECIFIC_FOOD + ", " +
                     FOOD_CATEGORY + ", " +
                     FOOD_NAME + ", " +

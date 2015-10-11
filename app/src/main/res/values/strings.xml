@@ -46,4 +46,8 @@
     <string name="alertAddFoodEditTextHintText">100</string>
     <string name="alertChangeTodayList">Сегодня :</string>
 
+
+    <string name="alertChangeTodayListCategoryFood">Категория :</string>
+    <string name="alertChangeTodayListNameFood">Название :</string>
+
 </resources>
