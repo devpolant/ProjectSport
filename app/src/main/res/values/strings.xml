@@ -63,4 +63,6 @@
     <string name="hint_age">Возраст</string>
     <string name="hint_food_weight">Вес в граммах</string>
 
+    <string name="title_activity_activity_other_calculators">Фитнес калькулятор</string>
+
 </resources>

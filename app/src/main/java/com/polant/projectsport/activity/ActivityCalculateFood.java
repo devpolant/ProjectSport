@@ -25,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.polant.projectsport.R;
+import com.polant.projectsport.ThemeSettings;
 import com.polant.projectsport.data.Database;
 import com.polant.projectsport.data.model.SpecificFood;
 import com.polant.projectsport.data.model.UserParametersInfo;
@@ -52,7 +53,7 @@ public class ActivityCalculateFood extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setCurrentTheme(PreferenceManager.getDefaultSharedPreferences(getApplicationContext()));
+        ThemeSettings.setCurrentTheme(this, PreferenceManager.getDefaultSharedPreferences(getApplicationContext()));
         super.onCreate(savedInstanceState);
         setContentView(LAYOUT);
 
@@ -184,16 +185,7 @@ public class ActivityCalculateFood extends AppCompatActivity
         }
     }
 
-    private void initButtonChangeYourInfo() {
-        Button bt = (Button) findViewById(R.id.buttonChangeYourHW);
-        bt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                buildAlertDialogChangeUserInfo();
-            }
-        });
-    }
-
+    //Построение AlertDialog для изменения параметров пола, роста, веса и возраста юзера.
     private void buildAlertDialogChangeUserInfo(){
 
         //Построение диалога, в котором пользователь введет количество съеденной еды.
@@ -248,6 +240,17 @@ public class ActivityCalculateFood extends AppCompatActivity
         dialog.show();
     }
 
+    //Инициализация кнопки вызова алерт диалога для изменения параметров пола, роста, веса и возраста юзера.
+    private void initButtonChangeYourInfo() {
+        Button bt = (Button) findViewById(R.id.buttonChangeYourHW);
+        bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                buildAlertDialogChangeUserInfo();
+            }
+        });
+    }
+    //Инициализация кнопки вызова диалога со списком сегодняшней употребленной пищи.
     private void initButtonShowListTodayFood(){
         Button bt = (Button) findViewById(R.id.buttonShowListTodayFood);
         bt.setOnClickListener(new View.OnClickListener() {
@@ -266,6 +269,8 @@ public class ActivityCalculateFood extends AppCompatActivity
         DB.close();
     }
 
+    //Обновление TextView параметров пола, роста, веса и возраста юзера после их изменений в AlertDialog.
+    //А также подсчет нормы калорий для пользователя.
     private void initInfoWHS() {
         TextView textWeight = (TextView) findViewById(R.id.textViewYourWeight);
         TextView textHeight = (TextView) findViewById(R.id.textViewYourHeight);
@@ -375,9 +380,10 @@ public class ActivityCalculateFood extends AppCompatActivity
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == PreferencesNewActivity.SHOW_PREFERENCES){
-            updateFromPreferences();
-        }
+        updateFromPreferences();
+//        if (requestCode == PreferencesNewActivity.SHOW_PREFERENCES){
+//            updateFromPreferences();
+//        }
     }
 
     //---------------Настройки---------------------//
@@ -387,32 +393,6 @@ public class ActivityCalculateFood extends AppCompatActivity
 
         //Применяю тему.
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        setUpdatedTheme(sp);
-    }
-
-    //Вызывается после применения новой темы в настройках приложения, просто меняя фон старой темы.
-    private void setUpdatedTheme(SharedPreferences sp) {
-        String theme = sp.getString(PreferencesNewActivity.PREF_APP_THEME, "Light");
-        switch (theme){
-            case "Light":
-                toolbar.setBackgroundColor(getResources().getColor(R.color.ColorPrimary));
-                break;
-            case "Dark":
-                toolbar.setBackgroundColor(getResources().getColor(R.color.DarkColorPrimary));
-                break;
-        }
-    }
-
-    //Применение темы из настроек. Вызывается в OnCreate().
-    private void setCurrentTheme(SharedPreferences sp){
-        String theme = sp.getString(PreferencesNewActivity.PREF_APP_THEME, "Light");
-        switch (theme){
-            case "Light":
-                setTheme(R.style.AppDefault);
-                break;
-            case "Dark":
-                setTheme(R.style.AppDark);
-                break;
-        }
+        ThemeSettings.setUpdatedTheme(this, sp);
     }
 }

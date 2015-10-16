@@ -1,4 +1,4 @@
-package com.polant.projectsport;
+package com.polant.projectsport.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -6,8 +6,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -15,47 +13,35 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 
-import com.polant.projectsport.activity.ActivityCalculateFood;
-import com.polant.projectsport.adapter.TabsPagerFragmentAdapter;
-import com.polant.projectsport.data.Database;
+import com.polant.projectsport.R;
+import com.polant.projectsport.ThemeSettings;
 import com.polant.projectsport.preferences.PreferencesNewActivity;
 import com.polant.projectsport.preferences.PreferencesOldActivity;
 
-/**
- * Created by РђРЅС‚РѕРЅ on 02.10.2015.
- */
-public class MainActivity extends AppCompatActivity {
+public class ActivityOtherCalculators extends AppCompatActivity {
 
-    private static final int LAYOUT = R.layout.activity_main;
+    private static final int LAYOUT = R.layout.activity_calculators;
 
-    public static final int DBVersion = Database.getDatabaseVersion();
-    public static final String DB_VERSION_KEY = "DB_VERSION_KEY";
+    private DrawerLayout drawerLayout;
+    private Toolbar toolbar;
 
-    public static final int SHOW_ACTIVITY_CALCULATE_FOOD = 4;
-
-
-    DrawerLayout drawerLayout;
-
-    Toolbar toolbar;
-    ViewPager viewPager;
-    TabLayout tabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        ThemeSettings.setCurrentTheme(this, PreferenceManager.getDefaultSharedPreferences(getApplicationContext()));
         super.onCreate(savedInstanceState);
+        ThemeSettings.setCurrentTheme(this, PreferenceManager.getDefaultSharedPreferences(getApplicationContext()));
         setContentView(LAYOUT);
 
         initToolbar();
         initNavigationView();
-        initTabLayout();
+        //TODO : В обработчиках initNavigationView() других Активити сделать переход на данную Активити
+        //TODO : по клику на пункт меню
     }
-
 
     private void initToolbar() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-        toolbar.setTitle(R.string.app_name);
+        toolbar.setTitle(getResources().getString(R.string.title_activity_activity_other_calculators));
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -82,20 +68,20 @@ public class MainActivity extends AppCompatActivity {
 
                 switch (item.getItemId()) {
                     case R.id.actionArticleItem:
-                        showNotificationTab();
+                        //Возможно так делать неправильно.
+//                        setResult(RESULT_OK);
+//                        finish();
                         break;
-                    case R.id.ActionCalculateFood:
-                        Intent foodCaloriesCounter = new Intent(MainActivity.this, ActivityCalculateFood.class);
-                        startActivityForResult(foodCaloriesCounter, SHOW_ACTIVITY_CALCULATE_FOOD);
+                    case R.id.actionCaloriesCounterItem:
                         break;
                     case R.id.actionSettingsItem:
-                        //РґРѕР±Р°РІРёРј СЃРѕРІРјРµСЃС‚РёРјРѕСЃС‚СЊ СЃРѕ СЃС‚Р°СЂС‹РјРё РІРµСЂСЃРёСЏРјРё РїР»Р°С‚С„РѕСЂРјС‹.
+                        //добавим совместимость со старыми версиями платформы.
                         Class c = Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB ?
                                 PreferencesOldActivity.class : PreferencesNewActivity.class;
 
-                        Intent intent = new Intent(MainActivity.this, c);
+                        Intent intentSettings = new Intent(ActivityOtherCalculators.this, c);
                         Log.d("Class in intent", c.getName());
-                        startActivityForResult(intent, PreferencesNewActivity.SHOW_PREFERENCES);
+                        startActivityForResult(intentSettings, PreferencesNewActivity.SHOW_PREFERENCES);
                         break;
                 }
 
@@ -104,42 +90,27 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void initTabLayout() {
-        viewPager = (ViewPager) findViewById(R.id.viewPager);
 
-        TabsPagerFragmentAdapter adapter = new TabsPagerFragmentAdapter(getSupportFragmentManager());
-        viewPager.setAdapter(adapter);
-
-        tabLayout = (TabLayout) findViewById(R.id.tabLayout);
-        tabLayout.setupWithViewPager(viewPager);
-    }
-
-    //РћС‚РєСЂС‹С‚РёРµ С‚Р°Р±Р° "РЎС‚Р°С‚СЊРё" РёР· NavigationView.
-    private void showNotificationTab() {
-        viewPager.setCurrentItem(Constants.TAB_TWO);
-    }
 
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        //РќРµ РїСЂРѕРІРµСЂСЏСЋ СЌС‚Рѕ С‡РµСЂРµР· if, РїРѕС‚РѕРјСѓ С‡С‚Рѕ РђРєС‚РёРІРёС‚Рё РЅР°СЃС‚СЂРѕРµР№ РїСЂРёР»РѕР¶РµРЅРёСЏ РјРѕР¶РµС‚ РІС‹Р·РІР°С‚СЊСЃСЏ РІ
-        //Р»СЋР±РѕР№ РґСЂСѓРіРѕР№ РђРєС‚РёРІРёС‚Рё - Рё С‚РѕРіРґР° requestCode РЅРµ Р±СѓРґРµС‚ СЂР°РІРµРЅ PreferencesNewActivity.SHOW_PREFERENCES;
-        updateFromPreferences();
-        /*if (requestCode == PreferencesNewActivity.SHOW_PREFERENCES){
+        if (requestCode == PreferencesNewActivity.SHOW_PREFERENCES){
             updateFromPreferences();
-        }*/
-
+        }
     }
 
-    //РџСЂРёРјРµРЅРµРЅРёРµ РЅР°СЃС‚СЂРѕРµРє РїСЂРёР»РѕР¶РµРЅРёСЏ.
-    private void updateFromPreferences(){
-        //TODO: СЃРґРµР»Р°С‚СЊ РѕР±СЂР°Р±РѕС‚С‡РёРє РїСЂРёРјРµРЅРµРЅРёСЏ РІС‹Р±СЂР°РЅРЅС‹С… РЅР°СЃС‚СЂРѕРµРє.
 
-        //РџСЂРёРјРµРЅСЏСЋ С‚РµРјСѓ.
+    //---------------Настройки---------------------//
+    //Применение настроек приложения.
+    private void updateFromPreferences(){
+        //TODO: сделать обработчик применения выбранных настроек.
+        //Применяю тему.
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         ThemeSettings.setUpdatedTheme(this, sp);
     }
+
 
 }
