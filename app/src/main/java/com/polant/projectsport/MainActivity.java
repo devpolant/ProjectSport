@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.MenuItem;
 
 import com.polant.projectsport.activity.ActivityCalculateFood;
+import com.polant.projectsport.activity.ActivityOtherCalculators;
 import com.polant.projectsport.adapter.TabsPagerFragmentAdapter;
 import com.polant.projectsport.data.Database;
 import com.polant.projectsport.preferences.PreferencesNewActivity;
@@ -31,14 +32,14 @@ public class MainActivity extends AppCompatActivity {
     public static final int DBVersion = Database.getDatabaseVersion();
     public static final String DB_VERSION_KEY = "DB_VERSION_KEY";
 
-    public static final int SHOW_ACTIVITY_CALCULATE_FOOD = 4;
 
+    private DrawerLayout drawerLayout;
 
-    DrawerLayout drawerLayout;
+    private  Toolbar toolbar;
+    private ViewPager viewPager;
+    private TabLayout tabLayout;
 
-    Toolbar toolbar;
-    ViewPager viewPager;
-    TabLayout tabLayout;
+    private Database DB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +50,18 @@ public class MainActivity extends AppCompatActivity {
         initToolbar();
         initNavigationView();
         initTabLayout();
+
+        DB = new Database(this);
+        DB.open();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("MY_DB_LOGS", "OnDestroyMainActivity");
+        //Закрываю базу при закрытии всего приложения.
+        DB.close();
+    }
 
     private void initToolbar() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -84,9 +95,14 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.actionArticleItem:
                         showNotificationTab();
                         break;
+                    case R.id.ActionIndexBodyWeight:
+                        Intent indexBodyIntent = new Intent(MainActivity.this, ActivityOtherCalculators.class);
+                        indexBodyIntent.setAction(ActivityOtherCalculators.ACTION_INDEX_BODY);
+                        startActivityForResult(indexBodyIntent, Constants.SHOW_ACTIVITY_OTHER_CALCULATORS);
+                        break;
                     case R.id.ActionCalculateFood:
                         Intent foodCaloriesCounter = new Intent(MainActivity.this, ActivityCalculateFood.class);
-                        startActivityForResult(foodCaloriesCounter, SHOW_ACTIVITY_CALCULATE_FOOD);
+                        startActivityForResult(foodCaloriesCounter, Constants.SHOW_ACTIVITY_CALCULATE_FOOD);
                         break;
                     case R.id.actionSettingsItem:
                         //добавим совместимость со старыми версиями платформы.

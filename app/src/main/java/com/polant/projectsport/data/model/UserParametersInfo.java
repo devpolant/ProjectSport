@@ -4,6 +4,8 @@ import android.content.Context;
 
 import com.polant.projectsport.R;
 
+import java.util.Formatter;
+
 /**
  * Created by јнтон on 06.10.2015.
  */
@@ -34,6 +36,17 @@ public class UserParametersInfo {
             k = -161;
         }
         return  (int) (10 * weight + 6.25 * height + 5 * age + k);
+    }
+
+    //—читаю индекс массы тела.
+    public static double calculateIndexBody(float w, float h){
+        double result = w / Math.pow(h / 100, 2);
+        try(Formatter formatter = new Formatter()) {
+            formatter.format("%.2f", result);
+            String resultStr = formatter.toString().replaceAll(",", ".");
+            result = Double.valueOf(resultStr);
+        }
+        return result;
     }
 
     public String getName() {

@@ -6,6 +6,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +16,8 @@ import android.view.MenuItem;
 
 import com.polant.projectsport.R;
 import com.polant.projectsport.ThemeSettings;
+import com.polant.projectsport.data.Database;
+import com.polant.projectsport.fragment.calculator.IndexBodyFragment;
 import com.polant.projectsport.preferences.PreferencesNewActivity;
 import com.polant.projectsport.preferences.PreferencesOldActivity;
 
@@ -25,6 +28,10 @@ public class ActivityOtherCalculators extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private Toolbar toolbar;
 
+    private Database DB;
+
+    public static final String ACTION_INDEX_BODY = "ACTION_INDEX_BODY";
+    public static final String ACTION_NEED_CALORIES = "ACTION_NEED_CALORIES";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,10 +39,33 @@ public class ActivityOtherCalculators extends AppCompatActivity {
         ThemeSettings.setCurrentTheme(this, PreferenceManager.getDefaultSharedPreferences(getApplicationContext()));
         setContentView(LAYOUT);
 
+        //Открываю БД здесь, чтобы не делать это в дочерних фрагментах.
+        //Во фрагментах получаю базу через метод getDatabase().
+        DB = new Database(this);
+        DB.open();
+
         initToolbar();
         initNavigationView();
         //TODO : В обработчиках initNavigationView() других Активити сделать переход на данную Активити
         //TODO : по клику на пункт меню
+
+        //Выбираю необходимый фрагмент, в зависимости от вызывающего Активити действия Action.
+        replaceFragment();
+    }
+
+    private void replaceFragment(){
+        String action = getIntent().getAction();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        switch (action){
+            case ACTION_INDEX_BODY:
+                transaction.replace(
+                        R.id.containerCalculators,
+                        new IndexBodyFragment(),
+                        getString(R.string.tag_fragment_index_body)
+                );
+                transaction.commit();
+                break;
+        }
     }
 
     private void initToolbar() {
@@ -90,6 +120,10 @@ public class ActivityOtherCalculators extends AppCompatActivity {
         });
     }
 
+    //Получение БД во фрагментах.
+    public Database getDatabase(){
+        return DB;
+    }
 
 
 

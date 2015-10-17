@@ -36,6 +36,7 @@
     <string name="tag_fragment_article">ArticleFragment</string>
     <string name="tag_fragment_calculate_food">CalculateFoodFragment</string>
     <string name="tag_fragment_calculate_details_food">CalculateDetailsFoodFragment</string>
+    <string name="tag_fragment_index_body">IndexBodyFragment</string>
 
     <string name="temp_text_example_fragment">Здесь будут статьи</string>
 
@@ -58,11 +59,67 @@
     <string name="alertChangeUserInfoButtonPositive">Подтвердить</string>
     <string name="alertChangeUserInfoButtonNegative">Отмена</string>
 
-    <string name="hint_weight">Вес</string>
-    <string name="hint_height">Рост</string>
+    <string name="hint_weight">Вес в килограммах</string>
+    <string name="hint_height">Рост в сантиметрах</string>
     <string name="hint_age">Возраст</string>
     <string name="hint_food_weight">Вес в граммах</string>
 
     <string name="title_activity_activity_other_calculators">Фитнес калькулятор</string>
+
+    <string name="text_normal_index_body_min">Минимум</string>
+    <string name="text_normal_index_body_ideal">Идеал</string>
+    <string name="text_normal_index_body_max">Максимум</string>
+    <string name="text_normal_index_body_normal">Нормальные показатели :</string>
+    <string name="text_bt_calculate_index">Посчитать индекс</string>
+    <string name="text_normal_index_body_min_value">18</string>
+    <string name="text_normal_index_body_ideal_value">22</string>
+    <string name="text_normal_index_body_max_value">25</string>
+
+    <string name="alertIndexBodyTitle">Индекс массы тела</string>
+    <string name="alertIndexBodyPositiveBt">Посчитать</string>
+    <string name="alertIndexBodyNegativeBt">Отмена</string>
+    <string name="alertIndexBodyMessage">Введите рост и вес:</string>
+    <string name="text_index_body_from_DB">Использовать параметры из настроек</string>
+    <string name="text_index_body_new_input_info">Ввести новые данные</string>
+    <string name="text_err_input_index_body">Введите рост и вес!</string>
+    <string name="text_default_index_body">0</string>
+    <string name="text_your_index_body">Ваш индекс массы тела равен:</string>
+    
+    
+    <string name="text_index_body_less_min">
+        Ваш индекс массы тела меньше нормы. Возможно, Вам стоит пересмотреть свой рацион питания,
+        чтобы набрать некоторое количество веса.
+    </string>
+    <string name="text_index_body_min">
+        Ваш индекс массы тела находится на нижней границе нормы. Возможно, если Вы наберете еще несколько
+        килограмм, то почувствуете себя немного лучше и приблизитесь к своему идеальному весу.
+    </string>
+    <string name="text_index_body_ideal">
+        Ваш индекс массы тела практически идеален. Продолжайте в том же духе! Здоровый образ жизни -
+        это действительно правильный выбор!
+    </string>
+    <string name="text_index_body_max">
+        Ваш индекс массы тела находится на верхней границе нормы. Возможно, Вам стоит немного
+        изменить свой рацион питания и Вы приблизитесь к своему идеальному весу.
+    </string>
+    <string name="text_index_body_excess">
+        Ваш индекс массы тела свидетельствует о лишнем весе. Возможно, Вам стоит немного
+        изменить свой рацион питания и Вы вернетесь к своему нормальному весу.
+    </string>
+    <string name="text_index_body_obesity_1">
+        Ваш индекс массы тела свидетельствует о первой стадии ожирения. Вам следует пересмотреть
+        свой рацион питания и, возможно, заняться спортом или фитнессом. Поход в спортзал пойдет
+        Вам на пользу и поможет сбросить вес.
+    </string>
+    <string name="text_index_body_obesity_2">
+        Ваш индекс массы тела свидетельствует о второй стадии ожирения. Вам следует пересмотреть
+        свой рацион питания и обязательно заняться спортом или фитнессом. Поход в спортзал пойдет
+        Вам на пользу и поможет сбросить вес.
+    </string>
+    <string name="text_index_body_obesity_3">
+        Ваш индекс массы тела свидетельствует о третей стадии ожирения. Вам следует срочно
+        пересмотреть свой рацион питания и обязательно заняться спортом или фитнессом. Поход в спортзал пойдет
+        Вам на пользу и поможет сбросить вес.
+    </string>
 
 </resources>
