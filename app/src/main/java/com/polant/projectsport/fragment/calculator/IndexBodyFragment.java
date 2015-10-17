@@ -41,12 +41,32 @@ public class IndexBodyFragment extends Fragment {
     private static final int OBESITY_BODY_2_INDEX = 40; //2 степень ожирения
     //private static final int OBESITY_BODY_3_INDEX = 100;//3 степень ожирения
 
+    //Переменные, которые служат ключами для сохранения настроек Bundle.
+    private static final String KEY_INDEX = "KEY_INDEX";
+    private static final String KEY_DESCRIPTION_TEXT = "KEY_DESCRIPTION_TEXT";
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(LAYOUT, container, false);
+        if (savedInstanceState != null){
+            initViewsOnConfigurationChanged(savedInstanceState);
+        }
         return view;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setRetainInstance(true);
+    }
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        TextView descriptionText = (TextView) view.findViewById(R.id.textViewIndexDescription);
+        TextView index = (TextView) view.findViewById(R.id.textViewIndexResult);
+        outState.putString(KEY_INDEX, index.getText().toString());
+        outState.putString(KEY_DESCRIPTION_TEXT, descriptionText.getText().toString());
+        super.onSaveInstanceState(outState);
     }
 
     @Override
@@ -163,31 +183,38 @@ public class IndexBodyFragment extends Fragment {
 
     //Вывод на экран словесного описания полученного индекса массы.
     private void setIndexDescription(double indexBody) {
-        TextView descriptionText = (TextView) view.findViewById(R.id.textViewIndexDescription);
+        TextView descriptionTextView = (TextView) view.findViewById(R.id.textViewIndexDescription);
         if (indexBody < MIN_BODY_INDEX){
-            descriptionText.setText(getString(R.string.text_index_body_less_min));
+            descriptionTextView.setText(getString(R.string.text_index_body_less_min));
         }
         else if (indexBody < IDEAL_BODY_INDEX - 1){
-            descriptionText.setText(getString(R.string.text_index_body_min));
+            descriptionTextView.setText(getString(R.string.text_index_body_min));
         }
         else if (indexBody > IDEAL_BODY_INDEX - 1 && indexBody < IDEAL_BODY_INDEX + 1){
-            descriptionText.setText(getString(R.string.text_index_body_ideal));
+            descriptionTextView.setText(getString(R.string.text_index_body_ideal));
         }
         else if (indexBody < MAX_BODY_INDEX){
-            descriptionText.setText(getString(R.string.text_index_body_max));
+            descriptionTextView.setText(getString(R.string.text_index_body_max));
         }
         else if (indexBody < EXCESS_BODY_INDEX){
-            descriptionText.setText(getString(R.string.text_index_body_excess));
+            descriptionTextView.setText(getString(R.string.text_index_body_excess));
         }
         else if (indexBody < OBESITY_BODY_1_INDEX){
-            descriptionText.setText(getString(R.string.text_index_body_obesity_1));
+            descriptionTextView.setText(getString(R.string.text_index_body_obesity_1));
         }
         else if (indexBody < OBESITY_BODY_2_INDEX){
-            descriptionText.setText(getString(R.string.text_index_body_obesity_2));
+            descriptionTextView.setText(getString(R.string.text_index_body_obesity_2));
         }
         else{
-            descriptionText.setText(getString(R.string.text_index_body_obesity_3));
+            descriptionTextView.setText(getString(R.string.text_index_body_obesity_3));
         }
     }
 
+    //Инициализация сохраненных значений при повороте экрана.
+    private void initViewsOnConfigurationChanged(Bundle saveInstanceState){
+        TextView descriptionTextView = (TextView) view.findViewById(R.id.textViewIndexDescription);
+        TextView indexBodyView = (TextView) view.findViewById(R.id.textViewIndexResult);
+        descriptionTextView.setText(saveInstanceState.getString(KEY_DESCRIPTION_TEXT));
+        indexBodyView.setText(saveInstanceState.getString(KEY_INDEX));
+    }
 }

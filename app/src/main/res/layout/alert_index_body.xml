@@ -4,49 +4,61 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RadioGroup
-        android:id="@+id/radioIndexBodyGroup"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="20dp">
+        android:id="@+id/scrollViewAlertIndexBody" >
 
-        <RadioButton
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/text_index_body_from_DB"
-            android:id="@+id/radioFromDB"
-            android:layout_weight="1"
-            android:checked="true"
-            android:layout_marginBottom="10dp" />
+            android:layout_height="wrap_content">
 
-        <RadioButton
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/text_index_body_new_input_info"
-            android:id="@+id/radioFromCurrentInputData"
-            android:layout_weight="1"
-            android:layout_marginTop="10dp" />
-    </RadioGroup>
+            <RadioGroup
+                android:id="@+id/radioIndexBodyGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/editTextAlertIndexBodyWeight"
-        android:textSize="18sp"
-        android:hint="@string/hint_weight"
-        android:inputType="numberDecimal"
-        android:padding="20dp"
-        android:enabled="false" />
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/text_index_body_from_DB"
+                    android:id="@+id/radioFromDB"
+                    android:layout_weight="1"
+                    android:checked="true"
+                    android:layout_marginBottom="10dp" />
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/editTextAlertIndexBodyHeight"
-        android:textSize="18sp"
-        android:hint="@string/hint_height"
-        android:padding="20dp"
-        android:inputType="numberDecimal" />
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/text_index_body_new_input_info"
+                    android:id="@+id/radioFromCurrentInputData"
+                    android:layout_weight="1"
+                    android:layout_marginTop="10dp" />
+            </RadioGroup>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/editTextAlertIndexBodyWeight"
+                android:textSize="18sp"
+                android:hint="@string/hint_weight"
+                android:inputType="numberDecimal"
+                android:padding="20dp"
+                android:enabled="false" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/editTextAlertIndexBodyHeight"
+                android:textSize="18sp"
+                android:hint="@string/hint_height"
+                android:padding="20dp"
+                android:inputType="numberDecimal" />
+        </LinearLayout>
+    </ScrollView>
 
 
 </LinearLayout>

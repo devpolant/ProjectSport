@@ -50,17 +50,28 @@ public class ActivityOtherCalculators extends AppCompatActivity {
         //TODO : по клику на пункт меню
 
         //Выбираю необходимый фрагмент, в зависимости от вызывающего Активити действия Action.
-        replaceFragment();
+        replaceFragment(savedInstanceState);
     }
 
-    private void replaceFragment(){
+    private void replaceFragment(Bundle savedInstanceState){
         String action = getIntent().getAction();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         switch (action){
             case ACTION_INDEX_BODY:
+                IndexBodyFragment indexBodyFragment;
+
+                //Использую при повороте экрана.
+                if (savedInstanceState != null){
+                    indexBodyFragment = (IndexBodyFragment) getSupportFragmentManager().
+                            findFragmentByTag(getString(R.string.tag_fragment_index_body));
+                }
+                else{
+                    indexBodyFragment = new IndexBodyFragment();
+                }
+
                 transaction.replace(
                         R.id.containerCalculators,
-                        new IndexBodyFragment(),
+                        indexBodyFragment,
                         getString(R.string.tag_fragment_index_body)
                 );
                 transaction.commit();
