@@ -38,6 +38,7 @@
     <string name="tag_fragment_calculate_details_food">CalculateDetailsFoodFragment</string>
     <string name="tag_fragment_index_body">IndexBodyFragment</string>
     <string name="tag_fragment_need_calories">NeedCaloriesFragment</string>
+    <string name="tag_fragment_step_counter">StepCounterFragment</string>
 
     <string name="temp_text_example_fragment">Здесь будут статьи</string>
 
@@ -135,4 +136,13 @@
     <string name="alertChoiceUserInfoMessage">Введите значения пола, роста и веса:</string>
     <string name="text_err_input_user_info_need_calories">Введите возраст, рост и вес!</string>
     <string name="text_need_calories_spinner_title">Выберите Ваш образ жизни:</string>
+
+
+    <string name="text_step_counter">Пройдено</string>
+    <string name="text_step_counter_steps">шагов</string>
+    <string name="text_step_counter_from">из</string>
+    <string name="text_bt_step_counter_start">Старт</string>
+    <string name="text_bt_step_counter_stop">Стоп</string>
+    <string name="text_bt_step_counter_reset">Сбросить</string>
+    <string name="text_bt_step_counter_target">Выбрать цель</string>
 </resources>

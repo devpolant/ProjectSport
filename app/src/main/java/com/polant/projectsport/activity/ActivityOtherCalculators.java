@@ -19,6 +19,7 @@ import com.polant.projectsport.ThemeSettings;
 import com.polant.projectsport.data.Database;
 import com.polant.projectsport.fragment.calculator.IndexBodyFragment;
 import com.polant.projectsport.fragment.calculator.NeedCaloriesFragment;
+import com.polant.projectsport.fragment.step.StepCounterFragment;
 import com.polant.projectsport.preferences.PreferencesNewActivity;
 import com.polant.projectsport.preferences.PreferencesOldActivity;
 
@@ -33,12 +34,14 @@ public class ActivityOtherCalculators extends AppCompatActivity {
 
     public static final String ACTION_INDEX_BODY = "ACTION_INDEX_BODY";
     public static final String ACTION_NEED_CALORIES = "ACTION_NEED_CALORIES";
+    public static final String ACTION_STEP_COUNTER = "ACTION_STEP_COUNTER";
+
+
     public static final String CURRENT_ACTION = "CURRENT_ACTION";
     public static final String FIRST_ACTION = "FIRST_ACTION";
 
 
     private String firstCallAction;
-    //private String currentAction;
     private SharedPreferences prefs;
 
     @Override
@@ -91,6 +94,15 @@ public class ActivityOtherCalculators extends AppCompatActivity {
     private void replaceFragment(Bundle savedInstanceState){
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         switch (getCurrentAction()){
+            case ACTION_STEP_COUNTER:
+                StepCounterFragment stepCounterFragment = new StepCounterFragment();
+                transaction.replace(
+                        R.id.containerCalculators,
+                        stepCounterFragment,
+                        getString(R.string.tag_fragment_step_counter)
+                );
+                transaction.commit();
+                break;
             case ACTION_INDEX_BODY:
                 IndexBodyFragment indexBodyFragment;
 
@@ -167,28 +179,12 @@ public class ActivityOtherCalculators extends AppCompatActivity {
                     case R.id.ActionIndexBodyWeight:
                         if (getCurrentAction().equals(ACTION_NEED_CALORIES)){
                             setCurrentAction(ACTION_INDEX_BODY);
-//                            FragmentTransaction transactionIndex = getSupportFragmentManager()
-//                                                                .beginTransaction();
-//                            transactionIndex.replace(
-//                                    R.id.containerCalculators,
-//                                    new NeedCaloriesFragment(),
-//                                    getString(R.string.tag_fragment_need_calories)
-//                            );
-//                            transactionIndex.commit();
                             replaceFragment(null);
                         }
                         break;
                     case R.id.ActionDayNeedCalories:
                         if (getCurrentAction().equals(ACTION_INDEX_BODY)){
                             setCurrentAction(ACTION_NEED_CALORIES);
-//                            FragmentTransaction transactionNeedCcal = getSupportFragmentManager()
-//                                    .beginTransaction();
-//                            transactionNeedCcal.replace(
-//                                    R.id.containerCalculators,
-//                                    new IndexBodyFragment(),
-//                                    getString(R.string.tag_fragment_index_body)
-//                            );
-//                            transactionNeedCcal.commit();
                             replaceFragment(null);
                         }
                         break;

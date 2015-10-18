@@ -95,6 +95,11 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.actionArticleItem:
                         showNotificationTab();
                         break;
+                    case R.id.actionStepCounterItem:
+                        Intent stepCounterIntent = new Intent(MainActivity.this, ActivityOtherCalculators.class);
+                        stepCounterIntent.setAction(ActivityOtherCalculators.ACTION_STEP_COUNTER);
+                        startActivityForResult(stepCounterIntent, Constants.SHOW_ACTIVITY_OTHER_CALCULATORS);
+                        break;
                     case R.id.ActionIndexBodyWeight:
                         Intent indexBodyIntent = new Intent(MainActivity.this, ActivityOtherCalculators.class);
                         indexBodyIntent.setAction(ActivityOtherCalculators.ACTION_INDEX_BODY);
