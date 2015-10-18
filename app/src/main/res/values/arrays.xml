@@ -8,4 +8,14 @@
         <item>Light</item>
         <item>Dark</item>
     </string-array>
+    <string-array name="array_life_style">
+        <item>Базовый обмен вешеств</item>
+        <item>Минимальные физ. нагрузки</item>
+        <item>3 раза в неделю</item>
+        <item>5 раз в неделю</item>
+        <item>5 раз в неделю (интенсивно)</item>
+        <item>Каждый день</item>
+        <item>2 раза в день</item>
+        <item>Ежедневная физ. нагрузка + физ. работа</item>
+    </string-array>
 </resources>

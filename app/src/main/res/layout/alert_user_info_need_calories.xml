@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
+    android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/scrollViewAlertIndexBody" >
+        android:id="@+id/scrollView" >
 
         <LinearLayout
             android:orientation="vertical"
@@ -15,7 +14,7 @@
             android:layout_height="wrap_content">
 
             <RadioGroup
-                android:id="@+id/radioIndexBodyGroup"
+                android:id="@+id/radioNeedCaloriesGroup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -36,29 +35,60 @@
                     android:text="@string/text_user_info_new_input_info"
                     android:id="@+id/radioFromCurrentInputData"
                     android:layout_weight="1"
-                    android:layout_marginTop="10dp" />
+                    android:layout_marginTop="10dp"
+                    android:checked="true" />
+            </RadioGroup>
+
+            <RadioGroup
+                android:id="@+id/radioSexGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="20dp">
+
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/text_your_sex_M"
+                    android:id="@+id/radioMale"
+                    android:layout_weight="1"
+                    android:checked="true" />
+
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/text_your_sex_F"
+                    android:id="@+id/radioFemale"
+                    android:layout_weight="1" />
             </RadioGroup>
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/editTextAlertIndexBodyWeight"
+                android:id="@+id/editTextAlertUserAge"
                 android:textSize="18sp"
-                android:hint="@string/hint_weight"
-                android:inputType="numberDecimal"
+                android:hint="@string/hint_age"
                 android:padding="20dp"
-                android:enabled="false" />
+                android:inputType="number" />
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/editTextAlertIndexBodyHeight"
+                android:id="@+id/editTextAlertUserWeight"
+                android:textSize="18sp"
+                android:hint="@string/hint_weight"
+                android:inputType="numberDecimal"
+                android:padding="20dp" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/editTextAlertUserHeight"
                 android:textSize="18sp"
                 android:hint="@string/hint_height"
                 android:padding="20dp"
                 android:inputType="numberDecimal" />
         </LinearLayout>
     </ScrollView>
-
 
 </LinearLayout>

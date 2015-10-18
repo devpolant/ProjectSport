@@ -37,11 +37,12 @@
     <string name="tag_fragment_calculate_food">CalculateFoodFragment</string>
     <string name="tag_fragment_calculate_details_food">CalculateDetailsFoodFragment</string>
     <string name="tag_fragment_index_body">IndexBodyFragment</string>
+    <string name="tag_fragment_need_calories">NeedCaloriesFragment</string>
 
     <string name="temp_text_example_fragment">Здесь будут статьи</string>
 
     <string name="alertAddFoodTitle">Калькулятор</string>
-    <string name="alertAddFoodMessage">Введите количество пищи :</string>
+    <string name="alertAddFoodMessage">Введите количество пищи:</string>
     <string name="alertAddFoodPositiveBt">Посчитать</string>
     <string name="alertAddFoodNegativeBt">Отмена</string>
     <string name="toastMistake">Введите количество выбранной пищи!</string>
@@ -55,7 +56,7 @@
     <string name="alertChangeTodayListDeleteMessage">Удалить запись?</string>
     <string name="alertChangeTodayListDeleteButtonText">Удалить</string>
     <string name="alertChangeUserInfoTitle">Ваши физические параметры</string>
-    <string name="alertChangeUserInfoMessage">Введите новые значения пола, роста и веса :</string>
+    <string name="alertChangeUserInfoMessage">Введите новые значения пола, роста и веса:</string>
     <string name="alertChangeUserInfoButtonPositive">Подтвердить</string>
     <string name="alertChangeUserInfoButtonNegative">Отмена</string>
 
@@ -69,7 +70,7 @@
     <string name="text_normal_index_body_min">Минимум</string>
     <string name="text_normal_index_body_ideal">Идеал</string>
     <string name="text_normal_index_body_max">Максимум</string>
-    <string name="text_normal_index_body_normal">Нормальные показатели :</string>
+    <string name="text_normal_index_body_normal">Индекс массы тела</string>
     <string name="text_bt_calculate_index">Посчитать индекс</string>
     <string name="text_normal_index_body_min_value">18</string>
     <string name="text_normal_index_body_ideal_value">22</string>
@@ -79,10 +80,10 @@
     <string name="alertIndexBodyPositiveBt">Посчитать</string>
     <string name="alertIndexBodyNegativeBt">Отмена</string>
     <string name="alertIndexBodyMessage">Введите рост и вес:</string>
-    <string name="text_index_body_from_DB">Использовать параметры из настроек</string>
-    <string name="text_index_body_new_input_info">Ввести новые данные</string>
+    <string name="text_user_info_from_DB">Использовать параметры из настроек</string>
+    <string name="text_user_info_new_input_info">Ввести новые данные</string>
     <string name="text_err_input_index_body">Введите рост и вес!</string>
-    <string name="text_default_index_body">0</string>
+    <string name="text_zero">0</string>
     <string name="text_your_index_body">Ваш индекс массы тела равен:</string>
     
     
@@ -122,4 +123,16 @@
         Вам на пользу и поможет сбросить вес.
     </string>
 
+    <string name="text_need_calories">Ваша суточная норма калорий:</string>
+    <string name="text_bt_calculate_need_calories">Посчитать норму</string>
+    <string name="text_need_calories_title">Норма калорий</string>
+    <string name="text_need_calories_normal">Не изменяя вес:</string>
+    <string name="text_need_calories_loss_weight">Для похудения:</string>
+    <string name="text_need_calories_fast_loss_weight">Для быстрого похудения:</string>
+
+    <string name="text_spinner_life_style_title">Степень физической нагрузки</string>
+
+    <string name="alertChoiceUserInfoMessage">Введите значения пола, роста и веса:</string>
+    <string name="text_err_input_user_info_need_calories">Введите возраст, рост и вес!</string>
+    <string name="text_need_calories_spinner_title">Выберите Ваш образ жизни:</string>
 </resources>

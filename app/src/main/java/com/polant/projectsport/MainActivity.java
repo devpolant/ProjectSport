@@ -100,6 +100,12 @@ public class MainActivity extends AppCompatActivity {
                         indexBodyIntent.setAction(ActivityOtherCalculators.ACTION_INDEX_BODY);
                         startActivityForResult(indexBodyIntent, Constants.SHOW_ACTIVITY_OTHER_CALCULATORS);
                         break;
+                    case R.id.ActionDayNeedCalories:
+                        Intent needCaloriesIntent = new Intent(MainActivity.this, ActivityOtherCalculators.class);
+                        needCaloriesIntent.setAction(ActivityOtherCalculators.ACTION_NEED_CALORIES);
+                        startActivity(needCaloriesIntent);
+                        //startActivityForResult(needCaloriesIntent, Constants.SHOW_ACTIVITY_OTHER_CALCULATORS);
+                        break;
                     case R.id.ActionCalculateFood:
                         Intent foodCaloriesCounter = new Intent(MainActivity.this, ActivityCalculateFood.class);
                         startActivityForResult(foodCaloriesCounter, Constants.SHOW_ACTIVITY_CALCULATE_FOOD);
@@ -142,19 +148,26 @@ public class MainActivity extends AppCompatActivity {
 
         //Не проверяю это через if, потому что Активити настроей приложения может вызваться в
         //любой другой Активити - и тогда requestCode не будет равен PreferencesNewActivity.SHOW_PREFERENCES;
-        updateFromPreferences();
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        updateFromPreferences(sp);
         /*if (requestCode == PreferencesNewActivity.SHOW_PREFERENCES){
             updateFromPreferences();
         }*/
 
+        if (requestCode == Constants.SHOW_ACTIVITY_OTHER_CALCULATORS){
+            //Удаляю значение настройки текущего действия, которое используется в ActivityOtherCalculators.
+            SharedPreferences.Editor editor = sp.edit();
+            editor.remove(ActivityOtherCalculators.CURRENT_ACTION);
+            editor.apply();
+        }
+
     }
 
     //Применение настроек приложения.
-    private void updateFromPreferences(){
+    private void updateFromPreferences(SharedPreferences sp){
         //TODO: сделать обработчик применения выбранных настроек.
 
         //Применяю тему.
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         ThemeSettings.setUpdatedTheme(this, sp);
     }
 

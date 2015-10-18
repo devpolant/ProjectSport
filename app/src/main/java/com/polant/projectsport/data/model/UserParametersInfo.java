@@ -17,6 +17,8 @@ public class UserParametersInfo {
     private String name;
     private int age;
 
+    public UserParametersInfo() {
+    }
 
     public UserParametersInfo(String name, int age, float weight, float height, String sex) {
         this.name = name;

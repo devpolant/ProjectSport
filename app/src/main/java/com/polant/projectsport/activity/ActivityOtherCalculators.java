@@ -18,6 +18,7 @@ import com.polant.projectsport.R;
 import com.polant.projectsport.ThemeSettings;
 import com.polant.projectsport.data.Database;
 import com.polant.projectsport.fragment.calculator.IndexBodyFragment;
+import com.polant.projectsport.fragment.calculator.NeedCaloriesFragment;
 import com.polant.projectsport.preferences.PreferencesNewActivity;
 import com.polant.projectsport.preferences.PreferencesOldActivity;
 
@@ -32,11 +33,19 @@ public class ActivityOtherCalculators extends AppCompatActivity {
 
     public static final String ACTION_INDEX_BODY = "ACTION_INDEX_BODY";
     public static final String ACTION_NEED_CALORIES = "ACTION_NEED_CALORIES";
+    public static final String CURRENT_ACTION = "CURRENT_ACTION";
+    public static final String FIRST_ACTION = "FIRST_ACTION";
+
+
+    private String firstCallAction;
+    //private String currentAction;
+    private SharedPreferences prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ThemeSettings.setCurrentTheme(this, PreferenceManager.getDefaultSharedPreferences(getApplicationContext()));
+        prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        ThemeSettings.setCurrentTheme(this, prefs);
         setContentView(LAYOUT);
 
         //Открываю БД здесь, чтобы не делать это в дочерних фрагментах.
@@ -49,14 +58,39 @@ public class ActivityOtherCalculators extends AppCompatActivity {
         //TODO : В обработчиках initNavigationView() других Активити сделать переход на данную Активити
         //TODO : по клику на пункт меню
 
+        firstCallAction = getIntent().getAction();
+
+        //Сохнаняю текущее действие в настройки приложения.
+        initSharedPreferences();
+
         //Выбираю необходимый фрагмент, в зависимости от вызывающего Активити действия Action.
         replaceFragment(savedInstanceState);
     }
 
+    //Данные 3 метода нужны для того, чтобы транзакции фрагментов проходили корректно, даже если
+    //в каком то фрагменте произошел поворот экрана.
+    private void initSharedPreferences(){
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(FIRST_ACTION, firstCallAction);
+        String current = prefs.getString(CURRENT_ACTION, "");
+        if (current.equals("")){
+            editor.putString(CURRENT_ACTION, String.valueOf(firstCallAction));
+        }
+        editor.apply();
+    }
+    private void setCurrentAction(String action){
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(CURRENT_ACTION, action);
+        editor.apply();
+    }
+    private String getCurrentAction(){
+        return prefs.getString(CURRENT_ACTION, "");
+    }
+
+    //Замена фрагмента, используется в onCreate() и для транзакций в navigationView.
     private void replaceFragment(Bundle savedInstanceState){
-        String action = getIntent().getAction();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        switch (action){
+        switch (getCurrentAction()){
             case ACTION_INDEX_BODY:
                 IndexBodyFragment indexBodyFragment;
 
@@ -73,6 +107,25 @@ public class ActivityOtherCalculators extends AppCompatActivity {
                         R.id.containerCalculators,
                         indexBodyFragment,
                         getString(R.string.tag_fragment_index_body)
+                );
+                transaction.commit();
+                break;
+            case ACTION_NEED_CALORIES:
+                NeedCaloriesFragment needCaloriesFragment;
+
+                //Использую при повороте экрана.
+                if (savedInstanceState != null){
+                    needCaloriesFragment = (NeedCaloriesFragment) getSupportFragmentManager().
+                            findFragmentByTag(getString(R.string.tag_fragment_need_calories));
+                }
+                else{
+                    needCaloriesFragment = new NeedCaloriesFragment();
+                }
+
+                transaction.replace(
+                        R.id.containerCalculators,
+                        needCaloriesFragment,
+                        getString(R.string.tag_fragment_need_calories)
                 );
                 transaction.commit();
                 break;
@@ -109,11 +162,35 @@ public class ActivityOtherCalculators extends AppCompatActivity {
 
                 switch (item.getItemId()) {
                     case R.id.actionArticleItem:
-                        //Возможно так делать неправильно.
-//                        setResult(RESULT_OK);
-//                        finish();
+
                         break;
-                    case R.id.actionCaloriesCounterItem:
+                    case R.id.ActionIndexBodyWeight:
+                        if (getCurrentAction().equals(ACTION_NEED_CALORIES)){
+                            setCurrentAction(ACTION_INDEX_BODY);
+//                            FragmentTransaction transactionIndex = getSupportFragmentManager()
+//                                                                .beginTransaction();
+//                            transactionIndex.replace(
+//                                    R.id.containerCalculators,
+//                                    new NeedCaloriesFragment(),
+//                                    getString(R.string.tag_fragment_need_calories)
+//                            );
+//                            transactionIndex.commit();
+                            replaceFragment(null);
+                        }
+                        break;
+                    case R.id.ActionDayNeedCalories:
+                        if (getCurrentAction().equals(ACTION_INDEX_BODY)){
+                            setCurrentAction(ACTION_NEED_CALORIES);
+//                            FragmentTransaction transactionNeedCcal = getSupportFragmentManager()
+//                                    .beginTransaction();
+//                            transactionNeedCcal.replace(
+//                                    R.id.containerCalculators,
+//                                    new IndexBodyFragment(),
+//                                    getString(R.string.tag_fragment_index_body)
+//                            );
+//                            transactionNeedCcal.commit();
+                            replaceFragment(null);
+                        }
                         break;
                     case R.id.actionSettingsItem:
                         //добавим совместимость со старыми версиями платформы.
@@ -137,14 +214,11 @@ public class ActivityOtherCalculators extends AppCompatActivity {
     }
 
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == PreferencesNewActivity.SHOW_PREFERENCES){
-            updateFromPreferences();
-        }
+        updateFromPreferences();
     }
 
 
