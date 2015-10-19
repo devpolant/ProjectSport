@@ -174,25 +174,13 @@ public class ActivityOtherCalculators extends AppCompatActivity implements Senso
                         startActivityForResult(articleIntent, Constants.SHOW_ACTIVITY_ARTICLES);
                         break;
                     case R.id.actionStepCounterItem:
-                        if (getCurrentAction().equals(ACTION_NEED_CALORIES) ||
-                                getCurrentAction().equals(ACTION_INDEX_BODY)) {
-                            setCurrentAction(ACTION_STEP_COUNTER);
-                            replaceFragment(null);
-                        }
+                        showStepCounterFragment();
                         break;
                     case R.id.ActionIndexBodyWeight:
-                        if (getCurrentAction().equals(ACTION_NEED_CALORIES) ||
-                                getCurrentAction().equals(ACTION_STEP_COUNTER)) {
-                            setCurrentAction(ACTION_INDEX_BODY);
-                            replaceFragment(null);
-                        }
+                        showIndexBodyFragment();
                         break;
                     case R.id.ActionDayNeedCalories:
-                        if (getCurrentAction().equals(ACTION_INDEX_BODY) ||
-                                getCurrentAction().equals(ACTION_STEP_COUNTER)) {
-                            setCurrentAction(ACTION_NEED_CALORIES);
-                            replaceFragment(null);
-                        }
+                        showNeedCaloriesFragment();
                         break;
                     case R.id.ActionCalculateFood:
                         Intent foodCaloriesCounter = new Intent(ActivityOtherCalculators.this, ActivityCalculateFood.class);
@@ -246,6 +234,33 @@ public class ActivityOtherCalculators extends AppCompatActivity implements Senso
         editor.apply();
     }
 
+
+    //Методы для вызова транзакций фрагментов, которые используются в данной Активити.
+    private void showStepCounterFragment(){
+        if (getCurrentAction().equals(ACTION_NEED_CALORIES) ||
+                getCurrentAction().equals(ACTION_INDEX_BODY)) {
+            setCurrentAction(ACTION_STEP_COUNTER);
+            replaceFragment(null);
+        }
+    }
+    private void showIndexBodyFragment(){
+        if (getCurrentAction().equals(ACTION_NEED_CALORIES) ||
+                getCurrentAction().equals(ACTION_STEP_COUNTER)) {
+            setCurrentAction(ACTION_INDEX_BODY);
+            replaceFragment(null);
+        }
+    }
+    private void showNeedCaloriesFragment(){
+        if (getCurrentAction().equals(ACTION_INDEX_BODY) ||
+                getCurrentAction().equals(ACTION_STEP_COUNTER)) {
+            setCurrentAction(ACTION_NEED_CALORIES);
+            replaceFragment(null);
+        }
+    }
+
+
+    //------------------Жизненный цикл---------------------//
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -257,16 +272,28 @@ public class ActivityOtherCalculators extends AppCompatActivity implements Senso
 
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        //outState.putString(CURRENT_ACTION_STRING, getCurrentAction());
-        super.onSaveInstanceState(outState);
-    }
-
-    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         updateFromPreferences();
+        if (requestCode == Constants.SHOW_ACTIVITY_ARTICLES ||
+                requestCode == Constants.SHOW_ACTIVITY_CALCULATE_FOOD){
+
+            if (resultCode == RESULT_OK) {
+
+                switch (data.getStringExtra(CURRENT_ACTION_STRING)) {
+                    case ACTION_STEP_COUNTER:
+                        showStepCounterFragment();
+                        break;
+                    case ACTION_INDEX_BODY:
+                        showIndexBodyFragment();
+                        break;
+                    case ACTION_NEED_CALORIES:
+                        showNeedCaloriesFragment();
+                        break;
+                }
+            }
+        }
     }
 
 
@@ -280,6 +307,7 @@ public class ActivityOtherCalculators extends AppCompatActivity implements Senso
     }
 
 
+    //------------------Сенсоры---------------------//
 
     @Override
     public void registerCounter() {

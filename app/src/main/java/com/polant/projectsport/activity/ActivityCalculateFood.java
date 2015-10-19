@@ -345,20 +345,26 @@ public class ActivityCalculateFood extends AppCompatActivity
                 drawerLayout.closeDrawers();
 
                 switch (item.getItemId()) {
-                    case R.id.actionArticleItem:
-//                        Intent intent = new Intent(ActivityCalculateFood.this, MainActivity.class);
-//                        startActivity(intent);
-                        setResult(RESULT_OK);
+                    case R.id.actionStepCounterItem:
+                        Intent stepCounterIntent = new Intent();
+                        stepCounterIntent.putExtra(ActivityOtherCalculators.CURRENT_ACTION_STRING,
+                                ActivityOtherCalculators.ACTION_STEP_COUNTER);
+                        setResult(RESULT_OK, stepCounterIntent);
                         finish();
                         break;
-                    case R.id.actionCaloriesCounterItem:
-//                        android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-//                        transaction.replace(
-//                                R.id.container,
-//                                new CalculateFoodFragment(),
-//                                getResources().getString(R.string.tag_fragment_calculate_food)
-//                        );
-//                        transaction.commit();
+                    case R.id.ActionIndexBodyWeight:
+                        Intent indexBodyIntent = new Intent();
+                        indexBodyIntent.putExtra(ActivityOtherCalculators.CURRENT_ACTION_STRING,
+                                ActivityOtherCalculators.ACTION_INDEX_BODY);
+                        setResult(RESULT_OK, indexBodyIntent);
+                        finish();
+                        break;
+                    case R.id.ActionDayNeedCalories:
+                        Intent needCaloriesIntent = new Intent();
+                        needCaloriesIntent.putExtra(ActivityOtherCalculators.CURRENT_ACTION_STRING,
+                                ActivityOtherCalculators.ACTION_NEED_CALORIES);
+                        setResult(RESULT_OK, needCaloriesIntent);
+                        finish();
                         break;
                     case R.id.actionSettingsItem:
                         //добавим совместимость со старыми версиями платформы.
@@ -381,9 +387,6 @@ public class ActivityCalculateFood extends AppCompatActivity
         super.onActivityResult(requestCode, resultCode, data);
 
         updateFromPreferences();
-//        if (requestCode == PreferencesNewActivity.SHOW_PREFERENCES){
-//            updateFromPreferences();
-//        }
     }
 
     //---------------Настройки---------------------//

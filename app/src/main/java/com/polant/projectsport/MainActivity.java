@@ -1,12 +1,7 @@
 package com.polant.projectsport;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -20,7 +15,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 
-import com.polant.projectsport.activity.ActivityCalculateFood;
 import com.polant.projectsport.activity.ActivityOtherCalculators;
 import com.polant.projectsport.adapter.TabsPagerFragmentAdapter;
 import com.polant.projectsport.data.Database;
@@ -93,20 +87,25 @@ public class MainActivity extends AppCompatActivity{
                         showNotificationTab();
                         break;
                     case R.id.actionStepCounterItem:
-//                        Intent stepCounterIntent = new Intent(MainActivity.this, ActivityOtherCalculators.class);
-//                        stepCounterIntent.setAction(ActivityOtherCalculators.ACTION_STEP_COUNTER);
-//                        startActivityForResult(stepCounterIntent, Constants.SHOW_ACTIVITY_OTHER_CALCULATORS);
+                        Intent stepCounterIntent = new Intent();
+                        stepCounterIntent.putExtra(ActivityOtherCalculators.CURRENT_ACTION_STRING,
+                                ActivityOtherCalculators.ACTION_STEP_COUNTER);
+                        setResult(RESULT_OK, stepCounterIntent);
+                        finish();
                         break;
                     case R.id.ActionIndexBodyWeight:
-//                        Intent indexBodyIntent = new Intent(MainActivity.this, ActivityOtherCalculators.class);
-//                        indexBodyIntent.setAction(ActivityOtherCalculators.ACTION_INDEX_BODY);
-//                        startActivityForResult(indexBodyIntent, Constants.SHOW_ACTIVITY_OTHER_CALCULATORS);
+                        Intent indexBodyIntent = new Intent();
+                        indexBodyIntent.putExtra(ActivityOtherCalculators.CURRENT_ACTION_STRING,
+                                ActivityOtherCalculators.ACTION_INDEX_BODY);
+                        setResult(RESULT_OK, indexBodyIntent);
+                        finish();
                         break;
                     case R.id.ActionDayNeedCalories:
-//                        Intent needCaloriesIntent = new Intent(MainActivity.this, ActivityOtherCalculators.class);
-//                        needCaloriesIntent.setAction(ActivityOtherCalculators.ACTION_NEED_CALORIES);
-//                        startActivity(needCaloriesIntent);
-                        //startActivityForResult(needCaloriesIntent, Constants.SHOW_ACTIVITY_OTHER_CALCULATORS);
+                        Intent needCaloriesIntent = new Intent();
+                        needCaloriesIntent.putExtra(ActivityOtherCalculators.CURRENT_ACTION_STRING,
+                                ActivityOtherCalculators.ACTION_NEED_CALORIES);
+                        setResult(RESULT_OK, needCaloriesIntent);
+                        finish();
                         break;
                     case R.id.actionSettingsItem:
                         //добавим совместимость со старыми версиями платформы.
@@ -159,14 +158,6 @@ public class MainActivity extends AppCompatActivity{
         /*if (requestCode == PreferencesNewActivity.SHOW_PREFERENCES){
             updateFromPreferences();
         }*/
-
-//        //TODO : сделать такой if во всех Активити.
-//        if (requestCode == Constants.SHOW_ACTIVITY_OTHER_CALCULATORS){
-//            //Удаляю значение настройки текущего действия, которое используется в ActivityOtherCalculators.
-//            SharedPreferences.Editor editor = sp.edit();
-//            editor.remove(ActivityOtherCalculators.CURRENT_ACTION_STRING);
-//            editor.apply();
-//        }
 
     }
 
