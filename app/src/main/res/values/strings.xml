@@ -65,6 +65,7 @@
     <string name="hint_height">Рост в сантиметрах</string>
     <string name="hint_age">Возраст</string>
     <string name="hint_food_weight">Вес в граммах</string>
+    <string name="hint_target_step_count">Количество шагов</string>
 
     <string name="title_activity_activity_other_calculators">Фитнес калькулятор</string>
 
@@ -145,4 +146,10 @@
     <string name="text_bt_step_counter_stop">Стоп</string>
     <string name="text_bt_step_counter_reset">Сбросить</string>
     <string name="text_bt_step_counter_target">Выбрать цель</string>
+    <string name="text_percent">%</string>
+    <string name="alertTargetStepCountTitle">Ваша цель:</string>
+    <string name="alertTargetStepCountMessage">Введите количество шагов, которое Вы хотите проходить ежедневно</string>
+    <string name="alertTargetStepCountPositiveBt">Подтвердить</string>
+    <string name="alertTargetStepCountNegativeBt">Отмена</string>
+    <string name="toast_err_target_step_count">Введите количество шагов</string>
 </resources>

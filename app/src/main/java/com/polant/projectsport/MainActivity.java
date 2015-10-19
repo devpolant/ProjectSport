@@ -1,7 +1,12 @@
 package com.polant.projectsport;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -19,23 +24,30 @@ import com.polant.projectsport.activity.ActivityCalculateFood;
 import com.polant.projectsport.activity.ActivityOtherCalculators;
 import com.polant.projectsport.adapter.TabsPagerFragmentAdapter;
 import com.polant.projectsport.data.Database;
+import com.polant.projectsport.eventbus.BusProvider;
+import com.polant.projectsport.eventbus.StepDetectEvent;
+import com.polant.projectsport.fragment.step.StepCounterFragment;
 import com.polant.projectsport.preferences.PreferencesNewActivity;
 import com.polant.projectsport.preferences.PreferencesOldActivity;
+import com.squareup.otto.Bus;
 
 /**
  * Created by Антон on 02.10.2015.
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SensorEventListener{
 
     private static final int LAYOUT = R.layout.activity_main;
 
     public static final int DBVersion = Database.getDatabaseVersion();
     public static final String DB_VERSION_KEY = "DB_VERSION_KEY";
 
+    //Сенсоры.
+    private SensorManager sensorManager;
+    private Sensor stepCounterSensor;
+    private Sensor stepDetectorSensor;
 
     private DrawerLayout drawerLayout;
-
-    private  Toolbar toolbar;
+    private Toolbar toolbar;
     private ViewPager viewPager;
     private TabLayout tabLayout;
 
@@ -53,14 +65,27 @@ public class MainActivity extends AppCompatActivity {
 
         DB = new Database(this);
         DB.open();
+
+        initSensors();
+        //Регистрирую EventBus.
+        BusProvider.getInstance().register(StepCounterFragment.class);
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.d("MY_DB_LOGS", "OnDestroyMainActivity");
-        //Закрываю базу при закрытии всего приложения.
-        DB.close();
+    //Инициализирую сенсоры, которые использую для подсчета шагов.
+    private void initSensors(){
+        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+
+        //Из-за этого минимальная версия SDK == API 19 level.
+        stepCounterSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
+        stepDetectorSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR);
+
+        sensorManager.registerListener(this, stepCounterSensor, SensorManager.SENSOR_DELAY_FASTEST);
+        sensorManager.registerListener(this, stepDetectorSensor, SensorManager.SENSOR_DELAY_FASTEST);
+    }
+
+    private void unRegisterSensors(){
+        sensorManager.unregisterListener(this, stepCounterSensor);
+        sensorManager.unregisterListener(this, stepDetectorSensor);
     }
 
     private void initToolbar() {
@@ -146,6 +171,16 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setCurrentItem(Constants.TAB_TWO);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("MY_DB_LOGS", "OnDestroyMainActivity");
+        //Закрываю базу при закрытии всего приложения.
+        DB.close();
+        BusProvider.getInstance().unregister(StepCounterFragment.class);
+        unRegisterSensors();
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -159,6 +194,7 @@ public class MainActivity extends AppCompatActivity {
             updateFromPreferences();
         }*/
 
+        //TODO : сделать такой if во всех Активити.
         if (requestCode == Constants.SHOW_ACTIVITY_OTHER_CALCULATORS){
             //Удаляю значение настройки текущего действия, которое используется в ActivityOtherCalculators.
             SharedPreferences.Editor editor = sp.edit();
@@ -176,4 +212,28 @@ public class MainActivity extends AppCompatActivity {
         ThemeSettings.setUpdatedTheme(this, sp);
     }
 
+
+    //------------------------------------------------//
+
+    //Реализация интерфейса SensorEventListener.
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        Sensor sensor = event.sensor;
+        float[] values = event.values;
+        int value = -1;
+
+        if (values.length > 0) {
+            value = (int) values[0];
+
+            if (sensor.getType() == Sensor.TYPE_STEP_COUNTER) {
+                //Отправляю значение через EventBus.
+                BusProvider.getInstance().post(new StepDetectEvent(value));
+            }
+        }
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+    }
 }

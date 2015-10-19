@@ -36,28 +36,48 @@
         custom:min="0"
         custom:max="1000"
         custom:progress_color="#FF4F00"
-        android:layout_weight="1.6"
-        android:layout_margin="10dp">
+        android:layout_weight="2"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginLeft="35dp">
 
         <RelativeLayout
             android:layout_centerInParent="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:textSize="40sp"
-                android:id="@+id/textCurrentProgress"
-                android:textColor="@android:color/black"
-                android:text="90 %"
+            <LinearLayout
+                android:id="@+id/layout_percent_steps"
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal" />
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textSize="40sp"
+                    android:id="@+id/textCurrentProgress"
+                    android:textColor="@android:color/black"
+                    android:text="90"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end" />
+
+                <TextView
+                    android:textSize="40sp"
+                    android:textColor="@android:color/black"
+                    android:text="@string/text_percent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.5" />
+
+            </LinearLayout>
 
             <TextView
                 android:textSize="30sp"
                 android:layout_centerHorizontal="true"
                 android:paddingTop="5dp"
-                android:layout_below="@+id/textCurrentProgress"
+                android:layout_below="@+id/layout_percent_steps"
                 android:text="@string/text_step_counter"
                 android:textColor="@android:color/black"
                 android:layout_width="match_parent"
