@@ -24,27 +24,19 @@ import com.polant.projectsport.activity.ActivityCalculateFood;
 import com.polant.projectsport.activity.ActivityOtherCalculators;
 import com.polant.projectsport.adapter.TabsPagerFragmentAdapter;
 import com.polant.projectsport.data.Database;
-import com.polant.projectsport.eventbus.BusProvider;
-import com.polant.projectsport.eventbus.StepDetectEvent;
-import com.polant.projectsport.fragment.step.StepCounterFragment;
 import com.polant.projectsport.preferences.PreferencesNewActivity;
 import com.polant.projectsport.preferences.PreferencesOldActivity;
-import com.squareup.otto.Bus;
 
 /**
  * Created by Антон on 02.10.2015.
  */
-public class MainActivity extends AppCompatActivity implements SensorEventListener{
+public class MainActivity extends AppCompatActivity{
 
     private static final int LAYOUT = R.layout.activity_main;
 
     public static final int DBVersion = Database.getDatabaseVersion();
     public static final String DB_VERSION_KEY = "DB_VERSION_KEY";
 
-    //Сенсоры.
-    private SensorManager sensorManager;
-    private Sensor stepCounterSensor;
-    private Sensor stepDetectorSensor;
 
     private DrawerLayout drawerLayout;
     private Toolbar toolbar;
@@ -65,28 +57,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         DB = new Database(this);
         DB.open();
-
-        initSensors();
-        //Регистрирую EventBus.
-        BusProvider.getInstance().register(StepCounterFragment.class);
     }
 
-    //Инициализирую сенсоры, которые использую для подсчета шагов.
-    private void initSensors(){
-        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-
-        //Из-за этого минимальная версия SDK == API 19 level.
-        stepCounterSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
-        stepDetectorSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR);
-
-        sensorManager.registerListener(this, stepCounterSensor, SensorManager.SENSOR_DELAY_FASTEST);
-        sensorManager.registerListener(this, stepDetectorSensor, SensorManager.SENSOR_DELAY_FASTEST);
-    }
-
-    private void unRegisterSensors(){
-        sensorManager.unregisterListener(this, stepCounterSensor);
-        sensorManager.unregisterListener(this, stepDetectorSensor);
-    }
 
     private void initToolbar() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -121,24 +93,20 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                         showNotificationTab();
                         break;
                     case R.id.actionStepCounterItem:
-                        Intent stepCounterIntent = new Intent(MainActivity.this, ActivityOtherCalculators.class);
-                        stepCounterIntent.setAction(ActivityOtherCalculators.ACTION_STEP_COUNTER);
-                        startActivityForResult(stepCounterIntent, Constants.SHOW_ACTIVITY_OTHER_CALCULATORS);
+//                        Intent stepCounterIntent = new Intent(MainActivity.this, ActivityOtherCalculators.class);
+//                        stepCounterIntent.setAction(ActivityOtherCalculators.ACTION_STEP_COUNTER);
+//                        startActivityForResult(stepCounterIntent, Constants.SHOW_ACTIVITY_OTHER_CALCULATORS);
                         break;
                     case R.id.ActionIndexBodyWeight:
-                        Intent indexBodyIntent = new Intent(MainActivity.this, ActivityOtherCalculators.class);
-                        indexBodyIntent.setAction(ActivityOtherCalculators.ACTION_INDEX_BODY);
-                        startActivityForResult(indexBodyIntent, Constants.SHOW_ACTIVITY_OTHER_CALCULATORS);
+//                        Intent indexBodyIntent = new Intent(MainActivity.this, ActivityOtherCalculators.class);
+//                        indexBodyIntent.setAction(ActivityOtherCalculators.ACTION_INDEX_BODY);
+//                        startActivityForResult(indexBodyIntent, Constants.SHOW_ACTIVITY_OTHER_CALCULATORS);
                         break;
                     case R.id.ActionDayNeedCalories:
-                        Intent needCaloriesIntent = new Intent(MainActivity.this, ActivityOtherCalculators.class);
-                        needCaloriesIntent.setAction(ActivityOtherCalculators.ACTION_NEED_CALORIES);
-                        startActivity(needCaloriesIntent);
+//                        Intent needCaloriesIntent = new Intent(MainActivity.this, ActivityOtherCalculators.class);
+//                        needCaloriesIntent.setAction(ActivityOtherCalculators.ACTION_NEED_CALORIES);
+//                        startActivity(needCaloriesIntent);
                         //startActivityForResult(needCaloriesIntent, Constants.SHOW_ACTIVITY_OTHER_CALCULATORS);
-                        break;
-                    case R.id.ActionCalculateFood:
-                        Intent foodCaloriesCounter = new Intent(MainActivity.this, ActivityCalculateFood.class);
-                        startActivityForResult(foodCaloriesCounter, Constants.SHOW_ACTIVITY_CALCULATE_FOOD);
                         break;
                     case R.id.actionSettingsItem:
                         //добавим совместимость со старыми версиями платформы.
@@ -177,8 +145,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         Log.d("MY_DB_LOGS", "OnDestroyMainActivity");
         //Закрываю базу при закрытии всего приложения.
         DB.close();
-        BusProvider.getInstance().unregister(StepCounterFragment.class);
-        unRegisterSensors();
     }
 
 
@@ -194,13 +160,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             updateFromPreferences();
         }*/
 
-        //TODO : сделать такой if во всех Активити.
-        if (requestCode == Constants.SHOW_ACTIVITY_OTHER_CALCULATORS){
-            //Удаляю значение настройки текущего действия, которое используется в ActivityOtherCalculators.
-            SharedPreferences.Editor editor = sp.edit();
-            editor.remove(ActivityOtherCalculators.CURRENT_ACTION);
-            editor.apply();
-        }
+//        //TODO : сделать такой if во всех Активити.
+//        if (requestCode == Constants.SHOW_ACTIVITY_OTHER_CALCULATORS){
+//            //Удаляю значение настройки текущего действия, которое используется в ActivityOtherCalculators.
+//            SharedPreferences.Editor editor = sp.edit();
+//            editor.remove(ActivityOtherCalculators.CURRENT_ACTION_STRING);
+//            editor.apply();
+//        }
 
     }
 
@@ -212,28 +178,4 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         ThemeSettings.setUpdatedTheme(this, sp);
     }
 
-
-    //------------------------------------------------//
-
-    //Реализация интерфейса SensorEventListener.
-    @Override
-    public void onSensorChanged(SensorEvent event) {
-        Sensor sensor = event.sensor;
-        float[] values = event.values;
-        int value = -1;
-
-        if (values.length > 0) {
-            value = (int) values[0];
-
-            if (sensor.getType() == Sensor.TYPE_STEP_COUNTER) {
-                //Отправляю значение через EventBus.
-                BusProvider.getInstance().post(new StepDetectEvent(value));
-            }
-        }
-    }
-
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-
-    }
 }

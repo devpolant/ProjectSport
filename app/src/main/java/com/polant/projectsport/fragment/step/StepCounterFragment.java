@@ -1,9 +1,8 @@
 package com.polant.projectsport.fragment.step;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
@@ -20,9 +19,8 @@ import android.widget.Toast;
 
 import com.github.glomadrian.dashedcircularprogress.DashedCircularProgress;
 import com.polant.projectsport.R;
-import com.polant.projectsport.eventbus.StepDetectEvent;
+import com.polant.projectsport.activity.ActivityOtherCalculators;
 import com.polant.projectsport.preferences.PreferencesNewActivity;
-import com.squareup.otto.Subscribe;
 
 import java.util.Formatter;
 
@@ -31,13 +29,30 @@ import java.util.Formatter;
  */
 public class StepCounterFragment extends Fragment{
 
+    public interface StepCounterManagerListener{
+        void registerCounter();
+        void unregisterCounter();
+    }
+
+
     private static final int LAYOUT = R.layout.fragment_step_counter;
+
+    Activity activity;
 
     private View view;
     private DashedCircularProgress circularProgress;
+
     //Значения ProgressView.
     private int progressValue;
     private int maxProgressValue;
+
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        this.activity = activity;
+    }
 
     @Nullable
     @Override
@@ -116,18 +131,21 @@ public class StepCounterFragment extends Fragment{
         startBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ((ActivityOtherCalculators)activity).registerCounter();
             }
         });
         Button stopBt = (Button) view.findViewById(R.id.buttonStopStepCounter);
         stopBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ((ActivityOtherCalculators)activity).unregisterCounter();
             }
         });
         Button resetBt = (Button) view.findViewById(R.id.buttonResetStepCounter);
         resetBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //TODO : сделать сброс счетчика шагов.
             }
         });
     }
@@ -189,36 +207,9 @@ public class StepCounterFragment extends Fragment{
     }
 
 
-    //Использование EventBus.
-    @Subscribe
-    public void onStepDetected(StepDetectEvent event){
-        progressValue = event.getValue();
+    //Этот метод использует Активити для передачи данных во фрагмент.
+    public void stepDetected(int value){
+        progressValue = value;
         updateProgress(maxProgressValue);
     }
-
-
-    //-------------------------------------------------------------------//
-
-//    //Далее реализация интерфейса SensorEventListener.
-//    @Override
-//    public void onSensorChanged(SensorEvent event) {
-//        Sensor sensor = event.sensor;
-//        float[] values = event.values;
-//        int value = -1;
-//
-//        if (values.length > 0) {
-//            value = (int) values[0];
-//
-//            if (sensor.getType() == Sensor.TYPE_STEP_COUNTER) {
-//                //Обновляю значение.
-//                circularProgress.setValue(value);
-//            } else if (sensor.getType() == Sensor.TYPE_STEP_DETECTOR) {
-//            }
-//        }
-//    }
-//
-//    @Override
-//    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-//
-//    }
 }
