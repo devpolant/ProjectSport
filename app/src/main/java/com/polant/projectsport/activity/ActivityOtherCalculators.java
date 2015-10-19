@@ -56,6 +56,14 @@ public class ActivityOtherCalculators extends AppCompatActivity implements Senso
     private SensorManager sensorManager;
     private Sensor stepCounterSensor;
     private Sensor stepDetectorSensor;
+    //Текущее значение шагомера.
+    private int currentStepValue;
+    private int resetStepValue;
+    //Специальная переменная, которая служит лишь при первом собитии датчика шагомера.
+    //Ее цель - проверить, не равно ли значениее кол-ва шагов 0.
+    //Если оно равно, то обнуляю SharedPreferences.
+    private int testStepSensorValue;
+
 
     private StepCounterFragment stepCounterFragment;
 
@@ -82,6 +90,12 @@ public class ActivityOtherCalculators extends AppCompatActivity implements Senso
         initSharedPreferences();
         //Выбираю необходимый фрагмент, в зависимости от (вызывающего Активити) действия Action.
         replaceFragment(savedInstanceState);
+
+        //Тестовая переменная.
+        testStepSensorValue = 0;
+        //Текущие значения шагомера.
+        currentStepValue = prefs.getInt(PreferencesNewActivity.PREF_CURRENT_STEP_COUNT, 0);
+        resetStepValue = prefs.getInt(PreferencesNewActivity.PREF_RESET_STEP_COUNT, 0);
     }
 
     //Замена фрагмента, используется в onCreate() и для транзакций в navigationView.
@@ -267,6 +281,8 @@ public class ActivityOtherCalculators extends AppCompatActivity implements Senso
         Log.d("MY_LOGS", "Destroy ActivityOtherCalculators");
         deleteCurrentAction();
         DB.close();
+        //Сохраняю значение шагомера.
+        setStepCount(currentStepValue);
         unRegisterSensors();
     }
 
@@ -297,6 +313,25 @@ public class ActivityOtherCalculators extends AppCompatActivity implements Senso
     }
 
 
+    //Вызывается в onDestroy() данной Активити.
+    @Override
+    public void setStepCount(int stepCount) {
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putInt(PreferencesNewActivity.PREF_CURRENT_STEP_COUNT, stepCount);
+        editor.apply();
+        currentStepValue = 0;
+    }
+
+    //Вызывается обработчиком кнопки reset фрагмента StepCounterFragment.
+    @Override
+    public void setBeforeResetCount(int resetCount) {
+        resetStepValue += resetCount;
+
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putInt(PreferencesNewActivity.PREF_RESET_STEP_COUNT, resetStepValue);
+        editor.apply();
+    }
+
     //---------------Настройки---------------------//
     //Применение настроек приложения.
     private void updateFromPreferences(){
@@ -318,6 +353,7 @@ public class ActivityOtherCalculators extends AppCompatActivity implements Senso
     public void unregisterCounter() {
         unRegisterSensors();
     }
+
 
     //Инициализирую сенсоры, которые использую для подсчета шагов.
     private void initSensors(){
@@ -343,8 +379,27 @@ public class ActivityOtherCalculators extends AppCompatActivity implements Senso
         if (values.length > 0) {
             value = (int) values[0];
             if (sensor.getType() == Sensor.TYPE_STEP_COUNTER) {
+
+                if (testStepSensorValue == 0){
+                    if (value == 0){
+                        SharedPreferences.Editor editor = prefs.edit();
+                        editor.putInt(PreferencesNewActivity.PREF_CURRENT_STEP_COUNT, 0);
+                        editor.putInt(PreferencesNewActivity.PREF_RESET_STEP_COUNT, 0);
+                        editor.apply();
+
+                        currentStepValue = 0;
+                        resetStepValue = 0;
+
+                        //И инкрементирую переменную, чтобы данная проверка проходила лишь 1 раз
+                        //при создании Активити.
+                        testStepSensorValue++;
+                    }
+                }
+                //
+                currentStepValue = value - resetStepValue;
+
                 if (stepCounterFragment != null) {
-                    stepCounterFragment.stepDetected(value);
+                    stepCounterFragment.stepDetected(currentStepValue);
                 }
             }
         }

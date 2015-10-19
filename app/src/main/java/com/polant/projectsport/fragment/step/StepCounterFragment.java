@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
@@ -29,9 +30,12 @@ import java.util.Formatter;
  */
 public class StepCounterFragment extends Fragment{
 
+    //Интерфейс, который реализует Активити, которая использует фрагмент.
     public interface StepCounterManagerListener{
         void registerCounter();
         void unregisterCounter();
+        void setStepCount(int stepCount);//Для установления текушего значения, которое должно отобрадаться на экране.
+        void setBeforeResetCount(int resetCount);//Для установления количества сброшенный шагов.
     }
 
 
@@ -46,6 +50,7 @@ public class StepCounterFragment extends Fragment{
     private int progressValue;
     private int maxProgressValue;
 
+    private static final float STEP_CALORIES_KOEFF = 0.07f;
 
     @Override
     public void onAttach(Activity activity) {
@@ -68,6 +73,7 @@ public class StepCounterFragment extends Fragment{
         initProgressView();
         initButtons();
         updateProgress(getMaxProgressValue());
+        Snackbar.make(view, R.string.hint_start_step_counter, Snackbar.LENGTH_LONG).show();
     }
 
     //Получаю из SharedPreferences.
@@ -78,7 +84,10 @@ public class StepCounterFragment extends Fragment{
 
     private void initProgressView(){
         circularProgress = (DashedCircularProgress) view.findViewById(R.id.progressSteps);
-        progressValue = 0;
+
+        //В этих строках получаю текущее значение шагов.
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
+        progressValue = sp.getInt(PreferencesNewActivity.PREF_CURRENT_STEP_COUNT, 0);
 
         //Устанавливает значение, а не проценты.
         circularProgress.setValue(progressValue);
@@ -88,11 +97,7 @@ public class StepCounterFragment extends Fragment{
     //или в onCreate().
     private void updateProgress(int max){
         maxProgressValue = max;
-        //Устанавливаает значение, а не проценты.
         circularProgress.setMax(max);
-        //этот метод не вызывает видимых изменений.
-        //circularProgress.refreshDrawableState();
-
         //При обновлении установить значение заново!
         circularProgress.setValue(progressValue);
 
@@ -113,9 +118,15 @@ public class StepCounterFragment extends Fragment{
         //Текущее значение (в шагах, а не а процентах).
         TextView currentValue = (TextView) view.findViewById(R.id.textViewStepCounterCurrentValue);
         currentValue.setText(String.valueOf(progressValue));
+
+        //Устанавливаю количество сброшенных из-за ходьбы калорий.
+        TextView deltaCalories = (TextView) view.findViewById(R.id.textViewDeltaCaloriesStepCounter);
+        String deltaText = "- " + String.valueOf((int) (progressValue * STEP_CALORIES_KOEFF)) +
+                                    getString(R.string.text_ccal);
+        deltaCalories.setText(deltaText);
     }
 
-    //Инициализация ВСЕХ кнопок фрагмента.
+    //Инициализация ВСЕХ кнопок (цель и start, stop, reset) фрагмента.
     private void initButtons(){
         //Кнопка выбора цели количества шагов.
         Button targetBt = (Button) view.findViewById(R.id.buttonSetStepCounterTarget);
@@ -138,14 +149,16 @@ public class StepCounterFragment extends Fragment{
         stopBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((ActivityOtherCalculators)activity).unregisterCounter();
+                ((ActivityOtherCalculators) activity).unregisterCounter();
             }
         });
         Button resetBt = (Button) view.findViewById(R.id.buttonResetStepCounter);
         resetBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO : сделать сброс счетчика шагов.
+                if (progressValue != 0) {
+                    buildAlertReset();
+                }
             }
         });
     }
@@ -211,5 +224,43 @@ public class StepCounterFragment extends Fragment{
     public void stepDetected(int value){
         progressValue = value;
         updateProgress(maxProgressValue);
+    }
+
+    //Тело обработчика нажатия на положительную кнопку reset buildAlertReset-диалога.
+    private void resetBtClick(){
+        ((ActivityOtherCalculators) activity).setBeforeResetCount(progressValue);
+        progressValue = 0;
+        ((ActivityOtherCalculators) activity).setStepCount(progressValue);
+        updateProgress(maxProgressValue);
+    }
+
+    //Диалог подтверждения сброса шагомера.
+    private void buildAlertReset() {
+
+        //Построение диалога, в котором пользователь введет количество съеденной еды.
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+        builder.setTitle(R.string.alertResetTitle)
+                .setMessage(R.string.alertResetMessage)
+                .setCancelable(true)
+                .setPositiveButton(getString(R.string.alertResetPositiveBt), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        resetBtClick();
+                    }
+                })
+                .setNegativeButton(getString(R.string.alertResetNegativeBt), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                })
+                .setOnCancelListener(new DialogInterface.OnCancelListener() {
+                    @Override
+                    public void onCancel(DialogInterface dialog) {
+                    }
+                });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }

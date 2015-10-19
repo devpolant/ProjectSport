@@ -16,7 +16,10 @@ public class PreferencesNewActivity extends PreferenceActivity {
 
     public static final String PREF_APP_THEME = "PREF_APP_THEME";
     public static final String PREF_AUTO_UPDATE = "PREF_AUTO_UPDATE";
+
     public static final String PREF_TARGET_STEP_COUNT = "PREF_TARGET_STEP_COUNT";
+    public static final String PREF_CURRENT_STEP_COUNT = "PREF_CURRENT_STEP_COUNT";
+    public static final String PREF_RESET_STEP_COUNT = "PREF_RESET_STEP_COUNT";
 
 
     private ArrayList<String> fragmentsNames = new ArrayList<>();

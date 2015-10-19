@@ -3,7 +3,8 @@
     xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/rootStepCounterLayout">
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -32,10 +33,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         custom:external_color="#000000"
-        custom:base_color="#26ED31"
+        custom:base_color="#FF4F00"
         custom:min="0"
         custom:max="1000"
-        custom:progress_color="#FF4F00"
+        custom:progress_color="#26ED31"
         android:layout_weight="2"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
@@ -92,7 +93,7 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="3.9">
+        android:layout_weight="4">
 
         <TextView
             android:layout_width="match_parent"
@@ -138,7 +139,8 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="4">
+        android:layout_weight="4"
+        android:layout_marginBottom="10dp">
 
         <Button
             style="?android:attr/buttonStyleSmall"

@@ -152,4 +152,9 @@
     <string name="alertTargetStepCountPositiveBt">Подтвердить</string>
     <string name="alertTargetStepCountNegativeBt">Отмена</string>
     <string name="toast_err_target_step_count">Введите количество шагов</string>
+    <string name="hint_start_step_counter">Нажмите \"Старт\", чтобы включить шагомер</string>
+    <string name="alertResetTitle">Сброс шагомера</string>
+    <string name="alertResetMessage">Вы уверены, что хотите сбросить значение шагомера?</string>
+    <string name="alertResetPositiveBt">Да</string>
+    <string name="alertResetNegativeBt">Отмена</string>
 </resources>
