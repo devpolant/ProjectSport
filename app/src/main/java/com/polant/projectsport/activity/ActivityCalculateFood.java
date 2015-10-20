@@ -206,23 +206,31 @@ public class ActivityCalculateFood extends AppCompatActivity
                         EditText aText = (EditText) alertView.findViewById(R.id.editTextAlertUserAge);
                         RadioGroup group = (RadioGroup) alertView.findViewById(R.id.radioSexGroup);
 
-                        int idSelectedSex = group.getCheckedRadioButtonId();
-                        RadioButton radioBtSex = (RadioButton) alertView.findViewById(idSelectedSex);
+                        if (!TextUtils.isEmpty(wText.getText().toString()) &&
+                                !TextUtils.isEmpty(hText.getText().toString()) &&
+                                !TextUtils.isEmpty(aText.getText().toString())) {
 
-                        String userSex = radioBtSex.getText().toString();
-                        String userWeight = wText.getText().toString();
-                        String userHeight = hText.getText().toString();
-                        String userAge = aText.getText().toString();
+                            int idSelectedSex = group.getCheckedRadioButtonId();
+                            RadioButton radioBtSex = (RadioButton) alertView.findViewById(idSelectedSex);
 
-                        UserParametersInfo user = DB.getUserParametersInfo();
-                        user.setSex(userSex);
-                        user.setAge(Integer.valueOf(userAge));
-                        user.setWeight(Float.valueOf(userWeight));
-                        user.setHeight(Float.valueOf(userHeight));
-                        DB.updateUserParametersInfo(user);
+                            String userSex = radioBtSex.getText().toString();
+                            String userWeight = wText.getText().toString();
+                            String userHeight = hText.getText().toString();
+                            String userAge = aText.getText().toString();
 
-                        //А здесь уже заполняю все нужные TextView.
-                        initInfoWHS(user);
+                            UserParametersInfo user = DB.getUserParametersInfo();
+                            user.setSex(userSex);
+                            user.setAge(Integer.valueOf(userAge));
+                            user.setWeight(Float.valueOf(userWeight));
+                            user.setHeight(Float.valueOf(userHeight));
+                            DB.updateUserParametersInfo(user);
+
+                            //А здесь уже заполняю все нужные TextView.
+                            initInfoWHS(user);
+                        } else {
+                            Toast.makeText(ActivityCalculateFood.this, getString(R.string.toastMistakeUserInfo), Toast.LENGTH_SHORT)
+                                    .show();
+                        }
                     }
                 })
                 .setNegativeButton(getString(R.string.alertChangeUserInfoButtonNegative), new DialogInterface.OnClickListener() {

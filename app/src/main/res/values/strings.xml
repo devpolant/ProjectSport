@@ -157,4 +157,5 @@
     <string name="alertResetMessage">Вы уверены, что хотите сбросить значение шагомера?</string>
     <string name="alertResetPositiveBt">Да</string>
     <string name="alertResetNegativeBt">Отмена</string>
+    <string name="toastMistakeUserInfo">Введите параметры веса, роста и возраста!</string>
 </resources>

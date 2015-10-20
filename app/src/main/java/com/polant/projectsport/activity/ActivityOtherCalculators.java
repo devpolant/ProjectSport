@@ -332,6 +332,12 @@ public class ActivityOtherCalculators extends AppCompatActivity implements Senso
         editor.apply();
     }
 
+    //Получение текущего состояния кол-ва шагов.
+    public int getStepCountValue(){
+        return currentStepValue;
+    }
+
+
     //---------------Настройки---------------------//
     //Применение настроек приложения.
     private void updateFromPreferences(){

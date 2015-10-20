@@ -73,7 +73,7 @@ public class StepCounterFragment extends Fragment{
         initProgressView();
         initButtons();
         updateProgress(getMaxProgressValue());
-        Snackbar.make(view, R.string.hint_start_step_counter, Snackbar.LENGTH_LONG).show();
+        //Snackbar.make(view, R.string.hint_start_step_counter, Snackbar.LENGTH_SHORT).show();
     }
 
     //Получаю из SharedPreferences.
@@ -85,9 +85,8 @@ public class StepCounterFragment extends Fragment{
     private void initProgressView(){
         circularProgress = (DashedCircularProgress) view.findViewById(R.id.progressSteps);
 
-        //В этих строках получаю текущее значение шагов.
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
-        progressValue = sp.getInt(PreferencesNewActivity.PREF_CURRENT_STEP_COUNT, 0);
+        //В этой строке получаю текущее значение шагов.
+        progressValue = ((ActivityOtherCalculators) activity).getStepCountValue();
 
         //Устанавливает значение, а не проценты.
         circularProgress.setValue(progressValue);
