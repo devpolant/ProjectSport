@@ -279,13 +279,28 @@ public class ActivityOtherCalculators extends AppCompatActivity implements Senso
     protected void onDestroy() {
         super.onDestroy();
         Log.d("MY_LOGS", "Destroy ActivityOtherCalculators");
-        deleteCurrentAction();
         DB.close();
+        Log.d("MY_LOGS", "DB.close() ActivityOtherCalculators");
+        unRegisterSensors();
+        Log.d("MY_LOGS", "unRegisterSensors() ActivityOtherCalculators");
         //Сохраняю значение шагомера.
         setStepCount(currentStepValue);
-        unRegisterSensors();
+        Log.d("MY_LOGS", "setStepCount() ActivityOtherCalculators");
+        deleteCurrentAction();
+        Log.d("MY_LOGS", "deleteCurrentAction() ActivityOtherCalculators");
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d("MY_LOGS", "Stop ActivityOtherCalculators");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d("MY_LOGS", "Pause ActivityOtherCalculators");
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -319,7 +334,13 @@ public class ActivityOtherCalculators extends AppCompatActivity implements Senso
         SharedPreferences.Editor editor = prefs.edit();
         editor.putInt(PreferencesNewActivity.PREF_CURRENT_STEP_COUNT, stepCount);
         editor.apply();
-        currentStepValue = 0;
+
+//        //Присваиваю 0, так как данный метод вызывается только для сброса шагомера.
+//        //параметр со значением 0 я передаю в editor.
+//        currentStepValue = 0;
+
+        //Или правильнее сделать так:
+        currentStepValue = stepCount;
     }
 
     //Вызывается обработчиком кнопки reset фрагмента StepCounterFragment.
@@ -372,8 +393,12 @@ public class ActivityOtherCalculators extends AppCompatActivity implements Senso
     }
 
     private void unRegisterSensors(){
-        sensorManager.unregisterListener(this, stepCounterSensor);
-        sensorManager.unregisterListener(this, stepDetectorSensor);
+        //Если пользователь нажал стоп, до того как нажал старт возникает NullPointerException.
+        try {
+            sensorManager.unregisterListener(this, stepCounterSensor);
+            sensorManager.unregisterListener(this, stepDetectorSensor);
+        }
+        catch (NullPointerException ex) { }
     }
 
     @Override
