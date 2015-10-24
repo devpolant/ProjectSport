@@ -5,4 +5,9 @@
         android:title="Настройки"
         android:summary="Настройки приложения"
         />
+    <header
+        android:fragment="com.polant.projectsport.preferences.UserParametersInfoFragment"
+        android:title="Личные параметры"
+        android:summary="Физические параметры пользователя"
+        />
 </preference-headers>

@@ -69,8 +69,6 @@ public class ArticleInfoActivity extends AppCompatActivity {
 
     private void initToolbar() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-
-        //toolbar.setTitle(R.string.app_name);
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -130,5 +128,8 @@ public class ArticleInfoActivity extends AppCompatActivity {
     private void updateFromPreferences(SharedPreferences sp){
         //ѕримен€ю тему.
         ThemeSettings.setUpdatedTheme(this, sp);
+
+        //ќбновл€ю информаци€ о пользователе.
+        DB.updateUserParametersInfo(sp);
     }
 }

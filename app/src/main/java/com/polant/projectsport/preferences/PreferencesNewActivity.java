@@ -15,7 +15,12 @@ public class PreferencesNewActivity extends PreferenceActivity {
     public static final int SHOW_PREFERENCES = 1;
 
     public static final String PREF_APP_THEME = "PREF_APP_THEME";
-    public static final String PREF_AUTO_UPDATE = "PREF_AUTO_UPDATE";
+    //public static final String PREF_AUTO_UPDATE = "PREF_AUTO_UPDATE";
+    public static final String PREF_USER_NAME = "PREF_USER_NAME";
+    public static final String PREF_USER_SEX = "PREF_USER_SEX";
+    public static final String PREF_USER_WEIGHT = "PREF_USER_WEIGHT";
+    public static final String PREF_USER_HEIGHT = "PREF_USER_HEIGHT";
+    public static final String PREF_USER_AGE = "PREF_USER_AGE";
 
     public static final String PREF_TARGET_STEP_COUNT = "PREF_TARGET_STEP_COUNT";
     public static final String PREF_CURRENT_STEP_COUNT = "PREF_CURRENT_STEP_COUNT";

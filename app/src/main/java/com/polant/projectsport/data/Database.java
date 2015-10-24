@@ -1,16 +1,20 @@
 package com.polant.projectsport.data;
 
 
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.polant.projectsport.R;
 import com.polant.projectsport.data.model.Article;
 import com.polant.projectsport.data.model.SpecificFood;
 import com.polant.projectsport.data.model.UserParametersInfo;
+import com.polant.projectsport.preferences.PreferencesNewActivity;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -172,11 +176,22 @@ public class Database {
         cv.put(USER_HEIGHT, user.getHeight());
         cv.put(USER_SEX, user.getSex());
         cv.put(USER_AGE, user.getAge());
+        cv.put(USER_NAME, user.getName());
 
         String where = USER_NAME + "=?";
-        String[] whereArgs = new String[] { user.getName() };
+        String[] whereArgs = new String[] { getUserParametersInfo().getName() };
 
         sqLiteDatabase.update(TABLE_USER, cv, where, whereArgs);
+    }
+
+    public void updateUserParametersInfo(SharedPreferences sp) {
+        UserParametersInfo user = new UserParametersInfo();
+        user.setSex(sp.getString(PreferencesNewActivity.PREF_USER_SEX, ((Activity) context).getString(R.string.text_your_sex_M)));
+        user.setName(sp.getString(PreferencesNewActivity.PREF_USER_NAME, "Antony"));
+        user.setAge(Integer.valueOf(sp.getString(PreferencesNewActivity.PREF_USER_AGE, "20")));
+        user.setWeight(Float.valueOf(sp.getString(PreferencesNewActivity.PREF_USER_WEIGHT, "75")));
+        user.setHeight(Float.valueOf(sp.getString(PreferencesNewActivity.PREF_USER_HEIGHT, "185")));
+        updateUserParametersInfo(user);
     }
 
 
@@ -235,7 +250,7 @@ public class Database {
 
         private static final String LOG = SportOpenHelper.class.getName();
 
-        private static final int DATABASE_VERSION = 26;
+        private static final int DATABASE_VERSION = 27;
 
         private static final String DATABASE_NAME = "sport.db";
 

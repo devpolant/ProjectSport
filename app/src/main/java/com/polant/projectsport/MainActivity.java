@@ -152,18 +152,15 @@ public class MainActivity extends AppCompatActivity{
         //любой другой Активити - и тогда requestCode не будет равен PreferencesNewActivity.SHOW_PREFERENCES;
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         updateFromPreferences(sp);
-        /*if (requestCode == PreferencesNewActivity.SHOW_PREFERENCES){
-            updateFromPreferences();
-        }*/
-
     }
 
     //Применение настроек приложения.
     private void updateFromPreferences(SharedPreferences sp){
-        //TODO: сделать обработчик применения выбранных настроек.
-
         //Применяю тему.
         ThemeSettings.setUpdatedTheme(this, sp);
+
+        //Обновляю информация о пользователе.
+        DB.updateUserParametersInfo(sp);
     }
 
 }

@@ -2,17 +2,6 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory
-        android:title="Обновления">
-
-        <CheckBoxPreference
-            android:key="PREF_AUTO_UPDATE"
-            android:title="Автоматическое обновление"
-            android:summary="Выберите для автоматического обновления"
-            android:defaultValue="false"
-            />
-    </PreferenceCategory>
-
-    <PreferenceCategory
         android:title="Цвет">
 
         <ListPreference

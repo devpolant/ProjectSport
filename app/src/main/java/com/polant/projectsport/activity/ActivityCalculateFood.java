@@ -400,10 +400,11 @@ public class ActivityCalculateFood extends AppCompatActivity
     //---------------Настройки---------------------//
     //Применение настроек приложения.
     private void updateFromPreferences(){
-        //TODO: сделать обработчик применения выбранных настроек.
-
         //Применяю тему.
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         ThemeSettings.setUpdatedTheme(this, sp);
+
+        //Обновляю информация о пользователе.
+        DB.updateUserParametersInfo(sp);
     }
 }

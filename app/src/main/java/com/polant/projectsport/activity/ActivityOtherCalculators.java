@@ -24,6 +24,7 @@ import com.polant.projectsport.MainActivity;
 import com.polant.projectsport.R;
 import com.polant.projectsport.ThemeSettings;
 import com.polant.projectsport.data.Database;
+import com.polant.projectsport.data.model.UserParametersInfo;
 import com.polant.projectsport.data.parse.ParserTXT;
 import com.polant.projectsport.fragment.calculator.IndexBodyFragment;
 import com.polant.projectsport.fragment.calculator.NeedCaloriesFragment;
@@ -341,12 +342,7 @@ public class ActivityOtherCalculators extends AppCompatActivity implements Senso
         SharedPreferences.Editor editor = prefs.edit();
         editor.putInt(PreferencesNewActivity.PREF_CURRENT_STEP_COUNT, stepCount);
         editor.apply();
-
-//        //Присваиваю 0, так как данный метод вызывается только для сброса шагомера.
-//        //параметр со значением 0 я передаю в editor.
-//        currentStepValue = 0;
-
-        //Или правильнее сделать так:
+        //Или правильнее сделать так: (раньше устанавливал в 0)
         currentStepValue = stepCount;
     }
 
@@ -369,10 +365,12 @@ public class ActivityOtherCalculators extends AppCompatActivity implements Senso
     //---------------Настройки---------------------//
     //Применение настроек приложения.
     private void updateFromPreferences(){
-        //TODO: сделать обработчик применения выбранных настроек.
         //Применяю тему.
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         ThemeSettings.setUpdatedTheme(this, sp);
+
+        //Обновляю информация о пользователе.
+        DB.updateUserParametersInfo(sp);
     }
 
 
