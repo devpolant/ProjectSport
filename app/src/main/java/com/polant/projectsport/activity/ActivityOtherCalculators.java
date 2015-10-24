@@ -24,6 +24,7 @@ import com.polant.projectsport.MainActivity;
 import com.polant.projectsport.R;
 import com.polant.projectsport.ThemeSettings;
 import com.polant.projectsport.data.Database;
+import com.polant.projectsport.data.parse.ParserTXT;
 import com.polant.projectsport.fragment.calculator.IndexBodyFragment;
 import com.polant.projectsport.fragment.calculator.NeedCaloriesFragment;
 import com.polant.projectsport.fragment.step.StepCounterFragment;
@@ -37,6 +38,9 @@ public class ActivityOtherCalculators extends AppCompatActivity implements Senso
 
     public static final int DBVersion = Database.getDatabaseVersion();
     public static final String DB_VERSION_KEY = "DB_VERSION_KEY";
+    public static final String DB_ARTICLES_VERSION_KEY = "DB_ARTICLES_VERSION_KEY";
+    public static final String DB_FOOD_VERSION_KEY = "DB_FOOD_VERSION_KEY";
+
 
     private DrawerLayout drawerLayout;
     private Toolbar toolbar;
@@ -100,6 +104,7 @@ public class ActivityOtherCalculators extends AppCompatActivity implements Senso
         currentStepValue = prefs.getInt(PreferencesNewActivity.PREF_CURRENT_STEP_COUNT, 0);
         resetStepValue = prefs.getInt(PreferencesNewActivity.PREF_RESET_STEP_COUNT, 0);
     }
+
 
     //Замена фрагмента, используется в onCreate() и для транзакций в navigationView.
     private void replaceFragment(Bundle savedInstanceState){

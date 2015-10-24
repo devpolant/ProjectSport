@@ -235,7 +235,7 @@ public class Database {
 
         private static final String LOG = SportOpenHelper.class.getName();
 
-        private static final int DATABASE_VERSION = 25;
+        private static final int DATABASE_VERSION = 26;
 
         private static final String DATABASE_NAME = "sport.db";
 

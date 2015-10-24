@@ -73,9 +73,9 @@ public class CalculateFoodFragment extends ListFragment implements LoaderManager
         Context context = getActivity().getApplicationContext();
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
 
-        if (preferences.getInt(ActivityOtherCalculators.DB_VERSION_KEY, -1) != ActivityOtherCalculators.DBVersion) {
+        if (preferences.getInt(ActivityOtherCalculators.DB_FOOD_VERSION_KEY, -1) != ActivityOtherCalculators.DBVersion) {
             SharedPreferences.Editor editor = preferences.edit();
-            editor.putInt(ActivityOtherCalculators.DB_VERSION_KEY, ActivityOtherCalculators.DBVersion);
+            editor.putInt(ActivityOtherCalculators.DB_FOOD_VERSION_KEY, ActivityOtherCalculators.DBVersion);
             editor.apply();
 
             ParserTXT parserTXT = new ParserTXT(DB);
