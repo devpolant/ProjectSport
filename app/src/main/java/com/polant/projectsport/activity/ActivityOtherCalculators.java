@@ -37,7 +37,6 @@ public class ActivityOtherCalculators extends AppCompatActivity implements Senso
     private static final int LAYOUT = R.layout.activity_calculators;
 
     public static final int DBVersion = Database.getDatabaseVersion();
-    public static final String DB_VERSION_KEY = "DB_VERSION_KEY";
     public static final String DB_ARTICLES_VERSION_KEY = "DB_ARTICLES_VERSION_KEY";
     public static final String DB_FOOD_VERSION_KEY = "DB_FOOD_VERSION_KEY";
 
