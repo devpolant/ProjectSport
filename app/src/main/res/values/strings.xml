@@ -158,4 +158,9 @@
     <string name="alertResetPositiveBt">Да</string>
     <string name="alertResetNegativeBt">Отмена</string>
     <string name="toastMistakeUserInfo">Введите параметры веса, роста и возраста!</string>
+
+
+    <string name="tab_sport_article">Спорт</string>
+    <string name="tab_food_article">Питание</string>
+    <string name="tab_fitness_article">Фитнес</string>
 </resources>

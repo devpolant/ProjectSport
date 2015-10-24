@@ -28,9 +28,6 @@ public class MainActivity extends AppCompatActivity{
 
     private static final int LAYOUT = R.layout.activity_main;
 
-    public static final int DBVersion = Database.getDatabaseVersion();
-    public static final String DB_VERSION_KEY = "DB_VERSION_KEY";
-
 
     private DrawerLayout drawerLayout;
     private Toolbar toolbar;
@@ -126,7 +123,7 @@ public class MainActivity extends AppCompatActivity{
     public void initTabLayout() {
         viewPager = (ViewPager) findViewById(R.id.viewPager);
 
-        TabsPagerFragmentAdapter adapter = new TabsPagerFragmentAdapter(getSupportFragmentManager());
+        TabsPagerFragmentAdapter adapter = new TabsPagerFragmentAdapter(this, getSupportFragmentManager());
         viewPager.setAdapter(adapter);
 
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
@@ -142,7 +139,7 @@ public class MainActivity extends AppCompatActivity{
     protected void onDestroy() {
         super.onDestroy();
         Log.d("MY_DB_LOGS", "OnDestroyMainActivity");
-        //Закрываю базу при закрытии всего приложения.
+        //Закрываю базу.
         DB.close();
     }
 

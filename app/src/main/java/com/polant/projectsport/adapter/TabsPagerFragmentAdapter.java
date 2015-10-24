@@ -1,10 +1,15 @@
 package com.polant.projectsport.adapter;
 
+import android.app.Activity;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.polant.projectsport.R;
+import com.polant.projectsport.data.model.Article;
 import com.polant.projectsport.fragment.ExampleFragment;
+import com.polant.projectsport.fragment.article.ArticleFragment;
 
 /**
  * Created by Антон on 02.10.2015.
@@ -13,29 +18,19 @@ public class TabsPagerFragmentAdapter extends FragmentPagerAdapter {
 
     private String[] tabs;
 
-    public TabsPagerFragmentAdapter(FragmentManager fm) {
+    public TabsPagerFragmentAdapter(Activity activity, FragmentManager fm) {
         super(fm);
-
+        //Получаю Активити в конструкторе только для получения доступа к ресурсам проекта.
         tabs = new String[] {
-                "Спорт",
-                "Питание",
-                "Фитнес"
+                activity.getString(R.string.tab_sport_article),
+                activity.getString(R.string.tab_food_article),
+                activity.getString(R.string.tab_fitness_article)
         };
     }
 
     @Override
     public Fragment getItem(int position) {
-
-        switch (position){
-            case 0:
-                return ExampleFragment.getInstance();
-            case 1:
-                return ExampleFragment.getInstance();
-            case 2:
-                return ExampleFragment.getInstance();
-        }
-
-        return null;
+        return ArticleFragment.getInstance(tabs[position]);
     }
 
     @Override

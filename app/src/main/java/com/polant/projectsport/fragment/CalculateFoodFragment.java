@@ -19,9 +19,9 @@ import android.widget.TextView;
 
 import com.polant.projectsport.MainActivity;
 import com.polant.projectsport.R;
+import com.polant.projectsport.activity.ActivityOtherCalculators;
 import com.polant.projectsport.adapter.AdapterCategoryFood;
 import com.polant.projectsport.data.Database;
-import com.polant.projectsport.data.model.UserParametersInfo;
 import com.polant.projectsport.data.parse.ParserTXT;
 
 /**
@@ -73,13 +73,13 @@ public class CalculateFoodFragment extends ListFragment implements LoaderManager
         Context context = getActivity().getApplicationContext();
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
 
-        if (preferences.getInt(MainActivity.DB_VERSION_KEY, -1) != MainActivity.DBVersion) {
+        if (preferences.getInt(ActivityOtherCalculators.DB_VERSION_KEY, -1) != ActivityOtherCalculators.DBVersion) {
             SharedPreferences.Editor editor = preferences.edit();
-            editor.putInt(MainActivity.DB_VERSION_KEY, MainActivity.DBVersion);
+            editor.putInt(ActivityOtherCalculators.DB_VERSION_KEY, ActivityOtherCalculators.DBVersion);
             editor.apply();
 
             ParserTXT parserTXT = new ParserTXT(DB);
-            parserTXT.parse(getResources().openRawResource(R.raw.calories));
+            parserTXT.parseFood(getResources().openRawResource(R.raw.calories));
             handler.post(new Runnable() {
                 @Override
                 public void run() {

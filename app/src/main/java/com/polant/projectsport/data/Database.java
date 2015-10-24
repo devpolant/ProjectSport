@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.polant.projectsport.data.model.Article;
 import com.polant.projectsport.data.model.SpecificFood;
 import com.polant.projectsport.data.model.UserParametersInfo;
 
@@ -39,6 +40,46 @@ public class Database {
 
     public SQLiteDatabase getSqLiteDatabase(){
         return sqLiteDatabase;
+    }
+
+    //Добавление статьи.
+    public void addArticle(Article article){
+        ContentValues cv = new ContentValues();
+
+        cv.put(ARTICLE_CATEGORY, article.getCategory());
+        cv.put(ARTICLE_TITLE, article.getTitle());
+        cv.put(ARTICLE_TEXT, article.getText());
+        cv.put(ARTICLE_DATE, article.getDate());
+
+        sqLiteDatabase.insert(TABLE_ARTICLE, null, cv);
+    }
+
+    //Используется в CursorLoader loadInBackground() соответствующего фрагмента.
+    public Cursor getArticles(String[] projection, String category){
+        String where = ARTICLE_CATEGORY + "=?";
+        String[] whereArgs = new String[] { category };
+        return sqLiteDatabase.query(TABLE_ARTICLE, projection, where, whereArgs, null, null, null);
+    }
+
+    //Получение отдельной определенной статьи.
+    public Article getArticle(int id){
+        String where = ID_ARTICLE + "=" + id;
+        Cursor c = sqLiteDatabase.query(TABLE_ARTICLE, null, where, null, null, null, null);
+
+        if (c != null){
+            if (c.moveToFirst()) {
+                Article result = new Article();
+                result.setCategory(c.getString(c.getColumnIndex(ARTICLE_CATEGORY)))
+                        .setTitle(c.getString(c.getColumnIndex(ARTICLE_TITLE)))
+                        .setText(c.getString(c.getColumnIndex(ARTICLE_TEXT)))
+                        .setDate(c.getString(c.getColumnIndex(ARTICLE_DATE)));
+
+                c.close();
+                return result;
+            }
+            c.close();
+        }
+        return null;
     }
 
     //Категории пищи. Работает верно.
@@ -150,9 +191,17 @@ public class Database {
     public static final String TABLE_STATISTICS = "STATISTICS_TABLE";
     public static final String TABLE_SPECIFIC_FOOD = "SPECIFIC_FOOD_TABLE";
     public static final String TABLE_FOOD = "FOOD_TABLE";
+    public static final String TABLE_ARTICLE  = "TABLE_ARTICLE";
 
 
     //все столбцы всех таблиц.
+    //ARTICLE
+    public static final String ID_ARTICLE = "_id";
+    public static final String ARTICLE_CATEGORY = "ARTICLE_CATEGORY";
+    public static final String ARTICLE_TITLE = "ARTICLE_TITLE";
+    public static final String ARTICLE_TEXT = "ARTICLE_TEXT";
+    public static final String ARTICLE_DATE = "ARTICLE_DATE";
+
     //USER
     public static final String ID_USER = "ID_USER";
     public static final String USER_NAME = "USER_NAME";
@@ -186,7 +235,7 @@ public class Database {
 
         private static final String LOG = SportOpenHelper.class.getName();
 
-        private static final int DATABASE_VERSION = 18;
+        private static final int DATABASE_VERSION = 25;
 
         private static final String DATABASE_NAME = "sport.db";
 
@@ -222,6 +271,16 @@ public class Database {
                         MONTH + " INTEGER, " +
                         YEAR + " INTEGER);";
 
+        //В данный момент таблица ARTICLE не связана с другими таблицами.
+        private static final String CREATE_TABLE_ARTICLE = "Create table " + TABLE_ARTICLE + " (" +
+                ID_ARTICLE + " integer primary key autoincrement, " +
+                ARTICLE_CATEGORY + " TEXT, " +
+                ARTICLE_TITLE + " TEXT, " +
+                ARTICLE_TEXT + " TEXT, " +
+                ARTICLE_DATE + " TEXT);";
+
+
+
         //конструктор.
         public SportOpenHelper(Context context) {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -231,28 +290,30 @@ public class Database {
         public void onCreate(SQLiteDatabase db) {
             Log.d(LOG, "----- Create database  -----");
 
-            db.execSQL(CREATE_TABLE_USER);
+//            db.execSQL(CREATE_TABLE_USER);
             db.execSQL(CREATE_TABLE_FOOD);
             db.execSQL(CREATE_TABLE_SPECIFIC_FOOD);
-            db.execSQL(CREATE_TABLE_STATISTICS);
+//            db.execSQL(CREATE_TABLE_STATISTICS);
+            db.execSQL(CREATE_TABLE_ARTICLE);
 
-            ContentValues cv = new ContentValues();
-            cv.put(USER_NAME, "Антон");
-            cv.put(USER_HEIGHT, 184);
-            cv.put(USER_WEIGHT, 75);
-            cv.put(USER_AGE, 17);
-            cv.put(USER_SEX, "M");
-            db.insert(TABLE_USER, null, cv);
+//            ContentValues cv = new ContentValues();
+//            cv.put(USER_NAME, "Антон");
+//            cv.put(USER_HEIGHT, 184);
+//            cv.put(USER_WEIGHT, 75);
+//            cv.put(USER_AGE, 17);
+//            cv.put(USER_SEX, "M");
+//            db.insert(TABLE_USER, null, cv);
         }
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             Log.w(LOG, "Update database from " + oldVersion + " to " + newVersion + ", which will destroy all old data");
 
-            db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER + ";");
+//            db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER + ";");
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_FOOD + ";");
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_SPECIFIC_FOOD + ";");
-            db.execSQL("DROP TABLE IF EXISTS " + TABLE_STATISTICS + ";");
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_ARTICLE + ";");
+//            db.execSQL("DROP TABLE IF EXISTS " + TABLE_STATISTICS + ";");
 
             onCreate(db);
         }

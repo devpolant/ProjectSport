@@ -11,4 +11,5 @@ public class Constants {
     public static final int SHOW_ACTIVITY_CALCULATE_FOOD = 4;
     public static final int SHOW_ACTIVITY_OTHER_CALCULATORS = 5;
     public static final int SHOW_ACTIVITY_ARTICLES = 6;
+    public static final int SHOW_ACTIVITY_ARTICLE_INFO = 7;
 }

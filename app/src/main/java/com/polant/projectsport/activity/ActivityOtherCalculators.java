@@ -35,6 +35,9 @@ public class ActivityOtherCalculators extends AppCompatActivity implements Senso
 
     private static final int LAYOUT = R.layout.activity_calculators;
 
+    public static final int DBVersion = Database.getDatabaseVersion();
+    public static final String DB_VERSION_KEY = "DB_VERSION_KEY";
+
     private DrawerLayout drawerLayout;
     private Toolbar toolbar;
 
