@@ -163,4 +163,9 @@
     <string name="tab_sport_article">Спорт</string>
     <string name="tab_food_article">Питание</string>
     <string name="tab_fitness_article">Фитнес</string>
+    <string name="text_your_statistics">Статистика</string>
+
+    <string name="tab_statistics_week">Неделя</string>
+    <string name="tab_statistics_month">Месяц</string>
+
 </resources>

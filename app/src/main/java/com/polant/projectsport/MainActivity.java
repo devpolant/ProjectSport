@@ -17,6 +17,7 @@ import android.view.MenuItem;
 
 import com.polant.projectsport.activity.ActivityOtherCalculators;
 import com.polant.projectsport.adapter.TabsPagerFragmentAdapter;
+import com.polant.projectsport.adapter.TabsStatisticsFragmentAdapter;
 import com.polant.projectsport.data.Database;
 import com.polant.projectsport.preferences.PreferencesNewActivity;
 import com.polant.projectsport.preferences.PreferencesOldActivity;
@@ -44,7 +45,7 @@ public class MainActivity extends AppCompatActivity{
 
         initToolbar();
         initNavigationView();
-        initTabLayout();
+        initTabArticleLayout();
 
         DB = new Database(this);
         DB.open();
@@ -81,7 +82,11 @@ public class MainActivity extends AppCompatActivity{
 
                 switch (item.getItemId()) {
                     case R.id.actionArticleItem:
-                        showNotificationTab();
+                        initTabArticleLayout();
+                        showFoodTab();
+                        break;
+                    case R.id.actionStatisticsItem:
+                        initTabStatisticsLayout();
                         break;
                     case R.id.actionStepCounterItem:
                         Intent stepCounterIntent = new Intent();
@@ -120,10 +125,28 @@ public class MainActivity extends AppCompatActivity{
         });
     }
 
-    public void initTabLayout() {
+    //Статьи.
+    public void initTabArticleLayout() {
         viewPager = (ViewPager) findViewById(R.id.viewPager);
 
-        TabsPagerFragmentAdapter adapter = new TabsPagerFragmentAdapter(this, getSupportFragmentManager());
+        TabsPagerFragmentAdapter adapter = new TabsPagerFragmentAdapter(
+                this,
+                getSupportFragmentManager()
+        );
+        viewPager.setAdapter(adapter);
+
+        tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        tabLayout.setupWithViewPager(viewPager);
+    }
+
+    //Статистика.
+    public void initTabStatisticsLayout() {
+        viewPager = (ViewPager) findViewById(R.id.viewPager);
+
+        TabsStatisticsFragmentAdapter adapter = new TabsStatisticsFragmentAdapter(
+                this,
+                getSupportFragmentManager()
+        );
         viewPager.setAdapter(adapter);
 
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
@@ -131,7 +154,7 @@ public class MainActivity extends AppCompatActivity{
     }
 
     //Открытие таба "Статьи" из NavigationView.
-    private void showNotificationTab() {
+    private void showFoodTab() {
         viewPager.setCurrentItem(Constants.TAB_TWO);
     }
 

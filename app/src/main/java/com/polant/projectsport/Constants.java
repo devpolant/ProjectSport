@@ -12,4 +12,5 @@ public class Constants {
     public static final int SHOW_ACTIVITY_OTHER_CALCULATORS = 5;
     public static final int SHOW_ACTIVITY_ARTICLES = 6;
     public static final int SHOW_ACTIVITY_ARTICLE_INFO = 7;
+    //public static final int SHOW_ACTIVITY_STATISTICS = 8;
 }
