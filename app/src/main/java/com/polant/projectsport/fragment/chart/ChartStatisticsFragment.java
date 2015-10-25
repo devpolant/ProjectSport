@@ -1,6 +1,7 @@
 package com.polant.projectsport.fragment.chart;
 
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,13 +14,13 @@ import com.polant.projectsport.R;
 
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
-import org.achartengine.chart.BarChart;
 import org.achartengine.chart.PointStyle;
 import org.achartengine.model.XYMultipleSeriesDataset;
 import org.achartengine.model.XYSeries;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -66,56 +67,120 @@ public class ChartStatisticsFragment extends Fragment {
 
     //Инициализирую график.
     private void initChart() {
+        //Числовые данные графика.
+        XYMultipleSeriesDataset dataset = initDataSet();
+        //Визуализация.
+        ArrayList<XYSeriesRenderer> renderers = initSeriesRenderers();
+        //Дополнительная настройка визуализации.
+        XYMultipleSeriesRenderer mRenderer = initMultipleSeriesRenderer(renderers);
+        //Здесь инициализирую сам контейнер-лайаут, который бужет содержать график.
+        initChartLayout(dataset, mRenderer);
+    }
+
+    private XYMultipleSeriesDataset initDataSet(){
+        XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
+
         XYSeries series = new XYSeries(getString(R.string.text_your_statistics));
         Random r = new Random();
         for (int i = 0; i < 30; i++) {
             series.add(i, i + r.nextInt(10));
         }
-
-        XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
         dataset.addSeries(series);
 
-        //Визуализация.
+        XYSeries normalLineSeries= new XYSeries(getString(R.string.text_your_normal_ccal));
+        for (int i = 0; i <= 30; i += 15) {
+            normalLineSeries.add(i, 35);
+        }
+        dataset.addSeries(normalLineSeries);
+        return  dataset;
+    }
+
+    //Визуализация.
+    private ArrayList<XYSeriesRenderer> initSeriesRenderers(){
+        ArrayList<XYSeriesRenderer> list = new ArrayList<>();
+        list.add(initSeriesRender("data"));
+        list.add(initSeriesRender("normal_line"));
+        return list;
+    }
+
+
+    private XYSeriesRenderer initSeriesRender(String type) {
+        //Передал параметр type, чтобы создавать разные объекты (линии графика), для
+        //данных о калориях и о их норме.
         XYSeriesRenderer renderer = new XYSeriesRenderer();
-        renderer.setLineWidth(2);
-        if (interval == STATISTICS_WEEK) {
-            renderer.setColor(Color.RED);
+        renderer.setLineWidth(4);
+        if (type.equals("data")){
+            if (interval == STATISTICS_WEEK)
+                renderer.setColor(Color.RED);
+            else
+                renderer.setColor(Color.BLUE);
         }
         else{
-            renderer.setColor(Color.BLUE);
+            renderer.setColor(Color.GREEN);
         }
-        //Include low and max value.
         renderer.setDisplayBoundingPoints(true);
-
-        //Add point markers.
         renderer.setPointStyle(PointStyle.CIRCLE);
-        renderer.setPointStrokeWidth(3);
+        renderer.setPointStrokeWidth(6);
+        return renderer;
+    }
 
+
+
+    private XYMultipleSeriesRenderer initMultipleSeriesRenderer(ArrayList<XYSeriesRenderer> renderers) {
         XYMultipleSeriesRenderer mRenderer = new XYMultipleSeriesRenderer();
-        mRenderer.addSeriesRenderer(renderer);
+        for (XYSeriesRenderer renderer : renderers){
+            mRenderer.addSeriesRenderer(renderer);
+        }
 
-        //We want to avoid black border.
-        mRenderer.setMarginsColor(Color.argb(0x00, 0xff, 0x00, 0x00)); // transparent margins.
-        //Disable Pan on two axis.
-        mRenderer.setPanEnabled(false, false);
-        mRenderer.setYAxisMax(35);
-        mRenderer.setYAxisMin(0);
-        //We show the grid.
+        //Это цвет фона всего, что вокруг графика.
+        mRenderer.setMarginsColor(getResources().getColor(R.color.mainBackground));
+        //Эта строка отвечает за возможность пользователя перетаскивать график по координатной плоскости.
+        mRenderer.setPanEnabled(true, true);
+        mRenderer.setZoomInLimitX(2);
+        mRenderer.setZoomInLimitY(2);
+
+        //Отображаю координатную сетку.
         mRenderer.setShowGrid(true);
+        mRenderer.setGridColor(Color.BLACK);
 
+        //Числовые лейблы на осях координат.
+        mRenderer.setLabelsTextSize(35);
+        mRenderer.setXLabelsColor(Color.BLACK);
+        mRenderer.setYLabelsColor(0, Color.BLACK);
+
+        mRenderer.setAxesColor(Color.BLACK);
+        mRenderer.setYTitle(getString(R.string.text_ccal));
+        mRenderer.setXTitle(getString(R.string.text_days));
+        mRenderer.setYLabelsAlign(Paint.Align.LEFT);
+        mRenderer.setAxisTitleTextSize(40);
+        //Легенда графика - нижняя подпись.
+        mRenderer.setShowLegend(false);
+        //Отступы всего графика.
+        mRenderer.setMargins(new int[]{50, 50, 50, 50});
+        //Промежутки между колонками в диаграмме.
+        mRenderer.setBarSpacing(0.5);
+
+        return mRenderer;
+    }
+
+    private void initChartLayout(XYMultipleSeriesDataset dataset, XYMultipleSeriesRenderer mRenderer) {
         //Получаю ссылку на контейнер, который содержит график.
         LinearLayout chartLayout = (LinearLayout) view.findViewById(R.id.chart);
 
+//        //Получаю само Представление графика.
+//        GraphicalView chartView;
+//        if (interval == STATISTICS_WEEK) {
+//            //Линейный график
+//            chartView = ChartFactory.getLineChartView(getActivity(), dataset, mRenderer);
+//        }
+//        else{
+//            //Диаграмма.
+//            chartView = ChartFactory.getBarChartView(getActivity(), dataset, mRenderer, BarChart.Type.DEFAULT);
+//        }
+
         //Получаю само Представление графика.
         GraphicalView chartView;
-        if (interval == STATISTICS_WEEK) {
-            //Линейный график
-            chartView = ChartFactory.getLineChartView(getActivity(), dataset, mRenderer);
-        }
-        else{
-            //Диаграмма.
-            chartView = ChartFactory.getBarChartView(getActivity(), dataset, mRenderer, BarChart.Type.DEFAULT);
-        }
+        chartView = ChartFactory.getLineChartView(getActivity(), dataset, mRenderer);
         //Добавляю график в лайаут.
         chartLayout.addView(chartView, 0);
     }
