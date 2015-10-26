@@ -13,11 +13,14 @@ import android.util.Log;
 import com.polant.projectsport.R;
 import com.polant.projectsport.data.model.Article;
 import com.polant.projectsport.data.model.SpecificFood;
+import com.polant.projectsport.data.model.StatisticsDay;
 import com.polant.projectsport.data.model.UserParametersInfo;
+import com.polant.projectsport.fragment.chart.ChartStatisticsFragment;
 import com.polant.projectsport.preferences.PreferencesNewActivity;
 
+import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
+import java.util.Collections;
 
 /**
  * Created by Антон on 05.10.2015.
@@ -45,6 +48,139 @@ public class Database {
     public SQLiteDatabase getSqLiteDatabase(){
         return sqLiteDatabase;
     }
+
+    //Получение необходимой статистики о потреблении пищи пользователем.
+    public ArrayList<StatisticsDay> getStatistics(int interval){
+        ArrayList<StatisticsDay> list;
+
+        if (interval == ChartStatisticsFragment.STATISTICS_MONTH){
+            list = getListMonthStatisticsItems();
+        }
+        else{
+            list = getListWeekStatisticsItems();
+        }
+        return list;
+    }
+
+    //Получаю список данных ЗА ПОСЛЕДНИЕ 7 ДНЕЙ из таблицы Статистики.
+    private ArrayList<StatisticsDay> getListWeekStatisticsItems() {
+        ArrayList<StatisticsDay> list = new ArrayList<>();
+
+        Cursor data = getRawWeekStatisticsItems();
+        if (data != null){
+            if (data.moveToLast()){
+                int deltaIndex = data.getColumnIndex(DELTA);
+                int dayIndex = data.getColumnIndex(DAY);
+                int monthIndex = data.getColumnIndex(MONTH);
+                int yearIndex = data.getColumnIndex(YEAR);
+
+                int tempDay = data.getInt(dayIndex);
+                int currentDay = tempDay;
+                int month = 0;
+                int year = 0;
+                int sumDayDelta = 0;
+
+                int i = 0;
+                int count = ChartStatisticsFragment.STATISTICS_WEEK;
+                do {
+                    tempDay = data.getInt(dayIndex);
+                    if (tempDay != currentDay){
+                        list.add(new StatisticsDay(currentDay, month, year, sumDayDelta));
+                        sumDayDelta = 0;
+                        currentDay = tempDay;
+                        i++;
+                    }
+                    sumDayDelta += data.getInt(deltaIndex);
+                    month = data.getInt(monthIndex);
+                    year = data.getInt(yearIndex);
+                }while (data.moveToPrevious() && i <= count);
+                data.close();
+            }
+            else
+                data.close();
+        }
+        Collections.reverse(list);
+        return list;
+    }
+
+    //Получаю список данных ЗА ПОСЛЕДНИЙ МЕСЯЦ из таблицы Статистики.
+    private ArrayList<StatisticsDay> getListMonthStatisticsItems(){
+        ArrayList<StatisticsDay> list = new ArrayList<>();
+
+        Cursor data = getRawMonthStatisticsItems();
+        if (data != null){
+            if (data.moveToFirst()){
+                int deltaIndex = data.getColumnIndex(DELTA);
+                int dayIndex = data.getColumnIndex(DAY);
+                int monthIndex = data.getColumnIndex(MONTH);
+                int yearIndex = data.getColumnIndex(YEAR);
+
+                int tempDay = data.getInt(dayIndex);
+                int currentDay = tempDay;
+                int month = 0;
+                int year = 0;
+
+                int sumDayDelta = 0;
+                do {
+                    tempDay = data.getInt(dayIndex);
+                    if (tempDay != currentDay){
+                        list.add(new StatisticsDay(currentDay, month, year, sumDayDelta));
+                        sumDayDelta = 0;
+                        currentDay = tempDay;
+                    }
+                    sumDayDelta += data.getInt(deltaIndex);
+                    month = data.getInt(monthIndex);
+                    year = data.getInt(yearIndex);
+
+                }while (data.moveToNext());
+                //Добавляю последний элемент.
+                list.add(new StatisticsDay(tempDay, month, year, sumDayDelta));
+                data.close();
+            }
+            else
+                data.close();
+        }
+        return list;
+    }
+
+    //Получаю все данные таблицы Статистики.
+    private Cursor getRawWeekStatisticsItems() {
+        String[] projection = new String[] {
+                DELTA, DAY, MONTH, YEAR
+        };
+        return sqLiteDatabase.query(TABLE_STATISTICS, projection, null, null, null, null, null);
+    }
+
+
+    //Получаю все данные ЗА МЕСЯЦ таблицы Статистики.
+    private Cursor getRawMonthStatisticsItems(){
+        Calendar calendar = Calendar.getInstance();
+        int day = calendar.get(Calendar.DATE);
+        int month = calendar.get(Calendar.MONTH);
+        int year = calendar.get(Calendar.YEAR);
+
+        int monthFrom = month;
+        int yearFrom = year;
+        if (month - 1 < 0){
+            monthFrom = 11;
+            yearFrom = --year;
+        }
+        String[] projection = new String[] {
+                DELTA, DAY, MONTH, YEAR
+        };
+        String where = "(" + DAY + " >? AND " + MONTH + " >? AND " + YEAR + " >? ) OR ( " +
+                DAY + " >? AND " + MONTH + " >? AND " + YEAR + " =? ) OR ( " +
+                MONTH + "=? AND " + YEAR + "=? )";
+        String[] whereArgs = new String[] {
+                String.valueOf(day - 1), String.valueOf(monthFrom - 1), String.valueOf(yearFrom - 1),
+
+                String.valueOf(day - 1), String.valueOf(monthFrom - 1), String.valueOf(year),
+
+                String.valueOf(month), String.valueOf(year)
+        };
+        return sqLiteDatabase.query(TABLE_STATISTICS, projection, where, whereArgs, null, null, null);
+    }
+
 
     //Добавление статьи.
     public void addArticle(Article article){
@@ -133,7 +269,7 @@ public class Database {
         return sqLiteDatabase.rawQuery(query, null);
     }
 
-    //добавляю пищу в базу.
+    //добавляю только что съеденную пищу в базу.
     public void addSpecificFood(SpecificFood food, float delta){
         ContentValues cv = new ContentValues();
 
@@ -184,6 +320,7 @@ public class Database {
         sqLiteDatabase.update(TABLE_USER, cv, where, whereArgs);
     }
 
+    //Применяется в методах onActivityResult(), для занесения настроек в базу.
     public void updateUserParametersInfo(SharedPreferences sp) {
         UserParametersInfo user = new UserParametersInfo();
         user.setSex(sp.getString(PreferencesNewActivity.PREF_USER_SEX, ((Activity) context).getString(R.string.text_your_sex_M)));

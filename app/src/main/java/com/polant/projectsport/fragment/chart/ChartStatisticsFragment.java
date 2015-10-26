@@ -10,7 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.polant.projectsport.MainActivity;
 import com.polant.projectsport.R;
+import com.polant.projectsport.data.Database;
+import com.polant.projectsport.data.model.StatisticsDay;
 
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
@@ -36,6 +39,7 @@ public class ChartStatisticsFragment extends Fragment {
     public static final int STATISTICS_MONTH = 30;
 
     private View view;
+    private Database DB;
     private int interval;
 
     @Nullable
@@ -45,6 +49,7 @@ public class ChartStatisticsFragment extends Fragment {
         return view;
     }
 
+    //Метод-фабрика.
     public static ChartStatisticsFragment getInstance(int intervalValue){
         Bundle args = new Bundle();
         args.putInt(STATISTICS_INTERVAL, intervalValue);
@@ -62,6 +67,9 @@ public class ChartStatisticsFragment extends Fragment {
         if (getArguments() != null){
             interval = getArguments().getInt(STATISTICS_INTERVAL);
         }
+        //Получаю объект БД, который инициализирован в Активити.
+        DB = ((MainActivity) getActivity()).getDatabase();
+
         initChart();
     }
 
@@ -79,17 +87,18 @@ public class ChartStatisticsFragment extends Fragment {
 
     private XYMultipleSeriesDataset initDataSet(){
         XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
-
         XYSeries series = new XYSeries(getString(R.string.text_your_statistics));
-        Random r = new Random();
-        for (int i = 0; i < 30; i++) {
-            series.add(i, i + r.nextInt(10));
+        ArrayList<StatisticsDay> list = DB.getStatistics(interval);
+
+        for (int i = 0; i < list.size(); i++) {
+            series.add(i, list.get(i).getDelta());
         }
         dataset.addSeries(series);
 
         XYSeries normalLineSeries= new XYSeries(getString(R.string.text_your_normal_ccal));
-        for (int i = 0; i <= 30; i += 15) {
-            normalLineSeries.add(i, 35);
+        int normalCaloriesValue =  DB.getUserParametersInfo().normalCaloriesCount(getActivity());
+        for (int i = 0; i < list.size(); i++) {
+            normalLineSeries.add(i, normalCaloriesValue);
         }
         dataset.addSeries(normalLineSeries);
         return  dataset;

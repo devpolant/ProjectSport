@@ -166,6 +166,11 @@ public class MainActivity extends AppCompatActivity{
         DB.close();
     }
 
+    //Получение БД во фрагментах.
+    public Database getDatabase(){
+        return DB;
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
