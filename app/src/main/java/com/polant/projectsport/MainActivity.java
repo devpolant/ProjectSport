@@ -29,6 +29,8 @@ public class MainActivity extends AppCompatActivity{
 
     private static final int LAYOUT = R.layout.activity_main;
 
+    private static final int VIEW_PAGER_CONTENT_ARTICLE = 1;
+    private static final int VIEW_PAGER_CONTENT_STATISTICS = 2;
 
     private DrawerLayout drawerLayout;
     private Toolbar toolbar;
@@ -36,6 +38,10 @@ public class MainActivity extends AppCompatActivity{
     private TabLayout tabLayout;
 
     private Database DB;
+
+    //Переменная, которая хранит текущее состояние viewPager - статьи или статистика.
+    private int viewPagerContent;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +61,9 @@ public class MainActivity extends AppCompatActivity{
     private void initToolbar() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-        toolbar.setTitle(R.string.app_name);
+        //toolbar.setTitle(R.string.app_name);
+        //указываю title, когда инициализирую tab layout;
+
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -127,6 +135,9 @@ public class MainActivity extends AppCompatActivity{
 
     //Статьи.
     public void initTabArticleLayout() {
+        toolbar.setTitle(R.string.title_articles);
+        viewPagerContent = VIEW_PAGER_CONTENT_ARTICLE;
+
         viewPager = (ViewPager) findViewById(R.id.viewPager);
 
         TabsPagerFragmentAdapter adapter = new TabsPagerFragmentAdapter(
@@ -141,6 +152,9 @@ public class MainActivity extends AppCompatActivity{
 
     //Статистика.
     public void initTabStatisticsLayout() {
+        toolbar.setTitle(R.string.title_statistics);
+        viewPagerContent = VIEW_PAGER_CONTENT_STATISTICS;
+
         viewPager = (ViewPager) findViewById(R.id.viewPager);
 
         TabsStatisticsFragmentAdapter adapter = new TabsStatisticsFragmentAdapter(
@@ -189,6 +203,11 @@ public class MainActivity extends AppCompatActivity{
 
         //Обновляю информация о пользователе.
         DB.updateUserParametersInfo(sp);
+
+        if (viewPagerContent == VIEW_PAGER_CONTENT_STATISTICS) {
+            //Проба обновить графики.
+            initTabStatisticsLayout();
+        }
     }
 
 }

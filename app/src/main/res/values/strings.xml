@@ -169,5 +169,7 @@
     <string name="tab_statistics_month">Месяц</string>
     <string name="text_days">Дни</string>
     <string name="text_your_normal_ccal">Норма</string>
+    <string name="title_articles">Статьи</string>
+    <string name="title_statistics">Моя статистика</string>
 
 </resources>
