@@ -23,7 +23,8 @@ import com.polant.projectsport.preferences.PreferencesNewActivity;
 import com.polant.projectsport.preferences.PreferencesOldActivity;
 
 /**
- * Created by Антон on 02.10.2015.
+ * Данная Активити используется для отображения всех статей согласно их категориям,
+ * а также статистики потребленной пользователем пищи в виде графиков.
  */
 public class MainActivity extends AppCompatActivity{
 
@@ -61,7 +62,6 @@ public class MainActivity extends AppCompatActivity{
     private void initToolbar() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-        //toolbar.setTitle(R.string.app_name);
         //указываю title, когда инициализирую tab layout;
 
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
@@ -205,7 +205,7 @@ public class MainActivity extends AppCompatActivity{
         DB.updateUserParametersInfo(sp);
 
         if (viewPagerContent == VIEW_PAGER_CONTENT_STATISTICS) {
-            //Проба обновить графики.
+            //Обновление графиков, после применения настроек.
             initTabStatisticsLayout();
         }
     }

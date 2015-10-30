@@ -36,7 +36,8 @@ import com.polant.projectsport.preferences.PreferencesNewActivity;
 import com.polant.projectsport.preferences.PreferencesOldActivity;
 
 /**
- * Created by јнтон on 04.10.2015.
+ * ƒанна€ јктивити используетс€ дл€ отображени€ пищевого калькул€тора: категории пищи и
+ * непосредственно сама пища.
  */
 public class ActivityCalculateFood extends AppCompatActivity
         implements CalculateDetailsFoodFragment.FoodCheckListener, TodayFoodDialogFragment.TodayListFoodChangeListener{

@@ -32,6 +32,10 @@ import com.polant.projectsport.fragment.step.StepCounterFragment;
 import com.polant.projectsport.preferences.PreferencesNewActivity;
 import com.polant.projectsport.preferences.PreferencesOldActivity;
 
+/**
+ * Данная Активити используется для функций шагомера, калькулятора индекса массы тела,
+ * а также калькулятора суточной потредности калорий.
+ */
 public class ActivityOtherCalculators extends AppCompatActivity implements SensorEventListener,
                                                     StepCounterFragment.StepCounterManagerListener{
 

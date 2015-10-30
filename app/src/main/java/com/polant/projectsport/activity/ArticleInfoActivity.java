@@ -22,7 +22,7 @@ import com.polant.projectsport.preferences.PreferencesNewActivity;
 import com.polant.projectsport.preferences.PreferencesOldActivity;
 
 /**
- * Created by Антон on 24.10.2015.
+ * Данная Активити используется для отображения одной, выбранной пользователем из списка, статьи.
  */
 public class ArticleInfoActivity extends AppCompatActivity {
 
