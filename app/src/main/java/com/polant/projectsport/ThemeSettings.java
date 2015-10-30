@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.support.design.widget.TabLayout;
 import android.support.v7.widget.Toolbar;
 
+import com.polant.projectsport.data.model.UserParametersInfo;
 import com.polant.projectsport.preferences.PreferencesNewActivity;
 
 /**
@@ -53,5 +54,16 @@ public class ThemeSettings {
                     break;
             }
         }
+    }
+
+
+    //Заполняю ностройки данными о пользователе.
+    public static void setUserParametersInfo(UserParametersInfo user, SharedPreferences sp){
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString(PreferencesNewActivity.PREF_USER_SEX, user.getSex());
+        editor.putString(PreferencesNewActivity.PREF_USER_AGE, String.valueOf(user.getAge()));
+        editor.putString(PreferencesNewActivity.PREF_USER_WEIGHT, String.valueOf(user.getWeight()));
+        editor.putString(PreferencesNewActivity.PREF_USER_HEIGHT, String.valueOf(user.getHeight()));
+        editor.apply();
     }
 }

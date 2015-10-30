@@ -80,6 +80,15 @@ public class ActivityCalculateFood extends AppCompatActivity
         //ѕередаю false - значит, что использую не при добавлении новой пищи.
         notifyLayoutTextViews(false);
 
+        //”дал€ю значение настройки текущего действи€, которое используетс€ в ActivityOtherCalculators.
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences.Editor editor = sp.edit();
+        editor.remove(PreferencesNewActivity.PREF_USER_WEIGHT);
+        editor.remove(PreferencesNewActivity.PREF_USER_AGE);
+        editor.remove(PreferencesNewActivity.PREF_USER_HEIGHT);
+        editor.remove(PreferencesNewActivity.PREF_USER_SEX);
+        editor.apply();
+
         Log.d("MY_DB_LOGS", "OnCreate");
     }
 
@@ -223,7 +232,12 @@ public class ActivityCalculateFood extends AppCompatActivity
                             user.setAge(Integer.valueOf(userAge));
                             user.setWeight(Float.valueOf(userWeight));
                             user.setHeight(Float.valueOf(userHeight));
+
+                            //—озран€ю в базу.
                             DB.updateUserParametersInfo(user);
+                            //—охран€ю в настройки.
+                            ThemeSettings.setUserParametersInfo(user,
+                                    PreferenceManager.getDefaultSharedPreferences(getApplicationContext()));
 
                             //ј здесь уже заполн€ю все нужные TextView.
                             initInfoWHS(user);
