@@ -41,7 +41,7 @@ public class StepCounterFragment extends Fragment{
 
     private static final int LAYOUT = R.layout.fragment_step_counter;
 
-    Activity activity;
+    private Activity activity;
 
     private View view;
     private DashedCircularProgress circularProgress;

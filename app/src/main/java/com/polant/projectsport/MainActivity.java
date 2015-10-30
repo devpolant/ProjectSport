@@ -30,8 +30,8 @@ public class MainActivity extends AppCompatActivity{
 
     private static final int LAYOUT = R.layout.activity_main;
 
-    private static final int VIEW_PAGER_CONTENT_ARTICLE = 1;
-    private static final int VIEW_PAGER_CONTENT_STATISTICS = 2;
+    public static final int VIEW_PAGER_CONTENT_ARTICLE = 1;
+    public static final int VIEW_PAGER_CONTENT_STATISTICS = 2;
 
     private DrawerLayout drawerLayout;
     private Toolbar toolbar;
@@ -52,7 +52,14 @@ public class MainActivity extends AppCompatActivity{
 
         initToolbar();
         initNavigationView();
-        initTabArticleLayout();
+
+        viewPagerContent = getIntent().getIntExtra(Constants.SHOW_ACTIVITY_ARTICLES_CONTENT_TYPE, VIEW_PAGER_CONTENT_ARTICLE);
+
+        if (viewPagerContent == VIEW_PAGER_CONTENT_STATISTICS) {
+            initTabStatisticsLayout();
+        }else if (viewPagerContent == VIEW_PAGER_CONTENT_ARTICLE) {
+            initTabArticleLayout();
+        }
 
         DB = new Database(this);
         DB.open();

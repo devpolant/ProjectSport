@@ -70,12 +70,12 @@ public class ActivityOtherCalculators extends AppCompatActivity implements Senso
     //Текущее значение шагомера.
     private int currentStepValue;
     private int resetStepValue;
-    //Специальная переменная, которая служит лишь при первом собитии датчика шагомера.
+    //Специальная переменная, которая служит лишь при первом событии датчика шагомера.
     //Ее цель - проверить, не равно ли значениее кол-ва шагов 0.
     //Если оно равно, то обнуляю SharedPreferences.
     private int testStepSensorValue;
 
-
+    //Служит для передачи фрагменту шагомера сообщения о выполненном шаге.
     private StepCounterFragment stepCounterFragment;
 
     @Override
@@ -197,10 +197,18 @@ public class ActivityOtherCalculators extends AppCompatActivity implements Senso
                 switch (item.getItemId()) {
                     case R.id.actionArticleItem:
                         Intent articleIntent = new Intent(ActivityOtherCalculators.this, MainActivity.class);
+                        articleIntent.putExtra(Constants.SHOW_ACTIVITY_ARTICLES_CONTENT_TYPE,
+                                MainActivity.VIEW_PAGER_CONTENT_ARTICLE);
                         startActivityForResult(articleIntent, Constants.SHOW_ACTIVITY_ARTICLES);
                         break;
                     case R.id.actionStepCounterItem:
                         showStepCounterFragment();
+                        break;
+                    case R.id.actionStatisticsItem:
+                        Intent statisticsIntent = new Intent(ActivityOtherCalculators.this, MainActivity.class);
+                        statisticsIntent.putExtra(Constants.SHOW_ACTIVITY_ARTICLES_CONTENT_TYPE,
+                                MainActivity.VIEW_PAGER_CONTENT_STATISTICS);
+                        startActivityForResult(statisticsIntent, Constants.SHOW_ACTIVITY_ARTICLES);
                         break;
                     case R.id.ActionIndexBodyWeight:
                         showIndexBodyFragment();
