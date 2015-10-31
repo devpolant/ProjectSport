@@ -12,13 +12,9 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <android.support.v7.widget.Toolbar
+        <include
             android:id="@+id/toolbar"
-            app:theme="@style/ThemeOverlay.MyApp.ActionBar"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary" />
+            layout="@layout/toolbar" />
 
         <LinearLayout
             android:id="@+id/containerCalculators"
