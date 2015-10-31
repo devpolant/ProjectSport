@@ -165,14 +165,17 @@ public class Database {
             monthFrom = 11;
             yearFrom = --year;
         }
+        else{
+            month--;
+        }
         String[] projection = new String[] {
                 DELTA, DAY, MONTH, YEAR
         };
-        String where = "(" + DAY + " >? AND " + MONTH + " >? AND " + YEAR + " >? ) OR ( " +
+        String where = "(" + DAY + " >? AND " + MONTH + " >? AND " + YEAR + " >? AND " + YEAR + " <? ) OR ( " +
                 DAY + " >? AND " + MONTH + " >? AND " + YEAR + " =? ) OR ( " +
                 MONTH + "=? AND " + YEAR + "=? )";
         String[] whereArgs = new String[] {
-                String.valueOf(day - 1), String.valueOf(monthFrom - 1), String.valueOf(yearFrom - 1),
+                String.valueOf(day - 1), String.valueOf(monthFrom - 1), String.valueOf(yearFrom - 1), String.valueOf(yearFrom + 1),
 
                 String.valueOf(day - 1), String.valueOf(monthFrom - 1), String.valueOf(year),
 
