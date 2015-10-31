@@ -8,6 +8,7 @@
 
 
     <color name="DarkColorPrimary">#3eabee</color>
+    <!--<color name="DarkColorPrimary">#00acc1</color>-->
     <color name="DarkColorPrimaryDark">#0B054D</color>
     <color name="DarkMainBackground">#e2e2e2</color>
 

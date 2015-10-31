@@ -170,7 +170,8 @@ public class ActivityOtherCalculators extends AppCompatActivity implements Senso
     private void initToolbar() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-        toolbar.setTitle(getResources().getString(R.string.title_activity_activity_other_calculators));
+        //toolbar.setTitle(getResources().getString(R.string.title_activity_activity_other_calculators));
+        toolbar.setTitle(getResources().getString(R.string.app_name));
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
