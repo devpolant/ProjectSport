@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity{
     public static final int VIEW_PAGER_CONTENT_STATISTICS = 2;
 
     private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
     private Toolbar toolbar;
     private ViewPager viewPager;
     private TabLayout tabLayout;
@@ -65,6 +66,16 @@ public class MainActivity extends AppCompatActivity{
         DB.open();
     }
 
+    //Закрытие Navigation Drawer, если он открыт.
+    @Override
+    public void onBackPressed() {
+        if (drawerLayout != null && navigationView != null && drawerLayout.isDrawerOpen(navigationView)){
+            drawerLayout.closeDrawer(navigationView);
+        }
+        else {
+            super.onBackPressed();
+        }
+    }
 
     private void initToolbar() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -88,7 +99,7 @@ public class MainActivity extends AppCompatActivity{
         drawerLayout.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.navigation);
+        navigationView = (NavigationView) findViewById(R.id.navigation);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {

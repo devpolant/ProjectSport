@@ -45,6 +45,7 @@ public class ActivityCalculateFood extends AppCompatActivity
     private static final int LAYOUT = R.layout.activity_calculate_food;
 
     private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
     private Toolbar toolbar;
     private Database DB;
 
@@ -282,6 +283,17 @@ public class ActivityCalculateFood extends AppCompatActivity
         DB.close();
     }
 
+    //Закрытие Navigation Drawer, если он открыт.
+    @Override
+    public void onBackPressed() {
+        if (drawerLayout != null && navigationView != null && drawerLayout.isDrawerOpen(navigationView)){
+            drawerLayout.closeDrawer(navigationView);
+        }
+        else {
+            super.onBackPressed();
+        }
+    }
+
     //Обновление TextView параметров пола, роста, веса и возраста юзера после их изменений в AlertDialog.
     //А также подсчет нормы калорий для пользователя.
     private void initInfoWHS() {
@@ -350,7 +362,7 @@ public class ActivityCalculateFood extends AppCompatActivity
         drawerLayout.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.navigation);
+        navigationView = (NavigationView) findViewById(R.id.navigation);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {

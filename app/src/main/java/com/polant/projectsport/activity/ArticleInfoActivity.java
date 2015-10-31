@@ -32,6 +32,7 @@ public class ArticleInfoActivity extends AppCompatActivity {
 
 
     private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
     private Toolbar toolbar;
 
     private Database DB;
@@ -48,6 +49,17 @@ public class ArticleInfoActivity extends AppCompatActivity {
         initToolbar();
         initNavigationView();
         initInfoViews();
+    }
+
+    //Закрытие Navigation Drawer, если он открыт.
+    @Override
+    public void onBackPressed() {
+        if (drawerLayout != null && navigationView != null && drawerLayout.isDrawerOpen(navigationView)){
+            drawerLayout.closeDrawer(navigationView);
+        }
+        else {
+            super.onBackPressed();
+        }
     }
 
     //Сама информация выбранной статьи.
@@ -86,7 +98,7 @@ public class ArticleInfoActivity extends AppCompatActivity {
         drawerLayout.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.navigation);
+        navigationView = (NavigationView) findViewById(R.id.navigation);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {

@@ -47,6 +47,7 @@ public class ActivityOtherCalculators extends AppCompatActivity implements Senso
 
 
     private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
     private Toolbar toolbar;
 
     private Database DB;
@@ -187,7 +188,7 @@ public class ActivityOtherCalculators extends AppCompatActivity implements Senso
         drawerLayout.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.navigation);
+        navigationView = (NavigationView) findViewById(R.id.navigation);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
@@ -294,6 +295,16 @@ public class ActivityOtherCalculators extends AppCompatActivity implements Senso
 
 
     //------------------Жизненный цикл---------------------//
+
+    @Override
+    public void onBackPressed() {
+        if (drawerLayout != null && navigationView != null && drawerLayout.isDrawerOpen(navigationView)){
+            drawerLayout.closeDrawer(navigationView);
+        }
+        else {
+            super.onBackPressed();
+        }
+    }
 
     @Override
     protected void onDestroy() {
