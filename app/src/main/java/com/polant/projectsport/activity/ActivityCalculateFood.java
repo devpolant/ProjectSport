@@ -341,7 +341,6 @@ public class ActivityCalculateFood extends AppCompatActivity
 
     public void initToolbar() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-
         toolbar.setTitle(getResources().getString(R.string.nav_menu_item_calc_food));
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
@@ -350,7 +349,8 @@ public class ActivityCalculateFood extends AppCompatActivity
             }
         });
 
-        toolbar.inflateMenu(R.menu.menu);
+        //Данное меню содержит иконку поиска, но т.к. функции поиска пока нет, то не показываю меню.
+        //toolbar.inflateMenu(R.menu.menu);
     }
 
     public void initNavigationView() {
