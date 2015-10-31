@@ -7,8 +7,12 @@
     <color name="colorWhite">#e2e2e2</color>
 
 
-    <color name="DarkColorPrimary">#231573</color>
+    <color name="DarkColorPrimary">#3eabee</color>
     <color name="DarkColorPrimaryDark">#0B054D</color>
     <color name="DarkMainBackground">#e2e2e2</color>
+
+
+    <color name="black">#000000</color>
+    <color name="foreground_material_light">#000000</color>
 
 </resources>
