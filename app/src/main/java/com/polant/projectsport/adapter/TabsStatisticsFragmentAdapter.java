@@ -10,7 +10,7 @@ import com.polant.projectsport.R;
 import com.polant.projectsport.fragment.chart.ChartStatisticsFragment;
 
 /**
- * Created by Антон on 25.10.2015.
+ * Created by РђРЅС‚РѕРЅ on 25.10.2015.
  */
 public class TabsStatisticsFragmentAdapter extends FragmentStatePagerAdapter {
 
@@ -18,7 +18,7 @@ public class TabsStatisticsFragmentAdapter extends FragmentStatePagerAdapter {
 
     public TabsStatisticsFragmentAdapter(Activity activity, FragmentManager fm) {
         super(fm);
-        //Получаю Активити в конструкторе только для получения доступа к ресурсам проекта.
+        //РџРѕР»СѓС‡Р°СЋ РђРєС‚РёРІРёС‚Рё РІ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂРµ С‚РѕР»СЊРєРѕ РґР»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РґРѕСЃС‚СѓРїР° Рє СЂРµСЃСѓСЂСЃР°Рј РїСЂРѕРµРєС‚Р°.
         tabs = new String[] {
                 activity.getString(R.string.tab_statistics_week),
                 activity.getString(R.string.tab_statistics_month)

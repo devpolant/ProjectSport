@@ -24,7 +24,7 @@ import com.polant.projectsport.data.Database;
 import com.polant.projectsport.data.parse.ParserTXT;
 
 /**
- * Created by Антон on 04.10.2015.
+ * Created by РђРЅС‚РѕРЅ on 04.10.2015.
  */
 public class CalculateFoodFragment extends ListFragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -66,9 +66,9 @@ public class CalculateFoodFragment extends ListFragment implements LoaderManager
 
     }
 
-    //Парсинг raw ресурса текстового файла.
+    //РџР°СЂСЃРёРЅРі raw СЂРµСЃСѓСЂСЃР° С‚РµРєСЃС‚РѕРІРѕРіРѕ С„Р°Р№Р»Р°.
     private void parse() {
-        //получаем сохраненные настройки.
+        //РїРѕР»СѓС‡Р°РµРј СЃРѕС…СЂР°РЅРµРЅРЅС‹Рµ РЅР°СЃС‚СЂРѕР№РєРё.
         Context context = getActivity().getApplicationContext();
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
 
@@ -110,7 +110,7 @@ public class CalculateFoodFragment extends ListFragment implements LoaderManager
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
 
-        //сделал выбор, учитывая выбранный элемент списка.
+        //СЃРґРµР»Р°Р» РІС‹Р±РѕСЂ, СѓС‡РёС‚С‹РІР°СЏ РІС‹Р±СЂР°РЅРЅС‹Р№ СЌР»РµРјРµРЅС‚ СЃРїРёСЃРєР°.
         TextView categoryTextView = (TextView) v.findViewById(R.id.textViewCategoryFood);
         String category = categoryTextView.getText().toString();
 
@@ -120,7 +120,7 @@ public class CalculateFoodFragment extends ListFragment implements LoaderManager
         fragment.setArguments(args);
 
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        //анимации не работают.
+        //Р°РЅРёРјР°С†РёРё РЅРµ СЂР°Р±РѕС‚Р°СЋС‚.
 //        transaction.setCustomAnimations(R.animator.slide_new, R.animator.slide_exit,
 //                                        R.animator.slide_new_back, R.animator.slide_exit_back);
         transaction.replace(R.id.containerKindsFood,

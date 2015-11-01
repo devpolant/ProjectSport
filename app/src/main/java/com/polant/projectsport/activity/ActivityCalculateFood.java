@@ -37,8 +37,8 @@ import com.polant.projectsport.preferences.PreferencesNewActivity;
 import com.polant.projectsport.preferences.PreferencesOldActivity;
 
 /**
- * Данная Активити используется для отображения пищевого калькулятора: категории пищи и
- * непосредственно сама пища.
+ * Р”Р°РЅРЅР°СЏ РђРєС‚РёРІРёС‚Рё РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РґР»СЏ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ РїРёС‰РµРІРѕРіРѕ РєР°Р»СЊРєСѓР»СЏС‚РѕСЂР°: РєР°С‚РµРіРѕСЂРёРё РїРёС‰Рё Рё
+ * РЅРµРїРѕСЃСЂРµРґСЃС‚РІРµРЅРЅРѕ СЃР°РјР° РїРёС‰Р°.
  */
 public class ActivityCalculateFood extends AppCompatActivity
         implements CalculateDetailsFoodFragment.FoodCheckListener, TodayFoodDialogFragment.TodayListFoodChangeListener{
@@ -50,8 +50,8 @@ public class ActivityCalculateFood extends AppCompatActivity
     private Toolbar toolbar;
     private Database DB;
 
-    //Сделал эту переменную полем класса, так как в обработчике onClick() в AlertDialog мне нужно менять ее
-    //значение, а язык обязывает меня сделать ее final, если это локальная переменная.
+    //РЎРґРµР»Р°Р» СЌС‚Сѓ РїРµСЂРµРјРµРЅРЅСѓСЋ РїРѕР»РµРј РєР»Р°СЃСЃР°, С‚Р°Рє РєР°Рє РІ РѕР±СЂР°Р±РѕС‚С‡РёРєРµ onClick() РІ AlertDialog РјРЅРµ РЅСѓР¶РЅРѕ РјРµРЅСЏС‚СЊ РµРµ
+    //Р·РЅР°С‡РµРЅРёРµ, Р° СЏР·С‹Рє РѕР±СЏР·С‹РІР°РµС‚ РјРµРЅСЏ СЃРґРµР»Р°С‚СЊ РµРµ final, РµСЃР»Рё СЌС‚Рѕ Р»РѕРєР°Р»СЊРЅР°СЏ РїРµСЂРµРјРµРЅРЅР°СЏ.
     private float deltaCalories;
 
     @Override
@@ -64,7 +64,7 @@ public class ActivityCalculateFood extends AppCompatActivity
         DB.open();
 
         CalculateFoodFragment fragment = new CalculateFoodFragment();
-        //добавляю Fragment динамически, чтобы я имел возможность его потом заменить методом replace()
+        //РґРѕР±Р°РІР»СЏСЋ Fragment РґРёРЅР°РјРёС‡РµСЃРєРё, С‡С‚РѕР±С‹ СЏ РёРјРµР» РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊ РµРіРѕ РїРѕС‚РѕРј Р·Р°РјРµРЅРёС‚СЊ РјРµС‚РѕРґРѕРј replace()
         android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(
                 R.id.containerKindsFood,
@@ -72,7 +72,7 @@ public class ActivityCalculateFood extends AppCompatActivity
                 getResources().getString(R.string.tag_fragment_calculate_food));
         transaction.commit();
 
-        //Заполняю поля информации о пользователе.
+        //Р—Р°РїРѕР»РЅСЏСЋ РїРѕР»СЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РїРѕР»СЊР·РѕРІР°С‚РµР»Рµ.
         initInfoWHS();
 
         initToolbar();
@@ -80,19 +80,19 @@ public class ActivityCalculateFood extends AppCompatActivity
         initButtonChangeYourInfo();
         initButtonShowListTodayFood();
 
-        //Передаю false - значит, что использую не при добавлении новой пищи.
+        //РџРµСЂРµРґР°СЋ false - Р·РЅР°С‡РёС‚, С‡С‚Рѕ РёСЃРїРѕР»СЊР·СѓСЋ РЅРµ РїСЂРё РґРѕР±Р°РІР»РµРЅРёРё РЅРѕРІРѕР№ РїРёС‰Рё.
         notifyLayoutTextViews(false);
         Log.d("MY_DB_LOGS", "OnCreate");
     }
 
-    //Реализация интерфейса для обработки данных из TodayFoodDialogFragment.
+    //Р РµР°Р»РёР·Р°С†РёСЏ РёРЅС‚РµСЂС„РµР№СЃР° РґР»СЏ РѕР±СЂР°Р±РѕС‚РєРё РґР°РЅРЅС‹С… РёР· TodayFoodDialogFragment.
     @Override
     public void changeTodayListFood() {
-        //Передаю false, так как я не добавляю новую запись о новой пище.
+        //РџРµСЂРµРґР°СЋ false, С‚Р°Рє РєР°Рє СЏ РЅРµ РґРѕР±Р°РІР»СЏСЋ РЅРѕРІСѓСЋ Р·Р°РїРёСЃСЊ Рѕ РЅРѕРІРѕР№ РїРёС‰Рµ.
         notifyLayoutTextViews(false);
     }
 
-    //Выбор элемента из списка в CalculateDetailsFoodFragment.
+    //Р’С‹Р±РѕСЂ СЌР»РµРјРµРЅС‚Р° РёР· СЃРїРёСЃРєР° РІ CalculateDetailsFoodFragment.
     @Override
     public void changeSelectedCaloriesCount(SpecificFood specificFood, boolean isInserting) {
 
@@ -101,12 +101,12 @@ public class ActivityCalculateFood extends AppCompatActivity
         }
     }
 
-    //Построение AlertDialog для добавления пищи для подсчета калорий.
+    //РџРѕСЃС‚СЂРѕРµРЅРёРµ AlertDialog РґР»СЏ РґРѕР±Р°РІР»РµРЅРёСЏ РїРёС‰Рё РґР»СЏ РїРѕРґСЃС‡РµС‚Р° РєР°Р»РѕСЂРёР№.
     private void buildAlertDialogAddFood(final SpecificFood food) {
 
-        //Построение диалога, в котором пользователь введет количество съеденной еды.
+        //РџРѕСЃС‚СЂРѕРµРЅРёРµ РґРёР°Р»РѕРіР°, РІ РєРѕС‚РѕСЂРѕРј РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ РІРІРµРґРµС‚ РєРѕР»РёС‡РµСЃС‚РІРѕ СЃСЉРµРґРµРЅРЅРѕР№ РµРґС‹.
         final AlertDialog.Builder builder = new AlertDialog.Builder(ActivityCalculateFood.this);
-        //Передаю не id лайаута, а ссылку View, чтобы потом получить доступ к нему.
+        //РџРµСЂРµРґР°СЋ РЅРµ id Р»Р°Р№Р°СѓС‚Р°, Р° СЃСЃС‹Р»РєСѓ View, С‡С‚РѕР±С‹ РїРѕС‚РѕРј РїРѕР»СѓС‡РёС‚СЊ РґРѕСЃС‚СѓРї Рє РЅРµРјСѓ.
         final View alertView = getLayoutInflater().inflate(R.layout.alert_food_add, null);
 
         builder.setTitle(R.string.alertAddFoodTitle)
@@ -126,7 +126,7 @@ public class ActivityCalculateFood extends AppCompatActivity
                                         .show();
 
                                 DB.addSpecificFood(food, deltaCalories);
-                                //Передаю true, так как я добавляю пищу.
+                                //РџРµСЂРµРґР°СЋ true, С‚Р°Рє РєР°Рє СЏ РґРѕР±Р°РІР»СЏСЋ РїРёС‰Сѓ.
                                 notifyLayoutTextViews(true);
                             }
                             else
@@ -154,12 +154,12 @@ public class ActivityCalculateFood extends AppCompatActivity
     }
 
 
-    //Обновление значения калорий в TextView.
+    //РћР±РЅРѕРІР»РµРЅРёРµ Р·РЅР°С‡РµРЅРёСЏ РєР°Р»РѕСЂРёР№ РІ TextView.
     private void notifyLayoutTextViews(boolean isInserting) {
 
         TextView countCalText = (TextView) findViewById(R.id.textViewCurrentCalories);
 
-        //Если добавляю пищу, то просто суммирую значение из TextView и текущую deltaCalories.
+        //Р•СЃР»Рё РґРѕР±Р°РІР»СЏСЋ РїРёС‰Сѓ, С‚Рѕ РїСЂРѕСЃС‚Рѕ СЃСѓРјРјРёСЂСѓСЋ Р·РЅР°С‡РµРЅРёРµ РёР· TextView Рё С‚РµРєСѓС‰СѓСЋ deltaCalories.
         if  (isInserting) {
             int count = Integer.valueOf(countCalText.getText().toString());
             count += deltaCalories;
@@ -185,18 +185,18 @@ public class ActivityCalculateFood extends AppCompatActivity
                 c.close();
             }
             else{
-                //Устанавливаю значение TextView равным 0, так как сегодня пользователь еще не добавлял пищу.
+                //РЈСЃС‚Р°РЅР°РІР»РёРІР°СЋ Р·РЅР°С‡РµРЅРёРµ TextView СЂР°РІРЅС‹Рј 0, С‚Р°Рє РєР°Рє СЃРµРіРѕРґРЅСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ РµС‰Рµ РЅРµ РґРѕР±Р°РІР»СЏР» РїРёС‰Сѓ.
                 countCalText.setText(String.valueOf(0));
             }
         }
     }
 
-    //Построение AlertDialog для изменения параметров пола, роста, веса и возраста юзера.
+    //РџРѕСЃС‚СЂРѕРµРЅРёРµ AlertDialog РґР»СЏ РёР·РјРµРЅРµРЅРёСЏ РїР°СЂР°РјРµС‚СЂРѕРІ РїРѕР»Р°, СЂРѕСЃС‚Р°, РІРµСЃР° Рё РІРѕР·СЂР°СЃС‚Р° СЋР·РµСЂР°.
     private void buildAlertDialogChangeUserInfo(){
 
-        //Построение диалога, в котором пользователь введет количество съеденной еды.
+        //РџРѕСЃС‚СЂРѕРµРЅРёРµ РґРёР°Р»РѕРіР°, РІ РєРѕС‚РѕСЂРѕРј РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ РІРІРµРґРµС‚ РєРѕР»РёС‡РµСЃС‚РІРѕ СЃСЉРµРґРµРЅРЅРѕР№ РµРґС‹.
         final AlertDialog.Builder builder = new AlertDialog.Builder(ActivityCalculateFood.this);
-        //Передаю не id лайаута, а ссылку View, чтобы потом получить доступ к нему.
+        //РџРµСЂРµРґР°СЋ РЅРµ id Р»Р°Р№Р°СѓС‚Р°, Р° СЃСЃС‹Р»РєСѓ View, С‡С‚РѕР±С‹ РїРѕС‚РѕРј РїРѕР»СѓС‡РёС‚СЊ РґРѕСЃС‚СѓРї Рє РЅРµРјСѓ.
         final View alertView = getLayoutInflater().inflate(R.layout.alert_user_info, null);
 
         builder.setTitle(R.string.alertChangeUserInfoTitle)
@@ -224,7 +224,7 @@ public class ActivityCalculateFood extends AppCompatActivity
                             String userHeight = hText.getText().toString();
                             String userAge = aText.getText().toString();
 
-                            //Проверка на корректные данные ввода.
+                            //РџСЂРѕРІРµСЂРєР° РЅР° РєРѕСЂСЂРµРєС‚РЅС‹Рµ РґР°РЅРЅС‹Рµ РІРІРѕРґР°.
                             int age = Integer.valueOf(userAge);
                             float weight = Float.valueOf(userWeight);
                             float height = Float.valueOf(userHeight);
@@ -243,13 +243,13 @@ public class ActivityCalculateFood extends AppCompatActivity
                             user.setWeight(Float.valueOf(userWeight));
                             user.setHeight(Float.valueOf(userHeight));
 
-                            //Созраняю в базу.
+                            //РЎРѕР·СЂР°РЅСЏСЋ РІ Р±Р°Р·Сѓ.
                             DB.updateUserParametersInfo(user);
-                            //Сохраняю в настройки.
+                            //РЎРѕС…СЂР°РЅСЏСЋ РІ РЅР°СЃС‚СЂРѕР№РєРё.
                             ThemeSettings.setUserParametersInfo(user,
                                     PreferenceManager.getDefaultSharedPreferences(getApplicationContext()));
 
-                            //А здесь уже заполняю все нужные TextView.
+                            //Рђ Р·РґРµСЃСЊ СѓР¶Рµ Р·Р°РїРѕР»РЅСЏСЋ РІСЃРµ РЅСѓР¶РЅС‹Рµ TextView.
                             initInfoWHS(user);
                         } else {
                             Toast.makeText(ActivityCalculateFood.this, getString(R.string.toastMistakeUserInfo), Toast.LENGTH_SHORT)
@@ -272,7 +272,7 @@ public class ActivityCalculateFood extends AppCompatActivity
         dialog.show();
     }
 
-    //Инициализация кнопки вызова алерт диалога для изменения параметров пола, роста, веса и возраста юзера.
+    //РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РєРЅРѕРїРєРё РІС‹Р·РѕРІР° Р°Р»РµСЂС‚ РґРёР°Р»РѕРіР° РґР»СЏ РёР·РјРµРЅРµРЅРёСЏ РїР°СЂР°РјРµС‚СЂРѕРІ РїРѕР»Р°, СЂРѕСЃС‚Р°, РІРµСЃР° Рё РІРѕР·СЂР°СЃС‚Р° СЋР·РµСЂР°.
     private void initButtonChangeYourInfo() {
         Button bt = (Button) findViewById(R.id.buttonChangeYourHW);
         bt.setOnClickListener(new View.OnClickListener() {
@@ -282,7 +282,7 @@ public class ActivityCalculateFood extends AppCompatActivity
             }
         });
     }
-    //Инициализация кнопки вызова диалога со списком сегодняшней употребленной пищи.
+    //РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РєРЅРѕРїРєРё РІС‹Р·РѕРІР° РґРёР°Р»РѕРіР° СЃРѕ СЃРїРёСЃРєРѕРј СЃРµРіРѕРґРЅСЏС€РЅРµР№ СѓРїРѕС‚СЂРµР±Р»РµРЅРЅРѕР№ РїРёС‰Рё.
     private void initButtonShowListTodayFood(){
         Button bt = (Button) findViewById(R.id.buttonShowListTodayFood);
         bt.setOnClickListener(new View.OnClickListener() {
@@ -301,7 +301,7 @@ public class ActivityCalculateFood extends AppCompatActivity
         DB.close();
     }
 
-    //Закрытие Navigation Drawer, если он открыт.
+    //Р—Р°РєСЂС‹С‚РёРµ Navigation Drawer, РµСЃР»Рё РѕРЅ РѕС‚РєСЂС‹С‚.
     @Override
     public void onBackPressed() {
         if (drawerLayout != null && navigationView != null && drawerLayout.isDrawerOpen(navigationView)){
@@ -312,8 +312,8 @@ public class ActivityCalculateFood extends AppCompatActivity
         }
     }
 
-    //Обновление TextView параметров пола, роста, веса и возраста юзера после их изменений в AlertDialog.
-    //А также подсчет нормы калорий для пользователя.
+    //РћР±РЅРѕРІР»РµРЅРёРµ TextView РїР°СЂР°РјРµС‚СЂРѕРІ РїРѕР»Р°, СЂРѕСЃС‚Р°, РІРµСЃР° Рё РІРѕР·СЂР°СЃС‚Р° СЋР·РµСЂР° РїРѕСЃР»Рµ РёС… РёР·РјРµРЅРµРЅРёР№ РІ AlertDialog.
+    //Рђ С‚Р°РєР¶Рµ РїРѕРґСЃС‡РµС‚ РЅРѕСЂРјС‹ РєР°Р»РѕСЂРёР№ РґР»СЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ.
     private void initInfoWHS() {
         TextView textWeight = (TextView) findViewById(R.id.textViewYourWeight);
         TextView textHeight = (TextView) findViewById(R.id.textViewYourHeight);
@@ -367,7 +367,7 @@ public class ActivityCalculateFood extends AppCompatActivity
             }
         });
 
-        //Данное меню содержит иконку поиска, но т.к. функции поиска пока нет, то не показываю меню.
+        //Р”Р°РЅРЅРѕРµ РјРµРЅСЋ СЃРѕРґРµСЂР¶РёС‚ РёРєРѕРЅРєСѓ РїРѕРёСЃРєР°, РЅРѕ С‚.Рє. С„СѓРЅРєС†РёРё РїРѕРёСЃРєР° РїРѕРєР° РЅРµС‚, С‚Рѕ РЅРµ РїРѕРєР°Р·С‹РІР°СЋ РјРµРЅСЋ.
         //toolbar.inflateMenu(R.menu.menu);
     }
 
@@ -410,7 +410,7 @@ public class ActivityCalculateFood extends AppCompatActivity
                         finish();
                         break;
                     case R.id.actionSettingsItem:
-                        //добавим совместимость со старыми версиями платформы.
+                        //РґРѕР±Р°РІРёРј СЃРѕРІРјРµСЃС‚РёРјРѕСЃС‚СЊ СЃРѕ СЃС‚Р°СЂС‹РјРё РІРµСЂСЃРёСЏРјРё РїР»Р°С‚С„РѕСЂРјС‹.
                         Class c = Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB ?
                                 PreferencesOldActivity.class : PreferencesNewActivity.class;
 
@@ -436,14 +436,14 @@ public class ActivityCalculateFood extends AppCompatActivity
         updateFromPreferences();
     }
 
-    //---------------Настройки---------------------//
-    //Применение настроек приложения.
+    //---------------РќР°СЃС‚СЂРѕР№РєРё---------------------//
+    //РџСЂРёРјРµРЅРµРЅРёРµ РЅР°СЃС‚СЂРѕРµРє РїСЂРёР»РѕР¶РµРЅРёСЏ.
     private void updateFromPreferences(){
-        //Применяю тему.
+        //РџСЂРёРјРµРЅСЏСЋ С‚РµРјСѓ.
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         ThemeSettings.setUpdatedTheme(this, sp);
 
-        //Обновляю информация о пользователе.
+        //РћР±РЅРѕРІР»СЏСЋ РёРЅС„РѕСЂРјР°С†РёСЏ Рѕ РїРѕР»СЊР·РѕРІР°С‚РµР»Рµ.
         DB.updateUserParametersInfo(sp);
         initInfoWHS();
     }

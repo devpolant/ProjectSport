@@ -22,7 +22,7 @@ import com.polant.projectsport.adapter.dialog.AdapterTodayFoodDialog;
 import com.polant.projectsport.data.Database;
 
 /**
- * Created by Антон on 11.10.2015.
+ * Created by РђРЅС‚РѕРЅ on 11.10.2015.
  */
 public class TodayFoodDialogFragment extends DialogFragment implements LoaderManager.LoaderCallbacks<Cursor>{
 
@@ -71,7 +71,7 @@ public class TodayFoodDialogFragment extends DialogFragment implements LoaderMan
 
         getLoaderManager().initLoader(0, null, this);
 
-        //Назначаю обработчик нажатия на список для удаления записи из базы.
+        //РќР°Р·РЅР°С‡Р°СЋ РѕР±СЂР°Р±РѕС‚С‡РёРє РЅР°Р¶Р°С‚РёСЏ РЅР° СЃРїРёСЃРѕРє РґР»СЏ СѓРґР°Р»РµРЅРёСЏ Р·Р°РїРёСЃРё РёР· Р±Р°Р·С‹.
         setListItemLongClickListener(listView);
     }
 
@@ -83,7 +83,7 @@ public class TodayFoodDialogFragment extends DialogFragment implements LoaderMan
 
                 final long idListItem = id;
 
-                //Построение диалога, в котором пользователь введет количество съеденной еды.
+                //РџРѕСЃС‚СЂРѕРµРЅРёРµ РґРёР°Р»РѕРіР°, РІ РєРѕС‚РѕСЂРѕРј РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ РІРІРµРґРµС‚ РєРѕР»РёС‡РµСЃС‚РІРѕ СЃСЉРµРґРµРЅРЅРѕР№ РµРґС‹.
                 final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setTitle(R.string.alertChangeTodayListDeleteTitle)
                         .setMessage(R.string.alertChangeTodayListDeleteMessage)

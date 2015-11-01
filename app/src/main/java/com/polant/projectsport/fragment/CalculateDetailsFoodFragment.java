@@ -17,7 +17,7 @@ import com.polant.projectsport.data.model.SpecificFood;
 
 
 /**
- * Created by Антон on 05.10.2015.
+ * Created by РђРЅС‚РѕРЅ on 05.10.2015.
  */
 public class CalculateDetailsFoodFragment extends ListFragment implements LoaderManager.LoaderCallbacks<Cursor>{
 
@@ -26,7 +26,7 @@ public class CalculateDetailsFoodFragment extends ListFragment implements Loader
     }
 
     private Context context;
-    //Категория пищи.
+    //РљР°С‚РµРіРѕСЂРёСЏ РїРёС‰Рё.
     private String categoryFood;
     private AdapterCalculateDetailsFood adapter;
     private Database DB;

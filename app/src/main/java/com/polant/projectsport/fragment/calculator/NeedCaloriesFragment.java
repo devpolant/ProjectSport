@@ -26,13 +26,13 @@ import com.polant.projectsport.data.Database;
 import com.polant.projectsport.data.model.UserParametersInfo;
 
 /**
- * Created by Антон on 17.10.2015.
+ * Created by РђРЅС‚РѕРЅ on 17.10.2015.
  */
 public class NeedCaloriesFragment extends Fragment {
 
     private static final int LAYOUT = R.layout.fragment_need_calories;
 
-    //Список констант-коефициентов для подсчета нормы количества калорий, в зависимости от образа жизни пользователя.
+    //РЎРїРёСЃРѕРє РєРѕРЅСЃС‚Р°РЅС‚-РєРѕРµС„РёС†РёРµРЅС‚РѕРІ РґР»СЏ РїРѕРґСЃС‡РµС‚Р° РЅРѕСЂРјС‹ РєРѕР»РёС‡РµСЃС‚РІР° РєР°Р»РѕСЂРёР№, РІ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё РѕС‚ РѕР±СЂР°Р·Р° Р¶РёР·РЅРё РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ.
     private static final float MIN = 1.2f;
     private static final float THREE_TIMES_A_WEEK = 1.375f;
     private static final float FIVE_TIMES_PER_WEEK = 1.4625f;
@@ -46,7 +46,7 @@ public class NeedCaloriesFragment extends Fragment {
     private Database DB;
 
 
-    //Переменные, которые служат ключами для сохранения настроек Bundle.
+    //РџРµСЂРµРјРµРЅРЅС‹Рµ, РєРѕС‚РѕСЂС‹Рµ СЃР»СѓР¶Р°С‚ РєР»СЋС‡Р°РјРё РґР»СЏ СЃРѕС…СЂР°РЅРµРЅРёСЏ РЅР°СЃС‚СЂРѕРµРє Bundle.
     private static final String KEY_NORMAL_CCAL = "KEY_NORMAL_CCAL";
     private static final String KEY_LOSS_WEIGHT_CCAL = "KEY_LOSS_WEIGHT_CCAL";
     private static final String KEY_FAST_LOSS_WEIGHT_CCAL = "KEY_FAST_LOSS_WEIGHT_CCAL";
@@ -87,11 +87,11 @@ public class NeedCaloriesFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        //Получаю объект БД, который инициализирован в Активити.
+        //РџРѕР»СѓС‡Р°СЋ РѕР±СЉРµРєС‚ Р‘Р”, РєРѕС‚РѕСЂС‹Р№ РёРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°РЅ РІ РђРєС‚РёРІРёС‚Рё.
         DB = ((MainActivity) getActivity()).getDatabase();
 
         initButtonCalculate();
-        //initSpinner(); // Инициалихирую в onCreateView().
+        //initSpinner(); // РРЅРёС†РёР°Р»РёС…РёСЂСѓСЋ РІ onCreateView().
     }
 
 
@@ -108,7 +108,7 @@ public class NeedCaloriesFragment extends Fragment {
     private void initSpinner() {
         spinner = (Spinner) view.findViewById(R.id.spinnerLifeStyle);
 
-        //Настраиваю адаптер.
+        //РќР°СЃС‚СЂР°РёРІР°СЋ Р°РґР°РїС‚РµСЂ.
         ArrayAdapter<?> adapter = ArrayAdapter.createFromResource(
                 getActivity(),
                 R.array.array_life_style,
@@ -119,16 +119,16 @@ public class NeedCaloriesFragment extends Fragment {
         spinner.setAdapter(adapter);
     }
 
-    //Построение AlertDialog для изменения параметров пола, роста, веса и возраста юзера.
+    //РџРѕСЃС‚СЂРѕРµРЅРёРµ AlertDialog РґР»СЏ РёР·РјРµРЅРµРЅРёСЏ РїР°СЂР°РјРµС‚СЂРѕРІ РїРѕР»Р°, СЂРѕСЃС‚Р°, РІРµСЃР° Рё РІРѕР·СЂР°СЃС‚Р° СЋР·РµСЂР°.
     private void buildAlertDialogChoiceUserInfo(){
 
-        //Построение диалога, в котором пользователь введет количество съеденной еды.
+        //РџРѕСЃС‚СЂРѕРµРЅРёРµ РґРёР°Р»РѕРіР°, РІ РєРѕС‚РѕСЂРѕРј РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ РІРІРµРґРµС‚ РєРѕР»РёС‡РµСЃС‚РІРѕ СЃСЉРµРґРµРЅРЅРѕР№ РµРґС‹.
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        //Передаю не id лайаута, а ссылку View, чтобы потом получить доступ к нему.
+        //РџРµСЂРµРґР°СЋ РЅРµ id Р»Р°Р№Р°СѓС‚Р°, Р° СЃСЃС‹Р»РєСѓ View, С‡С‚РѕР±С‹ РїРѕС‚РѕРј РїРѕР»СѓС‡РёС‚СЊ РґРѕСЃС‚СѓРї Рє РЅРµРјСѓ.
         final View alertView = getActivity().getLayoutInflater().inflate(R.layout.alert_user_info_need_calories, null);
 
         RadioButton radioFromDB = (RadioButton) alertView.findViewById(R.id.radioFromDB);
-        //Вынес в отдельный метод обработку радио кнопок.
+        //Р’С‹РЅРµСЃ РІ РѕС‚РґРµР»СЊРЅС‹Р№ РјРµС‚РѕРґ РѕР±СЂР°Р±РѕС‚РєСѓ СЂР°РґРёРѕ РєРЅРѕРїРѕРє.
         setOnRadioBtCheckedChange(radioFromDB, alertView);
 
         builder.setTitle(R.string.alertChangeUserInfoTitle)
@@ -139,7 +139,7 @@ public class NeedCaloriesFragment extends Fragment {
                 .setPositiveButton(getString(R.string.alertChangeUserInfoButtonPositive), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //Переношу обработку в отдельный метод.
+                        //РџРµСЂРµРЅРѕС€Сѓ РѕР±СЂР°Р±РѕС‚РєСѓ РІ РѕС‚РґРµР»СЊРЅС‹Р№ РјРµС‚РѕРґ.
                         setOnPositiveBtAlertClick(alertView);
                     }
                 })
@@ -158,7 +158,7 @@ public class NeedCaloriesFragment extends Fragment {
         dialog.show();
     }
 
-    //Построение взаимодействия радио кнопок с другими представлениями диалога.
+    //РџРѕСЃС‚СЂРѕРµРЅРёРµ РІР·Р°РёРјРѕРґРµР№СЃС‚РІРёСЏ СЂР°РґРёРѕ РєРЅРѕРїРѕРє СЃ РґСЂСѓРіРёРјРё РїСЂРµРґСЃС‚Р°РІР»РµРЅРёСЏРјРё РґРёР°Р»РѕРіР°.
     private void setOnRadioBtCheckedChange(RadioButton radioButton, final View alertView) {
         radioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -185,7 +185,7 @@ public class NeedCaloriesFragment extends Fragment {
         });
     }
 
-    //Обработчик positive button в диалоге.
+    //РћР±СЂР°Р±РѕС‚С‡РёРє positive button РІ РґРёР°Р»РѕРіРµ.
     private void setOnPositiveBtAlertClick(View alertView) {
         EditText wText = (EditText) alertView.findViewById(R.id.editTextAlertUserWeight);
         EditText hText = (EditText) alertView.findViewById(R.id.editTextAlertUserHeight);
@@ -197,18 +197,18 @@ public class NeedCaloriesFragment extends Fragment {
 
         int idSelectedRadio = groupMain.getCheckedRadioButtonId();
         if(idSelectedRadio == R.id.radioFromDB){
-            //Выбираю параметры из БД.
+            //Р’С‹Р±РёСЂР°СЋ РїР°СЂР°РјРµС‚СЂС‹ РёР· Р‘Р”.
             user = DB.getUserParametersInfo();
         }
         else if (!TextUtils.isEmpty(wText.getText()) && !TextUtils.isEmpty(hText.getText())
                 && !TextUtils.isEmpty(aText.getText())){
-            //Выбираю параметры из полей ввода.
+            //Р’С‹Р±РёСЂР°СЋ РїР°СЂР°РјРµС‚СЂС‹ РёР· РїРѕР»РµР№ РІРІРѕРґР°.
             int idSelectedSex = groupSex.getCheckedRadioButtonId();
             RadioButton radioBtSex = (RadioButton) alertView.findViewById(idSelectedSex);
 
             user.setSex(radioBtSex.getText().toString());
 
-            //Проверка на корректные данные ввода.
+            //РџСЂРѕРІРµСЂРєР° РЅР° РєРѕСЂСЂРµРєС‚РЅС‹Рµ РґР°РЅРЅС‹Рµ РІРІРѕРґР°.
             int age = Integer.valueOf(aText.getText().toString());
             float weight = Float.valueOf(wText.getText().toString());
             float height = Float.valueOf(hText.getText().toString());
@@ -231,14 +231,14 @@ public class NeedCaloriesFragment extends Fragment {
             return;
         }
 
-        //Получаю норму количества калорий.
+        //РџРѕР»СѓС‡Р°СЋ РЅРѕСЂРјСѓ РєРѕР»РёС‡РµСЃС‚РІР° РєР°Р»РѕСЂРёР№.
         setCountCalories(user.normalCaloriesCount(getActivity()));
     }
 
-    //Устанавливаю значение калорий, исходя из образа жизни пользователя.
+    //РЈСЃС‚Р°РЅР°РІР»РёРІР°СЋ Р·РЅР°С‡РµРЅРёРµ РєР°Р»РѕСЂРёР№, РёСЃС…РѕРґСЏ РёР· РѕР±СЂР°Р·Р° Р¶РёР·РЅРё РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ.
     private void setCountCalories(int count){
         switch (spinner.getSelectedItemPosition()){
-            //Начинаю с 0, а не с 1, потому что при 0 елементе коеффициент умножения параметра (count) == 1.
+            //РќР°С‡РёРЅР°СЋ СЃ 0, Р° РЅРµ СЃ 1, РїРѕС‚РѕРјСѓ С‡С‚Рѕ РїСЂРё 0 РµР»РµРјРµРЅС‚Рµ РєРѕРµС„С„РёС†РёРµРЅС‚ СѓРјРЅРѕР¶РµРЅРёСЏ РїР°СЂР°РјРµС‚СЂР° (count) == 1.
             case 1:
                 count *= MIN;
                 break;
@@ -275,7 +275,7 @@ public class NeedCaloriesFragment extends Fragment {
         fastLossWeight.setText(fastLossTextValue);
     }
 
-    //Инициализирую сохраненные значения после поворота экрана.
+    //РРЅРёС†РёР°Р»РёР·РёСЂСѓСЋ СЃРѕС…СЂР°РЅРµРЅРЅС‹Рµ Р·РЅР°С‡РµРЅРёСЏ РїРѕСЃР»Рµ РїРѕРІРѕСЂРѕС‚Р° СЌРєСЂР°РЅР°.
     private void initViewsOnConfigurationChanged(Bundle savedInstanceState) {
         TextView normal = (TextView) view.findViewById(R.id.textViewNeedCaloriesValue);
         TextView lossWeight = (TextView) view.findViewById(R.id.textViewNeedCaloriesLossWeightValue);

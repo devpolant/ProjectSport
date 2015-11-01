@@ -23,7 +23,7 @@ import com.polant.projectsport.preferences.PreferencesNewActivity;
 import com.polant.projectsport.preferences.PreferencesOldActivity;
 
 /**
- * Данная Активити используется для отображения одной, выбранной пользователем из списка, статьи.
+ * Р”Р°РЅРЅР°СЏ РђРєС‚РёРІРёС‚Рё РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РґР»СЏ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ РѕРґРЅРѕР№, РІС‹Р±СЂР°РЅРЅРѕР№ РїРѕР»СЊР·РѕРІР°С‚РµР»РµРј РёР· СЃРїРёСЃРєР°, СЃС‚Р°С‚СЊРё.
  */
 public class ArticleInfoActivity extends AppCompatActivity {
 
@@ -52,7 +52,7 @@ public class ArticleInfoActivity extends AppCompatActivity {
         initInfoViews();
     }
 
-    //Закрытие Navigation Drawer, если он открыт.
+    //Р—Р°РєСЂС‹С‚РёРµ Navigation Drawer, РµСЃР»Рё РѕРЅ РѕС‚РєСЂС‹С‚.
     @Override
     public void onBackPressed() {
         if (drawerLayout != null && navigationView != null && drawerLayout.isDrawerOpen(navigationView)){
@@ -63,7 +63,7 @@ public class ArticleInfoActivity extends AppCompatActivity {
         }
     }
 
-    //Сама информация выбранной статьи.
+    //РЎР°РјР° РёРЅС„РѕСЂРјР°С†РёСЏ РІС‹Р±СЂР°РЅРЅРѕР№ СЃС‚Р°С‚СЊРё.
     private void initInfoViews() {
         long idArticle = getIntent().getLongExtra(ARTICLE_ID, 0);
         Article article = DB.getArticle((int) idArticle);
@@ -74,7 +74,7 @@ public class ArticleInfoActivity extends AppCompatActivity {
             TextView text = (TextView) findViewById(R.id.textViewArticleText);
             text.setText(article.getText());
 
-            //Категорию статьи отображаю в toolbar.
+            //РљР°С‚РµРіРѕСЂРёСЋ СЃС‚Р°С‚СЊРё РѕС‚РѕР±СЂР°Р¶Р°СЋ РІ toolbar.
             toolbar.setTitle(article.getCategory());
         }
     }
@@ -108,13 +108,13 @@ public class ArticleInfoActivity extends AppCompatActivity {
 
                 switch (item.getItemId()) {
                     case R.id.actionArticleItem:
-                        //Возвращаемся назад на вызвавшую Активити.
+                        //Р’РѕР·РІСЂР°С‰Р°РµРјСЃСЏ РЅР°Р·Р°Рґ РЅР° РІС‹Р·РІР°РІС€СѓСЋ РђРєС‚РёРІРёС‚Рё.
                         Intent articles = new Intent();
                         setResult(RESULT_OK, articles);
                         finish();
                         break;
                     case R.id.actionSettingsItem:
-                        //добавим совместимость со старыми версиями платформы.
+                        //РґРѕР±Р°РІРёРј СЃРѕРІРјРµСЃС‚РёРјРѕСЃС‚СЊ СЃРѕ СЃС‚Р°СЂС‹РјРё РІРµСЂСЃРёСЏРјРё РїР»Р°С‚С„РѕСЂРјС‹.
                         Class c = Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB ?
                                 PreferencesOldActivity.class : PreferencesNewActivity.class;
 
@@ -141,12 +141,12 @@ public class ArticleInfoActivity extends AppCompatActivity {
         updateFromPreferences(sp);
     }
 
-    //Применение настроек приложения.
+    //РџСЂРёРјРµРЅРµРЅРёРµ РЅР°СЃС‚СЂРѕРµРє РїСЂРёР»РѕР¶РµРЅРёСЏ.
     private void updateFromPreferences(SharedPreferences sp){
-        //Применяю тему.
+        //РџСЂРёРјРµРЅСЏСЋ С‚РµРјСѓ.
         ThemeSettings.setUpdatedTheme(this, sp);
 
-        //Обновляю информация о пользователе.
+        //РћР±РЅРѕРІР»СЏСЋ РёРЅС„РѕСЂРјР°С†РёСЏ Рѕ РїРѕР»СЊР·РѕРІР°С‚РµР»Рµ.
         DB.updateUserParametersInfo(sp);
     }
 }

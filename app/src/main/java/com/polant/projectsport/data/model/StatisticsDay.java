@@ -1,7 +1,7 @@
 package com.polant.projectsport.data.model;
 
 /**
- * Created by Антон on 25.10.2015.
+ * Created by РђРЅС‚РѕРЅ on 25.10.2015.
  */
 public class StatisticsDay {
     

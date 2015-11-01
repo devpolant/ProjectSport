@@ -6,7 +6,7 @@ import android.preference.PreferenceFragment;
 import com.polant.projectsport.R;
 
 /**
- * Created by Антон on 24.10.2015.
+ * Created by РђРЅС‚РѕРЅ on 24.10.2015.
  */
 public class UserParametersInfoFragment extends PreferenceFragment {
 

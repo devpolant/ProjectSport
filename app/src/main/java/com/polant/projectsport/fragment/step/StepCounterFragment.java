@@ -26,16 +26,16 @@ import com.polant.projectsport.preferences.PreferencesNewActivity;
 import java.util.Formatter;
 
 /**
- * Created by Антон on 18.10.2015.
+ * Created by РђРЅС‚РѕРЅ on 18.10.2015.
  */
 public class StepCounterFragment extends Fragment{
 
-    //Интерфейс, который реализует Активити, которая использует фрагмент.
+    //РРЅС‚РµСЂС„РµР№СЃ, РєРѕС‚РѕСЂС‹Р№ СЂРµР°Р»РёР·СѓРµС‚ РђРєС‚РёРІРёС‚Рё, РєРѕС‚РѕСЂР°СЏ РёСЃРїРѕР»СЊР·СѓРµС‚ С„СЂР°РіРјРµРЅС‚.
     public interface StepCounterManagerListener{
         void registerCounter();
         void unregisterCounter();
-        void setStepCount(int stepCount);//Для установления текушего значения, которое должно отобрадаться на экране.
-        void setBeforeResetCount(int resetCount);//Для установления количества сброшенный шагов.
+        void setStepCount(int stepCount);//Р”Р»СЏ СѓСЃС‚Р°РЅРѕРІР»РµРЅРёСЏ С‚РµРєСѓС€РµРіРѕ Р·РЅР°С‡РµРЅРёСЏ, РєРѕС‚РѕСЂРѕРµ РґРѕР»Р¶РЅРѕ РѕС‚РѕР±СЂР°РґР°С‚СЊСЃСЏ РЅР° СЌРєСЂР°РЅРµ.
+        void setBeforeResetCount(int resetCount);//Р”Р»СЏ СѓСЃС‚Р°РЅРѕРІР»РµРЅРёСЏ РєРѕР»РёС‡РµСЃС‚РІР° СЃР±СЂРѕС€РµРЅРЅС‹Р№ С€Р°РіРѕРІ.
     }
 
 
@@ -46,7 +46,7 @@ public class StepCounterFragment extends Fragment{
     private View view;
     private DashedCircularProgress circularProgress;
 
-    //Значения ProgressView.
+    //Р—РЅР°С‡РµРЅРёСЏ ProgressView.
     private int progressValue;
     private int maxProgressValue;
 
@@ -76,7 +76,7 @@ public class StepCounterFragment extends Fragment{
         //Snackbar.make(view, R.string.hint_start_step_counter, Snackbar.LENGTH_SHORT).show();
     }
 
-    //Получаю из SharedPreferences.
+    //РџРѕР»СѓС‡Р°СЋ РёР· SharedPreferences.
     private int getMaxProgressValue(){
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
         return sp.getInt(PreferencesNewActivity.PREF_TARGET_STEP_COUNT, 10000);
@@ -85,26 +85,26 @@ public class StepCounterFragment extends Fragment{
     private void initProgressView(){
         circularProgress = (DashedCircularProgress) view.findViewById(R.id.progressSteps);
 
-        //В этой строке получаю текущее значение шагов.
+        //Р’ СЌС‚РѕР№ СЃС‚СЂРѕРєРµ РїРѕР»СѓС‡Р°СЋ С‚РµРєСѓС‰РµРµ Р·РЅР°С‡РµРЅРёРµ С€Р°РіРѕРІ.
         progressValue = ((MainActivity) activity).getStepCountValue();
 
-        //Устанавливает значение, а не проценты.
+        //РЈСЃС‚Р°РЅР°РІР»РёРІР°РµС‚ Р·РЅР°С‡РµРЅРёРµ, Р° РЅРµ РїСЂРѕС†РµРЅС‚С‹.
         circularProgress.setValue(progressValue);
     }
 
-    //Вызывается после положительного результата алерт-диалога выбора цели кол-ва шагов,
-    //или в onCreate().
+    //Р’С‹Р·С‹РІР°РµС‚СЃСЏ РїРѕСЃР»Рµ РїРѕР»РѕР¶РёС‚РµР»СЊРЅРѕРіРѕ СЂРµР·СѓР»СЊС‚Р°С‚Р° Р°Р»РµСЂС‚-РґРёР°Р»РѕРіР° РІС‹Р±РѕСЂР° С†РµР»Рё РєРѕР»-РІР° С€Р°РіРѕРІ,
+    //РёР»Рё РІ onCreate().
     private void updateProgress(int max){
         maxProgressValue = max;
         circularProgress.setMax(max);
-        //При обновлении установить значение заново!
+        //РџСЂРё РѕР±РЅРѕРІР»РµРЅРёРё СѓСЃС‚Р°РЅРѕРІРёС‚СЊ Р·РЅР°С‡РµРЅРёРµ Р·Р°РЅРѕРІРѕ!
         circularProgress.setValue(progressValue);
 
-        //Максимальное значение.
+        //РњР°РєСЃРёРјР°Р»СЊРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ.
         TextView targetValue = (TextView) view.findViewById(R.id.textViewStepCounterTargetValue);
         targetValue.setText(String.valueOf(max));
 
-        //Значение в процентах.
+        //Р—РЅР°С‡РµРЅРёРµ РІ РїСЂРѕС†РµРЅС‚Р°С….
         TextView textViewCurrentProgress = (TextView) view.findViewById(R.id.textCurrentProgress);
         float percent = progressValue * 100 / circularProgress.getMax();
         try(Formatter formatter = new Formatter()) {
@@ -114,20 +114,20 @@ public class StepCounterFragment extends Fragment{
         }
         textViewCurrentProgress.setText(String.valueOf(percent));
 
-        //Текущее значение (в шагах, а не а процентах).
+        //РўРµРєСѓС‰РµРµ Р·РЅР°С‡РµРЅРёРµ (РІ С€Р°РіР°С…, Р° РЅРµ Р° РїСЂРѕС†РµРЅС‚Р°С…).
         TextView currentValue = (TextView) view.findViewById(R.id.textViewStepCounterCurrentValue);
         currentValue.setText(String.valueOf(progressValue));
 
-        //Устанавливаю количество сброшенных из-за ходьбы калорий.
+        //РЈСЃС‚Р°РЅР°РІР»РёРІР°СЋ РєРѕР»РёС‡РµСЃС‚РІРѕ СЃР±СЂРѕС€РµРЅРЅС‹С… РёР·-Р·Р° С…РѕРґСЊР±С‹ РєР°Р»РѕСЂРёР№.
         TextView deltaCalories = (TextView) view.findViewById(R.id.textViewDeltaCaloriesStepCounter);
         String deltaText = "- " + String.valueOf((int) (progressValue * STEP_CALORIES_KOEFF)) +
                                     getString(R.string.text_ccal);
         deltaCalories.setText(deltaText);
     }
 
-    //Инициализация ВСЕХ кнопок (цель и start, stop, reset) фрагмента.
+    //РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ Р’РЎР•РҐ РєРЅРѕРїРѕРє (С†РµР»СЊ Рё start, stop, reset) С„СЂР°РіРјРµРЅС‚Р°.
     private void initButtons(){
-        //Кнопка выбора цели количества шагов.
+        //РљРЅРѕРїРєР° РІС‹Р±РѕСЂР° С†РµР»Рё РєРѕР»РёС‡РµСЃС‚РІР° С€Р°РіРѕРІ.
         Button targetBt = (Button) view.findViewById(R.id.buttonSetStepCounterTarget);
         targetBt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,7 +136,7 @@ public class StepCounterFragment extends Fragment{
             }
         });
 
-        //Кнопки управления шагомером.
+        //РљРЅРѕРїРєРё СѓРїСЂР°РІР»РµРЅРёСЏ С€Р°РіРѕРјРµСЂРѕРј.
         Button startBt = (Button) view.findViewById(R.id.buttonStartStepCounter);
         startBt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -164,12 +164,12 @@ public class StepCounterFragment extends Fragment{
 
     ///-----------------------------------------------------------------/
 
-    //Построение AlertDialog для изменения цели количества шагов.
+    //РџРѕСЃС‚СЂРѕРµРЅРёРµ AlertDialog РґР»СЏ РёР·РјРµРЅРµРЅРёСЏ С†РµР»Рё РєРѕР»РёС‡РµСЃС‚РІР° С€Р°РіРѕРІ.
     private void buildAlertDialogChangeStepCountTarget() {
 
-        //Построение диалога, в котором пользователь введет количество съеденной еды.
+        //РџРѕСЃС‚СЂРѕРµРЅРёРµ РґРёР°Р»РѕРіР°, РІ РєРѕС‚РѕСЂРѕРј РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ РІРІРµРґРµС‚ РєРѕР»РёС‡РµСЃС‚РІРѕ СЃСЉРµРґРµРЅРЅРѕР№ РµРґС‹.
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        //Передаю не id лайаута, а ссылку View, чтобы потом получить доступ к нему.
+        //РџРµСЂРµРґР°СЋ РЅРµ id Р»Р°Р№Р°СѓС‚Р°, Р° СЃСЃС‹Р»РєСѓ View, С‡С‚РѕР±С‹ РїРѕС‚РѕРј РїРѕР»СѓС‡РёС‚СЊ РґРѕСЃС‚СѓРї Рє РЅРµРјСѓ.
         final View alertView = getActivity().getLayoutInflater().inflate(R.layout.alert_step_count_target, null);
 
         builder.setTitle(R.string.alertTargetStepCountTitle)
@@ -198,19 +198,19 @@ public class StepCounterFragment extends Fragment{
         dialog.show();
     }
 
-    //Положительный результат диалога.
+    //РџРѕР»РѕР¶РёС‚РµР»СЊРЅС‹Р№ СЂРµР·СѓР»СЊС‚Р°С‚ РґРёР°Р»РѕРіР°.
     private void setPositiveClickAlertResult(View alertView) {
         EditText targetText = (EditText) alertView.findViewById(R.id.editTextTargetStepCount);
         if (!TextUtils.isEmpty(targetText.getText())){
             int targetCount = Integer.valueOf(targetText.getText().toString());
             if (targetCount >= Constants.MIN_STEP_COUNT_TARGET) {
-                //Сохраняю целевое количество шагов в настройки.
+                //РЎРѕС…СЂР°РЅСЏСЋ С†РµР»РµРІРѕРµ РєРѕР»РёС‡РµСЃС‚РІРѕ С€Р°РіРѕРІ РІ РЅР°СЃС‚СЂРѕР№РєРё.
                 SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
                 SharedPreferences.Editor editor = sp.edit();
                 editor.putInt(PreferencesNewActivity.PREF_TARGET_STEP_COUNT, targetCount);
                 editor.apply();
 
-                //устанавливаю максимальное значение в ProgressView.
+                //СѓСЃС‚Р°РЅР°РІР»РёРІР°СЋ РјР°РєСЃРёРјР°Р»СЊРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ РІ ProgressView.
                 updateProgress(targetCount);
             }
             else{
@@ -223,13 +223,13 @@ public class StepCounterFragment extends Fragment{
     }
 
 
-    //Этот метод использует Активити для передачи данных во фрагмент.
+    //Р­С‚РѕС‚ РјРµС‚РѕРґ РёСЃРїРѕР»СЊР·СѓРµС‚ РђРєС‚РёРІРёС‚Рё РґР»СЏ РїРµСЂРµРґР°С‡Рё РґР°РЅРЅС‹С… РІРѕ С„СЂР°РіРјРµРЅС‚.
     public void stepDetected(int value){
         progressValue = value;
         updateProgress(maxProgressValue);
     }
 
-    //Тело обработчика нажатия на положительную кнопку reset buildAlertReset-диалога.
+    //РўРµР»Рѕ РѕР±СЂР°Р±РѕС‚С‡РёРєР° РЅР°Р¶Р°С‚РёСЏ РЅР° РїРѕР»РѕР¶РёС‚РµР»СЊРЅСѓСЋ РєРЅРѕРїРєСѓ reset buildAlertReset-РґРёР°Р»РѕРіР°.
     private void resetBtClick(){
         ((MainActivity) activity).setBeforeResetCount(progressValue);
         progressValue = 0;
@@ -237,10 +237,10 @@ public class StepCounterFragment extends Fragment{
         updateProgress(maxProgressValue);
     }
 
-    //Диалог подтверждения сброса шагомера.
+    //Р”РёР°Р»РѕРі РїРѕРґС‚РІРµСЂР¶РґРµРЅРёСЏ СЃР±СЂРѕСЃР° С€Р°РіРѕРјРµСЂР°.
     private void buildAlertReset() {
 
-        //Построение диалога, в котором пользователь введет количество съеденной еды.
+        //РџРѕСЃС‚СЂРѕРµРЅРёРµ РґРёР°Р»РѕРіР°, РІ РєРѕС‚РѕСЂРѕРј РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ РІРІРµРґРµС‚ РєРѕР»РёС‡РµСЃС‚РІРѕ СЃСЉРµРґРµРЅРЅРѕР№ РµРґС‹.
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         builder.setTitle(R.string.alertResetTitle)

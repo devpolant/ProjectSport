@@ -7,7 +7,7 @@ import com.polant.projectsport.R;
 import java.util.Formatter;
 
 /**
- * Created by Антон on 06.10.2015.
+ * Created by РђРЅС‚РѕРЅ on 06.10.2015.
  */
 public class UserParametersInfo {
 
@@ -28,7 +28,7 @@ public class UserParametersInfo {
         this.sex = sex;
     }
 
-    //Передаю контекст, чтобы получить доступ к строковым ресурсам.
+    //РџРµСЂРµРґР°СЋ РєРѕРЅС‚РµРєСЃС‚, С‡С‚РѕР±С‹ РїРѕР»СѓС‡РёС‚СЊ РґРѕСЃС‚СѓРї Рє СЃС‚СЂРѕРєРѕРІС‹Рј СЂРµСЃСѓСЂСЃР°Рј.
     public int normalCaloriesCount(Context context){
         int k = 0;
         if (this.getSex().equals(context.getString(R.string.text_your_sex_M))){
@@ -40,7 +40,7 @@ public class UserParametersInfo {
         return  (int) (10 * weight + 6.25 * height + 5 * age + k);
     }
 
-    //Считаю индекс массы тела.
+    //РЎС‡РёС‚Р°СЋ РёРЅРґРµРєСЃ РјР°СЃСЃС‹ С‚РµР»Р°.
     public static double calculateIndexBody(float w, float h){
         double result = w / Math.pow(h / 100, 2);
         try(Formatter formatter = new Formatter()) {

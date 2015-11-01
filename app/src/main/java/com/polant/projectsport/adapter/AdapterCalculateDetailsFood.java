@@ -16,7 +16,7 @@ import com.polant.projectsport.data.Database;
 import com.polant.projectsport.data.model.SpecificFood;
 
 /**
- * Created by Антон on 05.10.2015.
+ * Created by РђРЅС‚РѕРЅ on 05.10.2015.
  */
 public class AdapterCalculateDetailsFood extends CursorAdapter{
 
@@ -39,17 +39,17 @@ public class AdapterCalculateDetailsFood extends CursorAdapter{
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
         final String nameFood = cursor.getString(cursor.getColumnIndex(Database.FOOD_NAME));
-        //столбец имеет INTEGER значение, но можно получить и через метод cursor.getString(). Я пробовал - работает и так.
+        //СЃС‚РѕР»Р±РµС† РёРјРµРµС‚ INTEGER Р·РЅР°С‡РµРЅРёРµ, РЅРѕ РјРѕР¶РЅРѕ РїРѕР»СѓС‡РёС‚СЊ Рё С‡РµСЂРµР· РјРµС‚РѕРґ cursor.getString(). РЇ РїСЂРѕР±РѕРІР°Р» - СЂР°Р±РѕС‚Р°РµС‚ Рё С‚Р°Рє.
         final String caloriesCount = String.valueOf(cursor.getInt(cursor.getColumnIndex(Database.CAL_COUNT)));
 
-        //Проинициализирую визуальные значения в списке.
+        //РџСЂРѕРёРЅРёС†РёР°Р»РёР·РёСЂСѓСЋ РІРёР·СѓР°Р»СЊРЅС‹Рµ Р·РЅР°С‡РµРЅРёСЏ РІ СЃРїРёСЃРєРµ.
         TextView nameTextView = (TextView) view.findViewById(R.id.textViewDetailFood);
         TextView caloriesTextView = (TextView) view.findViewById(R.id.textViewCalInFood);
         nameTextView.setText(nameFood);
         caloriesTextView.setText(caloriesCount);
 
 
-        //далее все, что нужно для обработчика клика по ImageView для добавления.
+        //РґР°Р»РµРµ РІСЃРµ, С‡С‚Рѕ РЅСѓР¶РЅРѕ РґР»СЏ РѕР±СЂР°Р±РѕС‚С‡РёРєР° РєР»РёРєР° РїРѕ ImageView РґР»СЏ РґРѕР±Р°РІР»РµРЅРёСЏ.
         final int idSpecificFood = cursor.getInt(cursor.getColumnIndex(Database.ID_SPECIFIC_FOOD));
         final String foodCategory = cursor.getString(cursor.getColumnIndex(Database.FOOD_CATEGORY));
 
@@ -58,7 +58,7 @@ public class AdapterCalculateDetailsFood extends CursorAdapter{
             @Override
             public void onClick(View v) {
                 SpecificFood sf = new SpecificFood(idSpecificFood, foodCategory, nameFood, Integer.valueOf(caloriesCount));
-                //Передаю параметры, которые будут обрабатываться уже в самой Активити.
+                //РџРµСЂРµРґР°СЋ РїР°СЂР°РјРµС‚СЂС‹, РєРѕС‚РѕСЂС‹Рµ Р±СѓРґСѓС‚ РѕР±СЂР°Р±Р°С‚С‹РІР°С‚СЊСЃСЏ СѓР¶Рµ РІ СЃР°РјРѕР№ РђРєС‚РёРІРёС‚Рё.
                 ((ActivityCalculateFood) mContext).changeSelectedCaloriesCount(sf, true);
             }
         });

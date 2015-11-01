@@ -24,7 +24,7 @@ import com.polant.projectsport.data.Database;
 import com.polant.projectsport.data.parse.ParserTXT;
 
 /**
- * Created by Антон on 24.10.2015.
+ * Created by РђРЅС‚РѕРЅ on 24.10.2015.
  */
 public class ArticleFragment extends ListFragment implements LoaderManager.LoaderCallbacks<Cursor>{
 
@@ -86,9 +86,9 @@ public class ArticleFragment extends ListFragment implements LoaderManager.Loade
         startActivityForResult(intent, Constants.SHOW_ACTIVITY_ARTICLE_INFO);
     }
 
-    //Парсинг raw ресурса текстового файла со статьями.
+    //РџР°СЂСЃРёРЅРі raw СЂРµСЃСѓСЂСЃР° С‚РµРєСЃС‚РѕРІРѕРіРѕ С„Р°Р№Р»Р° СЃРѕ СЃС‚Р°С‚СЊСЏРјРё.
     private void parse() {
-        //получаем сохраненные настройки.
+        //РїРѕР»СѓС‡Р°РµРј СЃРѕС…СЂР°РЅРµРЅРЅС‹Рµ РЅР°СЃС‚СЂРѕР№РєРё.
         Context context = getActivity().getApplicationContext();
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
 

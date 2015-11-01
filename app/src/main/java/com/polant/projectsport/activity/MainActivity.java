@@ -30,8 +30,8 @@ import com.polant.projectsport.preferences.PreferencesNewActivity;
 import com.polant.projectsport.preferences.PreferencesOldActivity;
 
 /**
- * Данная Активити используется для функций шагомера, калькулятора индекса массы тела,
- * а также калькулятора суточной потредности калорий.
+ * Р”Р°РЅРЅР°СЏ РђРєС‚РёРІРёС‚Рё РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РґР»СЏ С„СѓРЅРєС†РёР№ С€Р°РіРѕРјРµСЂР°, РєР°Р»СЊРєСѓР»СЏС‚РѕСЂР° РёРЅРґРµРєСЃР° РјР°СЃСЃС‹ С‚РµР»Р°,
+ * Р° С‚Р°РєР¶Рµ РєР°Р»СЊРєСѓР»СЏС‚РѕСЂР° СЃСѓС‚РѕС‡РЅРѕР№ РїРѕС‚СЂРµРґРЅРѕСЃС‚Рё РєР°Р»РѕСЂРёР№.
  */
 public class MainActivity extends AppCompatActivity implements SensorEventListener,
                                                     StepCounterFragment.StepCounterManagerListener{
@@ -61,19 +61,19 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private String firstCallAction;
     private SharedPreferences prefs;
 
-    //Сенсоры.
+    //РЎРµРЅСЃРѕСЂС‹.
     private SensorManager sensorManager;
     private Sensor stepCounterSensor;
     private Sensor stepDetectorSensor;
-    //Текущее значение шагомера.
+    //РўРµРєСѓС‰РµРµ Р·РЅР°С‡РµРЅРёРµ С€Р°РіРѕРјРµСЂР°.
     private int currentStepValue;
     private int resetStepValue;
-    //Специальная переменная, которая служит лишь при первом событии датчика шагомера.
-    //Ее цель - проверить, не равно ли значениее кол-ва шагов 0.
-    //Если оно равно, то обнуляю SharedPreferences.
+    //РЎРїРµС†РёР°Р»СЊРЅР°СЏ РїРµСЂРµРјРµРЅРЅР°СЏ, РєРѕС‚РѕСЂР°СЏ СЃР»СѓР¶РёС‚ Р»РёС€СЊ РїСЂРё РїРµСЂРІРѕРј СЃРѕР±С‹С‚РёРё РґР°С‚С‡РёРєР° С€Р°РіРѕРјРµСЂР°.
+    //Р•Рµ С†РµР»СЊ - РїСЂРѕРІРµСЂРёС‚СЊ, РЅРµ СЂР°РІРЅРѕ Р»Рё Р·РЅР°С‡РµРЅРёРµРµ РєРѕР»-РІР° С€Р°РіРѕРІ 0.
+    //Р•СЃР»Рё РѕРЅРѕ СЂР°РІРЅРѕ, С‚Рѕ РѕР±РЅСѓР»СЏСЋ SharedPreferences.
     private int testStepSensorValue;
 
-    //Служит для передачи фрагменту шагомера сообщения о выполненном шаге.
+    //РЎР»СѓР¶РёС‚ РґР»СЏ РїРµСЂРµРґР°С‡Рё С„СЂР°РіРјРµРЅС‚Сѓ С€Р°РіРѕРјРµСЂР° СЃРѕРѕР±С‰РµРЅРёСЏ Рѕ РІС‹РїРѕР»РЅРµРЅРЅРѕРј С€Р°РіРµ.
     private StepCounterFragment stepCounterFragment;
 
     @Override
@@ -85,8 +85,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         Log.d("MY_LOGS", "onCreate()");
 
-        //Открываю БД здесь, чтобы не делать это в дочерних фрагментах.
-        //Во фрагментах получаю базу через метод getDatabase().
+        //РћС‚РєСЂС‹РІР°СЋ Р‘Р” Р·РґРµСЃСЊ, С‡С‚РѕР±С‹ РЅРµ РґРµР»Р°С‚СЊ СЌС‚Рѕ РІ РґРѕС‡РµСЂРЅРёС… С„СЂР°РіРјРµРЅС‚Р°С….
+        //Р’Рѕ С„СЂР°РіРјРµРЅС‚Р°С… РїРѕР»СѓС‡Р°СЋ Р±Р°Р·Сѓ С‡РµСЂРµР· РјРµС‚РѕРґ getDatabase().
         DB = new Database(this);
         DB.open();
 
@@ -95,20 +95,20 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         firstCallAction = ACTION_STEP_COUNTER;
 
-        //Сохнаняю текущее действие в настройки приложения.
+        //РЎРѕС…РЅР°РЅСЏСЋ С‚РµРєСѓС‰РµРµ РґРµР№СЃС‚РІРёРµ РІ РЅР°СЃС‚СЂРѕР№РєРё РїСЂРёР»РѕР¶РµРЅРёСЏ.
         initSharedPreferences();
-        //Выбираю необходимый фрагмент, в зависимости от (вызывающего Активити) действия Action.
+        //Р’С‹Р±РёСЂР°СЋ РЅРµРѕР±С…РѕРґРёРјС‹Р№ С„СЂР°РіРјРµРЅС‚, РІ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё РѕС‚ (РІС‹Р·С‹РІР°СЋС‰РµРіРѕ РђРєС‚РёРІРёС‚Рё) РґРµР№СЃС‚РІРёСЏ Action.
         replaceFragment(savedInstanceState);
 
-        //Тестовая переменная.
+        //РўРµСЃС‚РѕРІР°СЏ РїРµСЂРµРјРµРЅРЅР°СЏ.
         testStepSensorValue = 0;
-        //Текущие значения шагомера.
+        //РўРµРєСѓС‰РёРµ Р·РЅР°С‡РµРЅРёСЏ С€Р°РіРѕРјРµСЂР°.
         currentStepValue = prefs.getInt(PreferencesNewActivity.PREF_CURRENT_STEP_COUNT, 0);
         resetStepValue = prefs.getInt(PreferencesNewActivity.PREF_RESET_STEP_COUNT, 0);
     }
 
 
-    //Замена фрагмента, используется в onCreate() и для транзакций в navigationView.
+    //Р—Р°РјРµРЅР° С„СЂР°РіРјРµРЅС‚Р°, РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РІ onCreate() Рё РґР»СЏ С‚СЂР°РЅР·Р°РєС†РёР№ РІ navigationView.
     private void replaceFragment(Bundle savedInstanceState){
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         switch (getCurrentAction()){
@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             case ACTION_INDEX_BODY:
                 IndexBodyFragment indexBodyFragment;
 
-                //Использую при повороте экрана.
+                //РСЃРїРѕР»СЊР·СѓСЋ РїСЂРё РїРѕРІРѕСЂРѕС‚Рµ СЌРєСЂР°РЅР°.
                 if (savedInstanceState != null){
                     indexBodyFragment = (IndexBodyFragment) getSupportFragmentManager().
                             findFragmentByTag(getString(R.string.tag_fragment_index_body));
@@ -144,7 +144,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             case ACTION_NEED_CALORIES:
                 NeedCaloriesFragment needCaloriesFragment;
 
-                //Использую при повороте экрана.
+                //РСЃРїРѕР»СЊР·СѓСЋ РїСЂРё РїРѕРІРѕСЂРѕС‚Рµ СЌРєСЂР°РЅР°.
                 if (savedInstanceState != null){
                     needCaloriesFragment = (NeedCaloriesFragment) getSupportFragmentManager().
                             findFragmentByTag(getString(R.string.tag_fragment_need_calories));
@@ -220,7 +220,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                         startActivityForResult(foodCaloriesCounter, Constants.SHOW_ACTIVITY_CALCULATE_FOOD);
                         break;
                     case R.id.actionSettingsItem:
-                        //добавим совместимость со старыми версиями платформы.
+                        //РґРѕР±Р°РІРёРј СЃРѕРІРјРµСЃС‚РёРјРѕСЃС‚СЊ СЃРѕ СЃС‚Р°СЂС‹РјРё РІРµСЂСЃРёСЏРјРё РїР»Р°С‚С„РѕСЂРјС‹.
                         Class c = Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB ?
                                 PreferencesOldActivity.class : PreferencesNewActivity.class;
 
@@ -239,13 +239,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         });
     }
 
-    //Получение БД во фрагментах.
+    //РџРѕР»СѓС‡РµРЅРёРµ Р‘Р” РІРѕ С„СЂР°РіРјРµРЅС‚Р°С….
     public Database getDatabase(){
         return DB;
     }
 
-    //Данные 3 метода нужны для того, чтобы транзакции фрагментов проходили корректно, даже если
-    //в каком то фрагменте произошел поворот экрана.
+    //Р”Р°РЅРЅС‹Рµ 3 РјРµС‚РѕРґР° РЅСѓР¶РЅС‹ РґР»СЏ С‚РѕРіРѕ, С‡С‚РѕР±С‹ С‚СЂР°РЅР·Р°РєС†РёРё С„СЂР°РіРјРµРЅС‚РѕРІ РїСЂРѕС…РѕРґРёР»Рё РєРѕСЂСЂРµРєС‚РЅРѕ, РґР°Р¶Рµ РµСЃР»Рё
+    //РІ РєР°РєРѕРј С‚Рѕ С„СЂР°РіРјРµРЅС‚Рµ РїСЂРѕРёР·РѕС€РµР» РїРѕРІРѕСЂРѕС‚ СЌРєСЂР°РЅР°.
     private void initSharedPreferences(){
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString(FIRST_ACTION, firstCallAction);
@@ -264,7 +264,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         return prefs.getString(CURRENT_ACTION_STRING, "");
     }
     private void deleteCurrentAction(){
-        //Удаляю значение настройки текущего действия, которое используется в MainActivity.
+        //РЈРґР°Р»СЏСЋ Р·РЅР°С‡РµРЅРёРµ РЅР°СЃС‚СЂРѕР№РєРё С‚РµРєСѓС‰РµРіРѕ РґРµР№СЃС‚РІРёСЏ, РєРѕС‚РѕСЂРѕРµ РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РІ MainActivity.
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         SharedPreferences.Editor editor = sp.edit();
         editor.remove(MainActivity.CURRENT_ACTION_STRING);
@@ -272,7 +272,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
 
-    //Методы для вызова транзакций фрагментов, которые используются в данной Активити.
+    //РњРµС‚РѕРґС‹ РґР»СЏ РІС‹Р·РѕРІР° С‚СЂР°РЅР·Р°РєС†РёР№ С„СЂР°РіРјРµРЅС‚РѕРІ, РєРѕС‚РѕСЂС‹Рµ РёСЃРїРѕР»СЊР·СѓСЋС‚СЃСЏ РІ РґР°РЅРЅРѕР№ РђРєС‚РёРІРёС‚Рё.
     private void showStepCounterFragment(){
         if (getCurrentAction().equals(ACTION_NEED_CALORIES) ||
                 getCurrentAction().equals(ACTION_INDEX_BODY)) {
@@ -296,7 +296,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
 
-    //------------------Жизненный цикл---------------------//
+    //------------------Р–РёР·РЅРµРЅРЅС‹Р№ С†РёРєР»---------------------//
 
     @Override
     public void onBackPressed() {
@@ -316,7 +316,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         Log.d("MY_LOGS", "DB.close() MainActivity");
         unRegisterSensors();
         Log.d("MY_LOGS", "unRegisterSensors() MainActivity");
-        //Сохраняю значение шагомера.
+        //РЎРѕС…СЂР°РЅСЏСЋ Р·РЅР°С‡РµРЅРёРµ С€Р°РіРѕРјРµСЂР°.
         setStepCount(currentStepValue);
         Log.d("MY_LOGS", "setStepCount() MainActivity");
         deleteCurrentAction();
@@ -361,17 +361,17 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
 
-    //Вызывается в onDestroy() данной Активити.
+    //Р’С‹Р·С‹РІР°РµС‚СЃСЏ РІ onDestroy() РґР°РЅРЅРѕР№ РђРєС‚РёРІРёС‚Рё.
     @Override
     public void setStepCount(int stepCount) {
         SharedPreferences.Editor editor = prefs.edit();
         editor.putInt(PreferencesNewActivity.PREF_CURRENT_STEP_COUNT, stepCount);
         editor.apply();
-        //Или правильнее сделать так: (раньше устанавливал в 0)
+        //РР»Рё РїСЂР°РІРёР»СЊРЅРµРµ СЃРґРµР»Р°С‚СЊ С‚Р°Рє: (СЂР°РЅСЊС€Рµ СѓСЃС‚Р°РЅР°РІР»РёРІР°Р» РІ 0)
         currentStepValue = stepCount;
     }
 
-    //Вызывается обработчиком кнопки reset фрагмента StepCounterFragment.
+    //Р’С‹Р·С‹РІР°РµС‚СЃСЏ РѕР±СЂР°Р±РѕС‚С‡РёРєРѕРј РєРЅРѕРїРєРё reset С„СЂР°РіРјРµРЅС‚Р° StepCounterFragment.
     @Override
     public void setBeforeResetCount(int resetCount) {
         resetStepValue += resetCount;
@@ -381,25 +381,25 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         editor.apply();
     }
 
-    //Получение текущего состояния кол-ва шагов.
+    //РџРѕР»СѓС‡РµРЅРёРµ С‚РµРєСѓС‰РµРіРѕ СЃРѕСЃС‚РѕСЏРЅРёСЏ РєРѕР»-РІР° С€Р°РіРѕРІ.
     public int getStepCountValue(){
         return currentStepValue;
     }
 
 
-    //---------------Настройки---------------------//
-    //Применение настроек приложения.
+    //---------------РќР°СЃС‚СЂРѕР№РєРё---------------------//
+    //РџСЂРёРјРµРЅРµРЅРёРµ РЅР°СЃС‚СЂРѕРµРє РїСЂРёР»РѕР¶РµРЅРёСЏ.
     private void updateFromPreferences(){
-        //Применяю тему.
+        //РџСЂРёРјРµРЅСЏСЋ С‚РµРјСѓ.
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         ThemeSettings.setUpdatedTheme(this, sp);
 
-        //Обновляю информация о пользователе.
+        //РћР±РЅРѕРІР»СЏСЋ РёРЅС„РѕСЂРјР°С†РёСЏ Рѕ РїРѕР»СЊР·РѕРІР°С‚РµР»Рµ.
         DB.updateUserParametersInfo(sp);
     }
 
 
-    //------------------Сенсоры---------------------//
+    //------------------РЎРµРЅСЃРѕСЂС‹---------------------//
 
     @Override
     public void registerCounter() {
@@ -412,7 +412,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
 
-    //Инициализирую сенсоры, которые использую для подсчета шагов.
+    //РРЅРёС†РёР°Р»РёР·РёСЂСѓСЋ СЃРµРЅСЃРѕСЂС‹, РєРѕС‚РѕСЂС‹Рµ РёСЃРїРѕР»СЊР·СѓСЋ РґР»СЏ РїРѕРґСЃС‡РµС‚Р° С€Р°РіРѕРІ.
     private void initSensors(){
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         stepCounterSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
@@ -423,7 +423,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     private void unRegisterSensors(){
-        //Если пользователь нажал стоп, до того как нажал старт возникает NullPointerException.
+        //Р•СЃР»Рё РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ РЅР°Р¶Р°Р» СЃС‚РѕРї, РґРѕ С‚РѕРіРѕ РєР°Рє РЅР°Р¶Р°Р» СЃС‚Р°СЂС‚ РІРѕР·РЅРёРєР°РµС‚ NullPointerException.
         try {
             sensorManager.unregisterListener(this, stepCounterSensor);
             sensorManager.unregisterListener(this, stepDetectorSensor);
@@ -451,8 +451,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                         currentStepValue = 0;
                         resetStepValue = 0;
 
-                        //И инкрементирую переменную, чтобы данная проверка проходила лишь 1 раз
-                        //при создании Активити.
+                        //Р РёРЅРєСЂРµРјРµРЅС‚РёСЂСѓСЋ РїРµСЂРµРјРµРЅРЅСѓСЋ, С‡С‚РѕР±С‹ РґР°РЅРЅР°СЏ РїСЂРѕРІРµСЂРєР° РїСЂРѕС…РѕРґРёР»Р° Р»РёС€СЊ 1 СЂР°Р·
+                        //РїСЂРё СЃРѕР·РґР°РЅРёРё РђРєС‚РёРІРёС‚Рё.
                         testStepSensorValue++;
                     }
                 }

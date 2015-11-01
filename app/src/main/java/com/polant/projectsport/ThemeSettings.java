@@ -10,12 +10,12 @@ import com.polant.projectsport.data.model.UserParametersInfo;
 import com.polant.projectsport.preferences.PreferencesNewActivity;
 
 /**
- * Created by Антон on 16.10.2015.
+ * Created by РђРЅС‚РѕРЅ on 16.10.2015.
  */
 public class ThemeSettings {
 
 
-    //Вызывается после применения новой темы в настройках приложения, просто меняя фон старой темы.
+    //Р’С‹Р·С‹РІР°РµС‚СЃСЏ РїРѕСЃР»Рµ РїСЂРёРјРµРЅРµРЅРёСЏ РЅРѕРІРѕР№ С‚РµРјС‹ РІ РЅР°СЃС‚СЂРѕР№РєР°С… РїСЂРёР»РѕР¶РµРЅРёСЏ, РїСЂРѕСЃС‚Рѕ РјРµРЅСЏСЏ С„РѕРЅ СЃС‚Р°СЂРѕР№ С‚РµРјС‹.
     public static void setUpdatedTheme(Activity activity, SharedPreferences sp) {
         String theme = sp.getString(PreferencesNewActivity.PREF_APP_THEME, "Light");
         Toolbar toolbar = (Toolbar) activity.findViewById(R.id.toolbar);
@@ -30,7 +30,7 @@ public class ThemeSettings {
         setTabLayoutColor(activity, theme);
     }
 
-    //Применение темы из настроек. Вызывается в OnCreate() in Activity.
+    //РџСЂРёРјРµРЅРµРЅРёРµ С‚РµРјС‹ РёР· РЅР°СЃС‚СЂРѕРµРє. Р’С‹Р·С‹РІР°РµС‚СЃСЏ РІ OnCreate() in Activity.
     public static void setCurrentTheme(Activity activity, SharedPreferences sp){
         String theme = sp.getString(PreferencesNewActivity.PREF_APP_THEME, "Light");
         switch (theme){
@@ -58,7 +58,7 @@ public class ThemeSettings {
     }
 
 
-    //Заполняю ностройки данными о пользователе.
+    //Р—Р°РїРѕР»РЅСЏСЋ РЅРѕСЃС‚СЂРѕР№РєРё РґР°РЅРЅС‹РјРё Рѕ РїРѕР»СЊР·РѕРІР°С‚РµР»Рµ.
     public static void setUserParametersInfo(UserParametersInfo user, SharedPreferences sp){
         SharedPreferences.Editor editor = sp.edit();
         editor.putString(PreferencesNewActivity.PREF_USER_SEX, user.getSex());

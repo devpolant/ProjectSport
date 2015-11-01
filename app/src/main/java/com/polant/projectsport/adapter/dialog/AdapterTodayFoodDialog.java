@@ -12,7 +12,7 @@ import com.polant.projectsport.R;
 import com.polant.projectsport.data.Database;
 
 /**
- * Created by Антон on 11.10.2015.
+ * Created by РђРЅС‚РѕРЅ on 11.10.2015.
  */
 public class AdapterTodayFoodDialog extends CursorAdapter {
 

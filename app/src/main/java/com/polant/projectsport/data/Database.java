@@ -26,7 +26,7 @@ import java.util.Calendar;
 import java.util.Collections;
 
 /**
- * Created by Антон on 05.10.2015.
+ * Created by РђРЅС‚РѕРЅ on 05.10.2015.
  */
 public class Database {
 
@@ -52,7 +52,7 @@ public class Database {
         return sqLiteDatabase;
     }
 
-    //Получение необходимой статистики о потреблении пищи пользователем.
+    //РџРѕР»СѓС‡РµРЅРёРµ РЅРµРѕР±С…РѕРґРёРјРѕР№ СЃС‚Р°С‚РёСЃС‚РёРєРё Рѕ РїРѕС‚СЂРµР±Р»РµРЅРёРё РїРёС‰Рё РїРѕР»СЊР·РѕРІР°С‚РµР»РµРј.
     public ArrayList<StatisticsDay> getStatistics(int interval){
         ArrayList<StatisticsDay> list;
 
@@ -65,7 +65,7 @@ public class Database {
         return list;
     }
 
-    //Получаю список данных ЗА ПОСЛЕДНИЕ 7 ДНЕЙ из таблицы Статистики.
+    //РџРѕР»СѓС‡Р°СЋ СЃРїРёСЃРѕРє РґР°РЅРЅС‹С… Р—Рђ РџРћРЎР›Р•Р”РќРР• 7 Р”РќР•Р™ РёР· С‚Р°Р±Р»РёС†С‹ РЎС‚Р°С‚РёСЃС‚РёРєРё.
     private ArrayList<StatisticsDay> getListWeekStatisticsItems() {
         ArrayList<StatisticsDay> list = new ArrayList<>();
 
@@ -106,7 +106,7 @@ public class Database {
         return list;
     }
 
-    //Получаю список данных ЗА ПОСЛЕДНИЙ МЕСЯЦ из таблицы Статистики.
+    //РџРѕР»СѓС‡Р°СЋ СЃРїРёСЃРѕРє РґР°РЅРЅС‹С… Р—Рђ РџРћРЎР›Р•Р”РќРР™ РњР•РЎРЇР¦ РёР· С‚Р°Р±Р»РёС†С‹ РЎС‚Р°С‚РёСЃС‚РёРєРё.
     private ArrayList<StatisticsDay> getListMonthStatisticsItems(){
         ArrayList<StatisticsDay> list = new ArrayList<>();
 
@@ -136,7 +136,7 @@ public class Database {
                     year = data.getInt(yearIndex);
 
                 }while (data.moveToNext());
-                //Добавляю последний элемент.
+                //Р”РѕР±Р°РІР»СЏСЋ РїРѕСЃР»РµРґРЅРёР№ СЌР»РµРјРµРЅС‚.
                 list.add(new StatisticsDay(tempDay, month, year, sumDayDelta));
                 data.close();
             }
@@ -146,7 +146,7 @@ public class Database {
         return list;
     }
 
-    //Получаю все данные таблицы Статистики.
+    //РџРѕР»СѓС‡Р°СЋ РІСЃРµ РґР°РЅРЅС‹Рµ С‚Р°Р±Р»РёС†С‹ РЎС‚Р°С‚РёСЃС‚РёРєРё.
     private Cursor getRawWeekStatisticsItems() {
         String[] projection = new String[] {
                 DELTA, DAY, MONTH, YEAR
@@ -155,7 +155,7 @@ public class Database {
     }
 
 
-    //Получаю все данные ЗА МЕСЯЦ таблицы Статистики.
+    //РџРѕР»СѓС‡Р°СЋ РІСЃРµ РґР°РЅРЅС‹Рµ Р—Рђ РњР•РЎРЇР¦ С‚Р°Р±Р»РёС†С‹ РЎС‚Р°С‚РёСЃС‚РёРєРё.
     private Cursor getRawMonthStatisticsItems(){
         Calendar calendar = Calendar.getInstance();
         int day = calendar.get(Calendar.DATE);
@@ -188,7 +188,7 @@ public class Database {
     }
 
 
-    //Добавление статьи.
+    //Р”РѕР±Р°РІР»РµРЅРёРµ СЃС‚Р°С‚СЊРё.
     public void addArticle(Article article){
         ContentValues cv = new ContentValues();
 
@@ -200,14 +200,14 @@ public class Database {
         sqLiteDatabase.insert(TABLE_ARTICLE, null, cv);
     }
 
-    //Используется в CursorLoader loadInBackground() соответствующего фрагмента.
+    //РСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РІ CursorLoader loadInBackground() СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰РµРіРѕ С„СЂР°РіРјРµРЅС‚Р°.
     public Cursor getArticles(String[] projection, String category){
         String where = ARTICLE_CATEGORY + "=?";
         String[] whereArgs = new String[] { category };
         return sqLiteDatabase.query(TABLE_ARTICLE, projection, where, whereArgs, null, null, null);
     }
 
-    //Получение отдельной определенной статьи.
+    //РџРѕР»СѓС‡РµРЅРёРµ РѕС‚РґРµР»СЊРЅРѕР№ РѕРїСЂРµРґРµР»РµРЅРЅРѕР№ СЃС‚Р°С‚СЊРё.
     public Article getArticle(int id){
         String where = ID_ARTICLE + "=" + id;
         Cursor c = sqLiteDatabase.query(TABLE_ARTICLE, null, where, null, null, null, null);
@@ -228,13 +228,13 @@ public class Database {
         return null;
     }
 
-    //Категории пищи. Работает верно.
+    //РљР°С‚РµРіРѕСЂРёРё РїРёС‰Рё. Р Р°Р±РѕС‚Р°РµС‚ РІРµСЂРЅРѕ.
     public Cursor getFoodData(){
         String[] projection = new String[] {ID_FOOD + " AS " + "_id", FOOD_CATEGORY};
         return sqLiteDatabase.query(TABLE_FOOD, projection, null, null, null, null, null);
     }
 
-    //Конкретная еда выбранной категории. Работает верно.
+    //РљРѕРЅРєСЂРµС‚РЅР°СЏ РµРґР° РІС‹Р±СЂР°РЅРЅРѕР№ РєР°С‚РµРіРѕСЂРёРё. Р Р°Р±РѕС‚Р°РµС‚ РІРµСЂРЅРѕ.
     public Cursor getSpecificFoodData(String category){
         String query = "SELECT " + ID_SPECIFIC_FOOD + ", " + FOOD_NAME + ", " +
                 FOOD_CATEGORY + ", " + CAL_COUNT +
@@ -253,7 +253,7 @@ public class Database {
     public Cursor getTodayFoodStatistics(){
 
         Calendar calendar = Calendar.getInstance();
-        //Но если надо будет использовать это в CursorAdapter-е, то надо для поля ID_STATISTICS обозначить псевдоним _id.
+        //РќРѕ РµСЃР»Рё РЅР°РґРѕ Р±СѓРґРµС‚ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ СЌС‚Рѕ РІ CursorAdapter-Рµ, С‚Рѕ РЅР°РґРѕ РґР»СЏ РїРѕР»СЏ ID_STATISTICS РѕР±РѕР·РЅР°С‡РёС‚СЊ РїСЃРµРІРґРѕРЅРёРј _id.
         String query = "SELECT " +
                     ID_STATISTICS + " AS _id, " +
                     //TABLE_SPECIFIC_FOOD + "." + ID_SPECIFIC_FOOD + ", " +
@@ -275,11 +275,11 @@ public class Database {
         return sqLiteDatabase.rawQuery(query, null);
     }
 
-    //добавляю только что съеденную пищу в базу.
+    //РґРѕР±Р°РІР»СЏСЋ С‚РѕР»СЊРєРѕ С‡С‚Рѕ СЃСЉРµРґРµРЅРЅСѓСЋ РїРёС‰Сѓ РІ Р±Р°Р·Сѓ.
     public void addSpecificFood(SpecificFood food, float delta){
         ContentValues cv = new ContentValues();
 
-        //Использую для получения сегодняшней даты.
+        //РСЃРїРѕР»СЊР·СѓСЋ РґР»СЏ РїРѕР»СѓС‡РµРЅРёСЏ СЃРµРіРѕРґРЅСЏС€РЅРµР№ РґР°С‚С‹.
         Calendar calendar = Calendar.getInstance();
 
         cv.put(ID_SPECIFIC_FOOD, food.getIdSpecificFood());
@@ -292,12 +292,12 @@ public class Database {
     }
 
 
-    //Рассчитано на одного пользователя.
+    //Р Р°СЃСЃС‡РёС‚Р°РЅРѕ РЅР° РѕРґРЅРѕРіРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ.
     public UserParametersInfo getUserParametersInfo(){
         String[] projection = new String[] {
                 USER_NAME, USER_AGE, USER_WEIGHT, USER_HEIGHT, USER_SEX
         };
-        //Получаю данные одного единственного на данный момент юзера.
+        //РџРѕР»СѓС‡Р°СЋ РґР°РЅРЅС‹Рµ РѕРґРЅРѕРіРѕ РµРґРёРЅСЃС‚РІРµРЅРЅРѕРіРѕ РЅР° РґР°РЅРЅС‹Р№ РјРѕРјРµРЅС‚ СЋР·РµСЂР°.
         Cursor c = sqLiteDatabase.query(TABLE_USER, projection, null, null, null, null, null);
         c.moveToFirst();
 
@@ -326,11 +326,11 @@ public class Database {
         sqLiteDatabase.update(TABLE_USER, cv, where, whereArgs);
     }
 
-    //Применяется в методах onActivityResult(), для занесения настроек в базу.
+    //РџСЂРёРјРµРЅСЏРµС‚СЃСЏ РІ РјРµС‚РѕРґР°С… onActivityResult(), РґР»СЏ Р·Р°РЅРµСЃРµРЅРёСЏ РЅР°СЃС‚СЂРѕРµРє РІ Р±Р°Р·Сѓ.
     public void updateUserParametersInfo(SharedPreferences sp) {
         UserParametersInfo user;
 
-        //Проверка корректности даных.
+        //РџСЂРѕРІРµСЂРєР° РєРѕСЂСЂРµРєС‚РЅРѕСЃС‚Рё РґР°РЅС‹С….
         int age = Integer.valueOf(sp.getString(PreferencesNewActivity.PREF_USER_AGE, "20"));
         float weight = Float.valueOf(sp.getString(PreferencesNewActivity.PREF_USER_WEIGHT, "75"));
         float height = Float.valueOf(sp.getString(PreferencesNewActivity.PREF_USER_HEIGHT, "185"));
@@ -341,7 +341,7 @@ public class Database {
                     Toast.LENGTH_LONG)
                     .show();
 
-            //Устанавливаю значения sharedPreferences предыдущими корректными значениями.
+            //РЈСЃС‚Р°РЅР°РІР»РёРІР°СЋ Р·РЅР°С‡РµРЅРёСЏ sharedPreferences РїСЂРµРґС‹РґСѓС‰РёРјРё РєРѕСЂСЂРµРєС‚РЅС‹РјРё Р·РЅР°С‡РµРЅРёСЏРјРё.
             user = getUserParametersInfo();
             ThemeSettings.setUserParametersInfo(user, sp);
         }
@@ -363,7 +363,7 @@ public class Database {
 
     //----------------------------------------------------------//
 
-    //все таблицы.
+    //РІСЃРµ С‚Р°Р±Р»РёС†С‹.
     public static final String TABLE_USER = "USER_TABLE";
     public static final String TABLE_STATISTICS = "STATISTICS_TABLE";
     public static final String TABLE_SPECIFIC_FOOD = "SPECIFIC_FOOD_TABLE";
@@ -371,7 +371,7 @@ public class Database {
     public static final String TABLE_ARTICLE  = "TABLE_ARTICLE";
 
 
-    //все столбцы всех таблиц.
+    //РІСЃРµ СЃС‚РѕР»Р±С†С‹ РІСЃРµС… С‚Р°Р±Р»РёС†.
     //ARTICLE
     public static final String ID_ARTICLE = "_id";
     public static final String ARTICLE_CATEGORY = "ARTICLE_CATEGORY";
@@ -394,13 +394,13 @@ public class Database {
     //SPECIFIC_FOOD
     public static final String ID_SPECIFIC_FOOD = "_id";
     public static final String FOOD_NAME = "FOOD_NAME";
-    //+ в таблице есть ID_FOOD как внешний ключ.
+    //+ РІ С‚Р°Р±Р»РёС†Рµ РµСЃС‚СЊ ID_FOOD РєР°Рє РІРЅРµС€РЅРёР№ РєР»СЋС‡.
     public static final String CAL_COUNT = "CAL_COUNT";
 
     //STATISTICS
     public static final String ID_STATISTICS = "ID_STATISTICS";
-    ////+ в таблице есть ID_SPECIFIC_FOOD как внешний ключ.
-    public static final String DELTA = "DELTA";//или вместо разницы ("DELTA") хранить вес пищи?
+    ////+ РІ С‚Р°Р±Р»РёС†Рµ РµСЃС‚СЊ ID_SPECIFIC_FOOD РєР°Рє РІРЅРµС€РЅРёР№ РєР»СЋС‡.
+    public static final String DELTA = "DELTA";//РёР»Рё РІРјРµСЃС‚Рѕ СЂР°Р·РЅРёС†С‹ ("DELTA") С…СЂР°РЅРёС‚СЊ РІРµСЃ РїРёС‰Рё?
     public static final String DAY = "DAY";
     public static final String MONTH = "MONTH";
     public static final String YEAR = "YEAR";
@@ -417,7 +417,7 @@ public class Database {
         private static final String DATABASE_NAME = "sport.db";
 
 
-        //В данных момент я не связываю таблицу TABLE_USER с другими таблицами.
+        //Р’ РґР°РЅРЅС‹С… РјРѕРјРµРЅС‚ СЏ РЅРµ СЃРІСЏР·С‹РІР°СЋ С‚Р°Р±Р»РёС†Сѓ TABLE_USER СЃ РґСЂСѓРіРёРјРё С‚Р°Р±Р»РёС†Р°РјРё.
         private static final String CREATE_TABLE_USER = "Create table " + TABLE_USER + " (" +
                 ID_USER + " integer primary key autoincrement, " +
                 USER_NAME + " TEXT, " +
@@ -443,12 +443,12 @@ public class Database {
                         ID_STATISTICS + " integer primary key autoincrement, " +
                         //ID_USER + " INTEGER, " +
                         ID_SPECIFIC_FOOD + " INTEGER, " +
-                        DELTA + " FLOAT, " + //или вместо разницы ("DELTA") хранить вес пищи?
+                        DELTA + " FLOAT, " + //РёР»Рё РІРјРµСЃС‚Рѕ СЂР°Р·РЅРёС†С‹ ("DELTA") С…СЂР°РЅРёС‚СЊ РІРµСЃ РїРёС‰Рё?
                         DAY + " INTEGER, " +
                         MONTH + " INTEGER, " +
                         YEAR + " INTEGER);";
 
-        //В данный момент таблица ARTICLE не связана с другими таблицами.
+        //Р’ РґР°РЅРЅС‹Р№ РјРѕРјРµРЅС‚ С‚Р°Р±Р»РёС†Р° ARTICLE РЅРµ СЃРІСЏР·Р°РЅР° СЃ РґСЂСѓРіРёРјРё С‚Р°Р±Р»РёС†Р°РјРё.
         private static final String CREATE_TABLE_ARTICLE = "Create table " + TABLE_ARTICLE + " (" +
                 ID_ARTICLE + " integer primary key autoincrement, " +
                 ARTICLE_CATEGORY + " TEXT, " +
@@ -458,7 +458,7 @@ public class Database {
 
 
 
-        //конструктор.
+        //РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ.
         public SportOpenHelper(Context context) {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
         }
@@ -474,7 +474,7 @@ public class Database {
             db.execSQL(CREATE_TABLE_ARTICLE);
 
 //            ContentValues cv = new ContentValues();
-//            cv.put(USER_NAME, "Антон");
+//            cv.put(USER_NAME, "РђРЅС‚РѕРЅ");
 //            cv.put(USER_HEIGHT, 184);
 //            cv.put(USER_WEIGHT, 75);
 //            cv.put(USER_AGE, 17);

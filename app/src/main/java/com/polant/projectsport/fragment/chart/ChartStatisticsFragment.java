@@ -26,13 +26,13 @@ import org.achartengine.renderer.XYSeriesRenderer;
 import java.util.ArrayList;
 
 /**
- * Created by Антон on 25.10.2015.
+ * Created by РђРЅС‚РѕРЅ on 25.10.2015.
  */
 public class ChartStatisticsFragment extends Fragment {
 
     private static final int LAYOUT = R.layout.fragment_statistics_chart;
 
-    //Константа, которая определяет интервал статистики.
+    //РљРѕРЅСЃС‚Р°РЅС‚Р°, РєРѕС‚РѕСЂР°СЏ РѕРїСЂРµРґРµР»СЏРµС‚ РёРЅС‚РµСЂРІР°Р» СЃС‚Р°С‚РёСЃС‚РёРєРё.
     public static final String STATISTICS_INTERVAL = "STATISTICS_INTERVAL";
     public static final int STATISTICS_WEEK = 7;
     public static final int STATISTICS_MONTH = 30;
@@ -48,7 +48,7 @@ public class ChartStatisticsFragment extends Fragment {
         return view;
     }
 
-    //Метод-фабрика.
+    //РњРµС‚РѕРґ-С„Р°Р±СЂРёРєР°.
     public static ChartStatisticsFragment getInstance(int intervalValue){
         Bundle args = new Bundle();
         args.putInt(STATISTICS_INTERVAL, intervalValue);
@@ -66,21 +66,21 @@ public class ChartStatisticsFragment extends Fragment {
         if (getArguments() != null){
             interval = getArguments().getInt(STATISTICS_INTERVAL);
         }
-        //Получаю объект БД, который инициализирован в Активити.
+        //РџРѕР»СѓС‡Р°СЋ РѕР±СЉРµРєС‚ Р‘Р”, РєРѕС‚РѕСЂС‹Р№ РёРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°РЅ РІ РђРєС‚РёРІРёС‚Рё.
         DB = ((ArticlesActivity) getActivity()).getDatabase();
 
         initChart();
     }
 
-    //Инициализирую график.
+    //РРЅРёС†РёР°Р»РёР·РёСЂСѓСЋ РіСЂР°С„РёРє.
     private void initChart() {
-        //Числовые данные графика.
+        //Р§РёСЃР»РѕРІС‹Рµ РґР°РЅРЅС‹Рµ РіСЂР°С„РёРєР°.
         XYMultipleSeriesDataset dataset = initDataSet();
-        //Визуализация.
+        //Р’РёР·СѓР°Р»РёР·Р°С†РёСЏ.
         ArrayList<XYSeriesRenderer> renderers = initSeriesRenderers();
-        //Дополнительная настройка визуализации.
+        //Р”РѕРїРѕР»РЅРёС‚РµР»СЊРЅР°СЏ РЅР°СЃС‚СЂРѕР№РєР° РІРёР·СѓР°Р»РёР·Р°С†РёРё.
         XYMultipleSeriesRenderer mRenderer = initMultipleSeriesRenderer(renderers);
-        //Здесь инициализирую сам контейнер-лайаут, который бужет содержать график.
+        //Р—РґРµСЃСЊ РёРЅРёС†РёР°Р»РёР·РёСЂСѓСЋ СЃР°Рј РєРѕРЅС‚РµР№РЅРµСЂ-Р»Р°Р№Р°СѓС‚, РєРѕС‚РѕСЂС‹Р№ Р±СѓР¶РµС‚ СЃРѕРґРµСЂР¶Р°С‚СЊ РіСЂР°С„РёРє.
         initChartLayout(dataset, mRenderer);
     }
 
@@ -103,7 +103,7 @@ public class ChartStatisticsFragment extends Fragment {
         return  dataset;
     }
 
-    //Визуализация.
+    //Р’РёР·СѓР°Р»РёР·Р°С†РёСЏ.
     private ArrayList<XYSeriesRenderer> initSeriesRenderers(){
         ArrayList<XYSeriesRenderer> list = new ArrayList<>();
         list.add(initSeriesRender("data"));
@@ -113,8 +113,8 @@ public class ChartStatisticsFragment extends Fragment {
 
 
     private XYSeriesRenderer initSeriesRender(String type) {
-        //Передал параметр type, чтобы создавать разные объекты (линии графика), для
-        //данных о калориях и о их норме.
+        //РџРµСЂРµРґР°Р» РїР°СЂР°РјРµС‚СЂ type, С‡С‚РѕР±С‹ СЃРѕР·РґР°РІР°С‚СЊ СЂР°Р·РЅС‹Рµ РѕР±СЉРµРєС‚С‹ (Р»РёРЅРёРё РіСЂР°С„РёРєР°), РґР»СЏ
+        //РґР°РЅРЅС‹С… Рѕ РєР°Р»РѕСЂРёСЏС… Рё Рѕ РёС… РЅРѕСЂРјРµ.
         XYSeriesRenderer renderer = new XYSeriesRenderer();
         renderer.setLineWidth(4);
         if (type.equals("data")){
@@ -140,18 +140,18 @@ public class ChartStatisticsFragment extends Fragment {
             mRenderer.addSeriesRenderer(renderer);
         }
 
-        //Это цвет фона всего, что вокруг графика.
+        //Р­С‚Рѕ С†РІРµС‚ С„РѕРЅР° РІСЃРµРіРѕ, С‡С‚Рѕ РІРѕРєСЂСѓРі РіСЂР°С„РёРєР°.
         mRenderer.setMarginsColor(getResources().getColor(R.color.mainBackground));
-        //Эта строка отвечает за возможность пользователя перетаскивать график по координатной плоскости.
+        //Р­С‚Р° СЃС‚СЂРѕРєР° РѕС‚РІРµС‡Р°РµС‚ Р·Р° РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РїРµСЂРµС‚Р°СЃРєРёРІР°С‚СЊ РіСЂР°С„РёРє РїРѕ РєРѕРѕСЂРґРёРЅР°С‚РЅРѕР№ РїР»РѕСЃРєРѕСЃС‚Рё.
         mRenderer.setPanEnabled(true, true);
         mRenderer.setZoomInLimitX(2);
         mRenderer.setZoomInLimitY(2);
 
-        //Отображаю координатную сетку.
+        //РћС‚РѕР±СЂР°Р¶Р°СЋ РєРѕРѕСЂРґРёРЅР°С‚РЅСѓСЋ СЃРµС‚РєСѓ.
         mRenderer.setShowGrid(true);
         mRenderer.setGridColor(Color.BLACK);
 
-        //Числовые лейблы на осях координат.
+        //Р§РёСЃР»РѕРІС‹Рµ Р»РµР№Р±Р»С‹ РЅР° РѕСЃСЏС… РєРѕРѕСЂРґРёРЅР°С‚.
         mRenderer.setLabelsTextSize(35);
         mRenderer.setXLabelsColor(Color.BLACK);
         mRenderer.setYLabelsColor(0, Color.BLACK);
@@ -161,35 +161,35 @@ public class ChartStatisticsFragment extends Fragment {
         mRenderer.setXTitle(getString(R.string.text_days));
         mRenderer.setYLabelsAlign(Paint.Align.LEFT);
         mRenderer.setAxisTitleTextSize(40);
-        //Легенда графика - нижняя подпись.
+        //Р›РµРіРµРЅРґР° РіСЂР°С„РёРєР° - РЅРёР¶РЅСЏСЏ РїРѕРґРїРёСЃСЊ.
         mRenderer.setShowLegend(false);
-        //Отступы всего графика.
+        //РћС‚СЃС‚СѓРїС‹ РІСЃРµРіРѕ РіСЂР°С„РёРєР°.
         mRenderer.setMargins(new int[]{50, 50, 50, 50});
-        //Промежутки между колонками в диаграмме.
+        //РџСЂРѕРјРµР¶СѓС‚РєРё РјРµР¶РґСѓ РєРѕР»РѕРЅРєР°РјРё РІ РґРёР°РіСЂР°РјРјРµ.
         mRenderer.setBarSpacing(0.5);
 
         return mRenderer;
     }
 
     private void initChartLayout(XYMultipleSeriesDataset dataset, XYMultipleSeriesRenderer mRenderer) {
-        //Получаю ссылку на контейнер, который содержит график.
+        //РџРѕР»СѓС‡Р°СЋ СЃСЃС‹Р»РєСѓ РЅР° РєРѕРЅС‚РµР№РЅРµСЂ, РєРѕС‚РѕСЂС‹Р№ СЃРѕРґРµСЂР¶РёС‚ РіСЂР°С„РёРє.
         LinearLayout chartLayout = (LinearLayout) view.findViewById(R.id.chart);
 
-//        //Получаю само Представление графика.
+//        //РџРѕР»СѓС‡Р°СЋ СЃР°РјРѕ РџСЂРµРґСЃС‚Р°РІР»РµРЅРёРµ РіСЂР°С„РёРєР°.
 //        GraphicalView chartView;
 //        if (interval == STATISTICS_WEEK) {
-//            //Линейный график
+//            //Р›РёРЅРµР№РЅС‹Р№ РіСЂР°С„РёРє
 //            chartView = ChartFactory.getLineChartView(getActivity(), dataset, mRenderer);
 //        }
 //        else{
-//            //Диаграмма.
+//            //Р”РёР°РіСЂР°РјРјР°.
 //            chartView = ChartFactory.getBarChartView(getActivity(), dataset, mRenderer, BarChart.Type.DEFAULT);
 //        }
 
-        //Получаю само Представление графика.
+        //РџРѕР»СѓС‡Р°СЋ СЃР°РјРѕ РџСЂРµРґСЃС‚Р°РІР»РµРЅРёРµ РіСЂР°С„РёРєР°.
         GraphicalView chartView;
         chartView = ChartFactory.getLineChartView(getActivity(), dataset, mRenderer);
-        //Добавляю график в лайаут.
+        //Р”РѕР±Р°РІР»СЏСЋ РіСЂР°С„РёРє РІ Р»Р°Р№Р°СѓС‚.
         chartLayout.addView(chartView, 0);
     }
 }

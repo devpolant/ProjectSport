@@ -14,15 +14,15 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 /**
- * Created by Антон on 05.10.2015.
+ * Created by пїЅпїЅпїЅпїЅпїЅ on 05.10.2015.
  */
 public class ParserTXT {
 
-    //Использую при добавлении статьи в БД.
+    //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅ.
     Database DB;
 
-    //Получаю ссылку на базу, а не только на ее оболочку Database, т.к. обработку
-    //добавления еды мне удобнее сделать здесь.
+    //пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ, пїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ Database, пїЅ.пїЅ. пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ.
     SQLiteDatabase database;
 
     public ParserTXT(Database db) {
@@ -44,7 +44,7 @@ public class ParserTXT {
             String articleTitle = "";
             StringBuilder articleText = new StringBuilder();
 
-            //Служебные переменные.
+            //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
             String temp = "";
             String endCategoryKey = "=====";
             String endArticleKey = "-----";
@@ -52,7 +52,7 @@ public class ParserTXT {
             String nameCategoryKey = "==";
 
             for (int i = 0; i < count; i++) {
-                //Начинаю со 2 индекса, т.к. строка категории всегда начинается с "==".
+                //пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ 2 пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅ.пїЅ. пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ "==".
                 category = reader.readLine();
                 if (category.startsWith(nameCategoryKey))
                     category = category.substring(2);
@@ -64,14 +64,14 @@ public class ParserTXT {
                     if (temp.startsWith(nameArticleKey))
                         articleTitle = temp.substring(2);
 
-                    //Здесь считываю дату публикации статьи.
+                    //пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ.
                     date = reader.readLine();
 
-                    //Перед каждой статьей очищаю StringBuilder.
+                    //пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ StringBuilder.
                     articleText.delete(0, articleText.length());
 
                     while (true){
-                        //Считываю каждую строку статьи.
+                        //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ.
                         temp = reader.readLine();
 
                         if (temp.equals(endArticleKey)) {
@@ -79,7 +79,7 @@ public class ParserTXT {
                             break;
                         }
 
-                        //Так добавляю каждую строку статьи.
+                        //пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ.
                         articleText.append(temp);
                     }
                 }
@@ -92,7 +92,7 @@ public class ParserTXT {
         }
     }
 
-    //Добавление статьи в базу.
+    //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ.
     private void putArticle(String articleTitle, String category, String articleText, String date) {
         Article article = new Article(articleTitle, category, articleText, date);
         DB.addArticle(article);
@@ -111,7 +111,7 @@ public class ParserTXT {
             String category = "";
             for (int i = 0; i < count; i++) {
 
-                category = reader.readLine();//это вид пищи.
+                category = reader.readLine();//пїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ.
                 ContentValues categoryValues = new ContentValues();
                 categoryValues.put(Database.FOOD_CATEGORY, category);
                 database.insert(Database.TABLE_FOOD, null, categoryValues);
