@@ -231,6 +231,10 @@ public class ActivityOtherCalculators extends AppCompatActivity implements Senso
                         Log.d("Class in intent", c.getName());
                         startActivityForResult(intentSettings, PreferencesNewActivity.SHOW_PREFERENCES);
                         break;
+                    case R.id.actionHelpItem:
+                        Intent help = new Intent(ActivityOtherCalculators.this, HelpActivity.class);
+                        startActivityForResult(help, Constants.SHOW_ACTIVITY_HELP_INFO);
+                        break;
                 }
 
                 return true;

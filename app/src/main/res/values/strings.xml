@@ -181,5 +181,6 @@
     <string name="toastMistakeZero">Введите количество выбранной пищи больше 0 !</string>
     <string name="toastMistakeMinValuesIndexBody">Введите значения веса и роста больше чем указанные минимальные значения!</string>
     <string name="toast_mistake_min_target_step_count">Введите минимально допустимое значение цели!</string>
+    <string name="help_activity_title">Помощь</string>
 
 </resources>

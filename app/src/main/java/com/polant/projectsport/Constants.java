@@ -13,6 +13,7 @@ public class Constants {
     public static final int SHOW_ACTIVITY_ARTICLES = 6;
     public static final String SHOW_ACTIVITY_ARTICLES_CONTENT_TYPE = "SHOW_ACTIVITY_ARTICLES_CONTENT_TYPE";
     public static final int SHOW_ACTIVITY_ARTICLE_INFO = 7;
+    public static final int SHOW_ACTIVITY_HELP_INFO = 8;
     //public static final int SHOW_ACTIVITY_STATISTICS = 8;
 
     //Ограничения в диалогах.

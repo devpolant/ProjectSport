@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.MenuItem;
 
 import com.polant.projectsport.activity.ActivityOtherCalculators;
+import com.polant.projectsport.activity.HelpActivity;
 import com.polant.projectsport.adapter.TabsPagerFragmentAdapter;
 import com.polant.projectsport.adapter.TabsStatisticsFragmentAdapter;
 import com.polant.projectsport.data.Database;
@@ -143,6 +144,10 @@ public class MainActivity extends AppCompatActivity{
                         Intent intent = new Intent(MainActivity.this, c);
                         Log.d("Class in intent", c.getName());
                         startActivityForResult(intent, PreferencesNewActivity.SHOW_PREFERENCES);
+                        break;
+                    case R.id.actionHelpItem:
+                        Intent help = new Intent(MainActivity.this, HelpActivity.class);
+                        startActivityForResult(help, Constants.SHOW_ACTIVITY_HELP_INFO);
                         break;
                 }
 
