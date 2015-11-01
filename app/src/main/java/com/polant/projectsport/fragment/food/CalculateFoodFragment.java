@@ -1,4 +1,4 @@
-package com.polant.projectsport.fragment;
+package com.polant.projectsport.fragment.food;
 
 import android.app.Activity;
 import android.content.Context;

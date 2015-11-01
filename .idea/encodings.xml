@@ -17,13 +17,13 @@
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/polant/projectsport/data/model/StatisticsDay.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/polant/projectsport/data/model/UserParametersInfo.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/polant/projectsport/data/parse/ParserTXT.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/polant/projectsport/fragment/CalculateDetailsFoodFragment.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/polant/projectsport/fragment/CalculateFoodFragment.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/polant/projectsport/fragment/article/ArticleFragment.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/polant/projectsport/fragment/calculator/IndexBodyFragment.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/polant/projectsport/fragment/calculator/NeedCaloriesFragment.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/polant/projectsport/fragment/chart/ChartStatisticsFragment.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/polant/projectsport/fragment/dialog/TodayFoodDialogFragment.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/polant/projectsport/fragment/food/CalculateDetailsFoodFragment.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/polant/projectsport/fragment/food/CalculateFoodFragment.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/polant/projectsport/fragment/step/StepCounterFragment.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/polant/projectsport/preferences/UserParametersInfoFragment.java" charset="UTF-8" />
   </component>
