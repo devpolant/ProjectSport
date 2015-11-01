@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ExpandableListView;
@@ -51,29 +53,42 @@ public class HelpActivity extends AppCompatActivity{
         int[] groupTo = new int[] { android.R.id.text1 };
 
         //Общая коллекция для коллекций элементов.
-        ArrayList<ArrayList<Map<String, String>>> childdataList = new ArrayList<>();
+        ArrayList<ArrayList<Map<String, String>>> childDataList = new ArrayList<>();
 
         ArrayList<Map<String, String>> childDataItemList;
-        for (int i = 0; i < 5; i++){
+        for (int i = 0; i < groups.length; i++){
             childDataItemList = new ArrayList<>();
             map = new HashMap<>();
-            map.put("itemName", "item" + i);
+            String info = null;
+            switch (i){
+                case 0:
+                    info = getString(R.string.help_text_calculators);
+                    break;
+                case 1:
+                    info = getString(R.string.help_text_step_counter);
+                    break;
+                case 2:
+                    info = getString(R.string.help_text_articles);
+                    break;
+                case 3:
+                    info = getString(R.string.help_text_statistics);
+                    break;
+                case 4:
+                    info = getString(R.string.help_text_settings);
+                    break;
+            }
+            map.put("itemName", info);
             childDataItemList.add(map);
-//            for (int j = 0; j < 5; j++){
-//                map = new HashMap<>();
-//                map.put("itemName", "item" + j);
-//                childDataItemList.add(map);
-//            }
-            childdataList.add(childDataItemList);
+            childDataList.add(childDataItemList);
         }
 
         String[] childFrom = new String[]{ "itemName" };
-        int[] childTo = new int[] { android.R.id.text1 };
+        int[] childTo = new int[] { R.id.textViewHelpItem };
 
         SimpleExpandableListAdapter adapter = new SimpleExpandableListAdapter(
                 this, groupDataList,
-                android.R.layout.simple_expandable_list_item_1, groupFrom, groupTo, childdataList,
-                android.R.layout.simple_expandable_list_item_1, childFrom, childTo
+                android.R.layout.simple_expandable_list_item_1, groupFrom, groupTo, childDataList,
+                R.layout.list_adapter_help_item, childFrom, childTo
         );
 
         ExpandableListView listView = (ExpandableListView) findViewById(R.id.expandableListViewHelp);
