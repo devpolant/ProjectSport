@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.glomadrian.dashedcircularprogress.DashedCircularProgress;
+import com.polant.projectsport.Constants;
 import com.polant.projectsport.R;
 import com.polant.projectsport.activity.ActivityOtherCalculators;
 import com.polant.projectsport.preferences.PreferencesNewActivity;
@@ -203,15 +204,19 @@ public class StepCounterFragment extends Fragment{
         EditText targetText = (EditText) alertView.findViewById(R.id.editTextTargetStepCount);
         if (!TextUtils.isEmpty(targetText.getText())){
             int targetCount = Integer.valueOf(targetText.getText().toString());
+            if (targetCount >= Constants.MIN_STEP_COUNT_TARGET) {
+                //—охран€ю целевое количество шагов в настройки.
+                SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
+                SharedPreferences.Editor editor = sp.edit();
+                editor.putInt(PreferencesNewActivity.PREF_TARGET_STEP_COUNT, targetCount);
+                editor.apply();
 
-            //—охран€ю целевое количество шагов в настройки.
-            SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
-            SharedPreferences.Editor editor = sp.edit();
-            editor.putInt(PreferencesNewActivity.PREF_TARGET_STEP_COUNT, targetCount);
-            editor.apply();
-
-            //устанавливаю максимальное значение в ProgressView.
-            updateProgress(targetCount);
+                //устанавливаю максимальное значение в ProgressView.
+                updateProgress(targetCount);
+            }
+            else{
+                Toast.makeText(getActivity(), R.string.toast_mistake_min_target_step_count, Toast.LENGTH_SHORT).show();
+            }
         }
         else{
             Toast.makeText(getActivity(), R.string.toast_err_target_step_count, Toast.LENGTH_SHORT).show();

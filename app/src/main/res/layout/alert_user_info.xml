@@ -33,6 +33,7 @@
         android:textSize="18sp"
         android:hint="@string/hint_age"
         android:padding="20dp"
+        android:maxLength="3"
         android:inputType="number" />
 
     <EditText
@@ -42,6 +43,7 @@
         android:textSize="18sp"
         android:hint="@string/hint_weight"
         android:inputType="numberDecimal"
+        android:maxLength="4"
         android:padding="20dp" />
 
     <EditText
@@ -51,6 +53,7 @@
         android:textSize="18sp"
         android:hint="@string/hint_height"
         android:padding="20dp"
+        android:maxLength="5"
         android:inputType="numberDecimal" />
 
 </LinearLayout>

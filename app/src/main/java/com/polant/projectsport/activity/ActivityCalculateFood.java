@@ -24,6 +24,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.polant.projectsport.Constants;
 import com.polant.projectsport.R;
 import com.polant.projectsport.ThemeSettings;
 import com.polant.projectsport.data.Database;
@@ -119,15 +120,19 @@ public class ActivityCalculateFood extends AppCompatActivity
                         EditText text = (EditText) alertView.findViewById(R.id.editTextCountFood);
                         if (!TextUtils.isEmpty(text.getText().toString())) {
                             float count = Float.valueOf(text.getText().toString());
-                            deltaCalories = count * food.getCaloriesCount() / 100;
-                            Toast.makeText(ActivityCalculateFood.this, "+" + String.valueOf(deltaCalories), Toast.LENGTH_SHORT)
-                                    .show();
+                            if (count > 0) {
+                                deltaCalories = count * food.getCaloriesCount() / 100;
+                                Toast.makeText(ActivityCalculateFood.this, "+" + String.valueOf(deltaCalories), Toast.LENGTH_SHORT)
+                                        .show();
 
-                            DB.addSpecificFood(food, deltaCalories);
-                            //ѕередаю true, так как € добавл€ю пищу.
-                            notifyLayoutTextViews(true);
-                        }
-                        else {
+                                DB.addSpecificFood(food, deltaCalories);
+                                //ѕередаю true, так как € добавл€ю пищу.
+                                notifyLayoutTextViews(true);
+                            }
+                            else
+                                Toast.makeText(ActivityCalculateFood.this, getString(R.string.toastMistakeZero), Toast.LENGTH_SHORT)
+                                        .show();
+                        } else {
                             Toast.makeText(ActivityCalculateFood.this, getString(R.string.toastMistake), Toast.LENGTH_SHORT)
                                     .show();
                         }
@@ -218,6 +223,19 @@ public class ActivityCalculateFood extends AppCompatActivity
                             String userWeight = wText.getText().toString();
                             String userHeight = hText.getText().toString();
                             String userAge = aText.getText().toString();
+
+                            //ѕроверка на корректные данные ввода.
+                            int age = Integer.valueOf(userAge);
+                            float weight = Float.valueOf(userWeight);
+                            float height = Float.valueOf(userHeight);
+                            if (age < Constants.MIN_AGE_VALUE
+                                    || weight < Constants.MIN_WEIGHT_VALUE
+                                    || height < Constants.MIN_HEIGHT_VALUE) {
+                                Toast.makeText(ActivityCalculateFood.this, getString(R.string.toastMistakeMinValuesUserInfo),
+                                        Toast.LENGTH_LONG)
+                                        .show();
+                                return;
+                            }
 
                             UserParametersInfo user = DB.getUserParametersInfo();
                             user.setSex(userSex);

@@ -47,6 +47,7 @@
                 android:hint="@string/hint_weight"
                 android:inputType="numberDecimal"
                 android:padding="20dp"
+                android:maxLength="4"
                 android:enabled="false" />
 
             <EditText
@@ -56,6 +57,7 @@
                 android:textSize="18sp"
                 android:hint="@string/hint_height"
                 android:padding="20dp"
+                android:maxLength="5"
                 android:inputType="numberDecimal" />
         </LinearLayout>
     </ScrollView>

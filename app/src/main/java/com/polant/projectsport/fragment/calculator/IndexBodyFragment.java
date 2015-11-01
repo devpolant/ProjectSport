@@ -17,6 +17,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.polant.projectsport.Constants;
 import com.polant.projectsport.R;
 import com.polant.projectsport.activity.ActivityOtherCalculators;
 import com.polant.projectsport.data.Database;
@@ -167,6 +168,13 @@ public class IndexBodyFragment extends Fragment {
             if (!TextUtils.isEmpty(wText.getText()) && !TextUtils.isEmpty(hText.getText())){
                 weight = Float.valueOf(wText.getText().toString());
                 height = Float.valueOf(hText.getText().toString());
+
+                if (weight < Constants.MIN_WEIGHT_VALUE || height < Constants.MIN_HEIGHT_VALUE) {
+                    Toast.makeText(getActivity(), getString(R.string.toastMistakeMinValuesIndexBody),
+                            Toast.LENGTH_LONG)
+                            .show();
+                    return;
+                }
             }
             else {
                 Toast.makeText(getActivity(), R.string.text_err_input_index_body, Toast.LENGTH_SHORT)

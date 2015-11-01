@@ -19,6 +19,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.polant.projectsport.Constants;
 import com.polant.projectsport.R;
 import com.polant.projectsport.activity.ActivityOtherCalculators;
 import com.polant.projectsport.data.Database;
@@ -206,6 +207,20 @@ public class NeedCaloriesFragment extends Fragment {
             RadioButton radioBtSex = (RadioButton) alertView.findViewById(idSelectedSex);
 
             user.setSex(radioBtSex.getText().toString());
+
+            //Проверка на корректные данные ввода.
+            int age = Integer.valueOf(aText.getText().toString());
+            float weight = Float.valueOf(wText.getText().toString());
+            float height = Float.valueOf(hText.getText().toString());
+            if (age < Constants.MIN_AGE_VALUE
+                    || weight < Constants.MIN_WEIGHT_VALUE
+                    || height < Constants.MIN_HEIGHT_VALUE)  {
+                Toast.makeText(getActivity(), getString(R.string.toastMistakeMinValuesUserInfo),
+                        Toast.LENGTH_LONG)
+                        .show();
+                return;
+            }
+
             user.setWeight(Float.valueOf(wText.getText().toString()));
             user.setHeight(Float.valueOf(hText.getText().toString()));
             user.setAge(Integer.valueOf(aText.getText().toString()));

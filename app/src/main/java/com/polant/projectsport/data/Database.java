@@ -9,8 +9,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.polant.projectsport.Constants;
 import com.polant.projectsport.R;
+import com.polant.projectsport.ThemeSettings;
 import com.polant.projectsport.data.model.Article;
 import com.polant.projectsport.data.model.SpecificFood;
 import com.polant.projectsport.data.model.StatisticsDay;
@@ -325,13 +328,32 @@ public class Database {
 
     //Применяется в методах onActivityResult(), для занесения настроек в базу.
     public void updateUserParametersInfo(SharedPreferences sp) {
-        UserParametersInfo user = new UserParametersInfo();
-        user.setSex(sp.getString(PreferencesNewActivity.PREF_USER_SEX, ((Activity) context).getString(R.string.text_your_sex_M)));
-        user.setName(sp.getString(PreferencesNewActivity.PREF_USER_NAME, "Antony"));
-        user.setAge(Integer.valueOf(sp.getString(PreferencesNewActivity.PREF_USER_AGE, "20")));
-        user.setWeight(Float.valueOf(sp.getString(PreferencesNewActivity.PREF_USER_WEIGHT, "75")));
-        user.setHeight(Float.valueOf(sp.getString(PreferencesNewActivity.PREF_USER_HEIGHT, "185")));
-        updateUserParametersInfo(user);
+        UserParametersInfo user;
+
+        //Проверка корректности даных.
+        int age = Integer.valueOf(sp.getString(PreferencesNewActivity.PREF_USER_AGE, "20"));
+        float weight = Float.valueOf(sp.getString(PreferencesNewActivity.PREF_USER_WEIGHT, "75"));
+        float height = Float.valueOf(sp.getString(PreferencesNewActivity.PREF_USER_HEIGHT, "185"));
+        if (age < Constants.MIN_AGE_VALUE
+                || weight < Constants.MIN_WEIGHT_VALUE
+                || height < Constants.MIN_HEIGHT_VALUE) {
+            Toast.makeText(context, context.getString(R.string.toastMistakeMinValuesUserPrefInfo),
+                    Toast.LENGTH_LONG)
+                    .show();
+
+            //Устанавливаю значения sharedPreferences предыдущими корректными значениями.
+            user = getUserParametersInfo();
+            ThemeSettings.setUserParametersInfo(user, sp);
+        }
+        else {
+            user = new UserParametersInfo();
+            user.setSex(sp.getString(PreferencesNewActivity.PREF_USER_SEX, context.getString(R.string.text_your_sex_M)));
+            user.setName(sp.getString(PreferencesNewActivity.PREF_USER_NAME, "Antony"));
+            user.setAge(Integer.valueOf(sp.getString(PreferencesNewActivity.PREF_USER_AGE, "20")));
+            user.setWeight(Float.valueOf(sp.getString(PreferencesNewActivity.PREF_USER_WEIGHT, "75")));
+            user.setHeight(Float.valueOf(sp.getString(PreferencesNewActivity.PREF_USER_HEIGHT, "185")));
+            updateUserParametersInfo(user);
+        }
     }
 
 

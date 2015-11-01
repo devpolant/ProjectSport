@@ -57,7 +57,9 @@
     <string name="alertChangeTodayListDeleteMessage">Удалить запись?</string>
     <string name="alertChangeTodayListDeleteButtonText">Удалить</string>
     <string name="alertChangeUserInfoTitle">Ваши физические параметры</string>
-    <string name="alertChangeUserInfoMessage">Введите новые значения пола, роста и веса:</string>
+    <string name="alertChangeUserInfoMessage">
+        Введите новые значения пола, возраста, роста и веса:\n\nВозраст от 16 лет, рост от 75 см, вес от 25 кг
+    </string>
     <string name="alertChangeUserInfoButtonPositive">Подтвердить</string>
     <string name="alertChangeUserInfoButtonNegative">Отмена</string>
 
@@ -81,7 +83,7 @@
     <string name="alertIndexBodyTitle">Индекс массы тела</string>
     <string name="alertIndexBodyPositiveBt">Посчитать</string>
     <string name="alertIndexBodyNegativeBt">Отмена</string>
-    <string name="alertIndexBodyMessage">Введите рост и вес:</string>
+    <string name="alertIndexBodyMessage">Введите рост и вес:\n\nРост от 75 см, вес от 25 кг</string>
     <string name="text_user_info_from_DB">Использовать параметры из настроек</string>
     <string name="text_user_info_new_input_info">Ввести новые данные</string>
     <string name="text_err_input_index_body">Введите рост и вес!</string>
@@ -134,7 +136,8 @@
 
     <string name="text_spinner_life_style_title">Степень физической нагрузки</string>
 
-    <string name="alertChoiceUserInfoMessage">Введите значения пола, роста и веса:</string>
+    <string name="alertChoiceUserInfoMessage">
+        Введите значения пола, роста и веса:\n\nВозраст от 16 лет, рост от 75 см, вес от 25 кг</string>
     <string name="text_err_input_user_info_need_calories">Введите возраст, рост и вес!</string>
     <string name="text_need_calories_spinner_title">Выберите Ваш образ жизни:</string>
 
@@ -148,7 +151,8 @@
     <string name="text_bt_step_counter_target">Выбрать цель</string>
     <string name="text_percent">%</string>
     <string name="alertTargetStepCountTitle">Ваша цель:</string>
-    <string name="alertTargetStepCountMessage">Введите количество шагов, которое Вы хотите проходить ежедневно</string>
+    <string name="alertTargetStepCountMessage">
+        Введите количество шагов, которое Вы хотите проходить ежедневно.\n\n(От 100 шагов)</string>
     <string name="alertTargetStepCountPositiveBt">Подтвердить</string>
     <string name="alertTargetStepCountNegativeBt">Отмена</string>
     <string name="toast_err_target_step_count">Введите количество шагов</string>
@@ -171,5 +175,11 @@
     <string name="text_your_normal_ccal">Норма</string>
     <string name="title_articles">Статьи</string>
     <string name="title_statistics">Моя статистика</string>
+    <string name="toastMistakeMinValuesUserInfo">Введите значения возраста, веса и роста больше чем указанные минимальные значения</string>
+    <string name="toastMistakeMinValuesUserPrefInfo">
+        Введены значения возраста, веса и роста больше чем указанные минимальные значения! Данные не будут применены!</string>
+    <string name="toastMistakeZero">Введите количество выбранной пищи больше 0 !</string>
+    <string name="toastMistakeMinValuesIndexBody">Введите значения веса и роста больше чем указанные минимальные значения!</string>
+    <string name="toast_mistake_min_target_step_count">Введите минимально допустимое значение цели!</string>
 
 </resources>

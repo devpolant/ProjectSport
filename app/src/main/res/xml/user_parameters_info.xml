@@ -24,6 +24,7 @@
             android:summary="Выберите Ваш вес. Он будет использоваться при вычислениях в калькуляторах приложения"
             android:title="Ваш вес"
             android:hint="Ваш вес"
+            android:maxLength="5"
             android:inputType="numberDecimal"
             />
         <EditTextPreference
@@ -31,6 +32,7 @@
             android:summary="Выберите Ваш рост. Он будет использоваться при вычислениях в калькуляторах приложения"
             android:title="Ваш рост"
             android:hint="Ваш рост"
+            android:maxLength="5"
             android:inputType="numberDecimal"
             />
         <EditTextPreference
@@ -38,6 +40,7 @@
             android:summary="Выберите Ваш возраст. Он будет использоваться при вычислениях в калькуляторах приложения"
             android:title="Ваш возраст"
             android:hint="Ваш возраст"
+            android:maxLength="3"
             android:inputType="number"
             />
     </PreferenceCategory>
