@@ -52,12 +52,12 @@
         android:orderInCategory="1">
 
         <menu>
-            <item
+            <!--<item
                 android:id="@+id/actionAboutUsItem"
                 android:title="@string/nav_menu_item_about_us"
                 android:orderInCategory="1"
                 android:icon="@drawable/ic_info_black_24dp"/>
-
+            -->
             <item
                 android:id="@+id/actionHelpItem"
                 android:title="@string/nav_menu_item_help"
