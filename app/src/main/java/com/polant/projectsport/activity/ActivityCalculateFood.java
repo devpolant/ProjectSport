@@ -390,22 +390,22 @@ public class ActivityCalculateFood extends AppCompatActivity
                 switch (item.getItemId()) {
                     case R.id.actionStepCounterItem:
                         Intent stepCounterIntent = new Intent();
-                        stepCounterIntent.putExtra(ActivityOtherCalculators.CURRENT_ACTION_STRING,
-                                ActivityOtherCalculators.ACTION_STEP_COUNTER);
+                        stepCounterIntent.putExtra(MainActivity.CURRENT_ACTION_STRING,
+                                MainActivity.ACTION_STEP_COUNTER);
                         setResult(RESULT_OK, stepCounterIntent);
                         finish();
                         break;
                     case R.id.ActionIndexBodyWeight:
                         Intent indexBodyIntent = new Intent();
-                        indexBodyIntent.putExtra(ActivityOtherCalculators.CURRENT_ACTION_STRING,
-                                ActivityOtherCalculators.ACTION_INDEX_BODY);
+                        indexBodyIntent.putExtra(MainActivity.CURRENT_ACTION_STRING,
+                                MainActivity.ACTION_INDEX_BODY);
                         setResult(RESULT_OK, indexBodyIntent);
                         finish();
                         break;
                     case R.id.ActionDayNeedCalories:
                         Intent needCaloriesIntent = new Intent();
-                        needCaloriesIntent.putExtra(ActivityOtherCalculators.CURRENT_ACTION_STRING,
-                                ActivityOtherCalculators.ACTION_NEED_CALORIES);
+                        needCaloriesIntent.putExtra(MainActivity.CURRENT_ACTION_STRING,
+                                MainActivity.ACTION_NEED_CALORIES);
                         setResult(RESULT_OK, needCaloriesIntent);
                         finish();
                         break;

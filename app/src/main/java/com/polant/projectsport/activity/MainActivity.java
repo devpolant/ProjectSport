@@ -20,12 +20,9 @@ import android.util.Log;
 import android.view.MenuItem;
 
 import com.polant.projectsport.Constants;
-import com.polant.projectsport.MainActivity;
 import com.polant.projectsport.R;
 import com.polant.projectsport.ThemeSettings;
 import com.polant.projectsport.data.Database;
-import com.polant.projectsport.data.model.UserParametersInfo;
-import com.polant.projectsport.data.parse.ParserTXT;
 import com.polant.projectsport.fragment.calculator.IndexBodyFragment;
 import com.polant.projectsport.fragment.calculator.NeedCaloriesFragment;
 import com.polant.projectsport.fragment.step.StepCounterFragment;
@@ -36,7 +33,7 @@ import com.polant.projectsport.preferences.PreferencesOldActivity;
  * ƒанна€ јктивити используетс€ дл€ функций шагомера, калькул€тора индекса массы тела,
  * а также калькул€тора суточной потредности калорий.
  */
-public class ActivityOtherCalculators extends AppCompatActivity implements SensorEventListener,
+public class MainActivity extends AppCompatActivity implements SensorEventListener,
                                                     StepCounterFragment.StepCounterManagerListener{
 
     private static final int LAYOUT = R.layout.activity_calculators;
@@ -198,18 +195,18 @@ public class ActivityOtherCalculators extends AppCompatActivity implements Senso
 
                 switch (item.getItemId()) {
                     case R.id.actionArticleItem:
-                        Intent articleIntent = new Intent(ActivityOtherCalculators.this, MainActivity.class);
+                        Intent articleIntent = new Intent(MainActivity.this, ArticlesActivity.class);
                         articleIntent.putExtra(Constants.SHOW_ACTIVITY_ARTICLES_CONTENT_TYPE,
-                                MainActivity.VIEW_PAGER_CONTENT_ARTICLE);
+                                ArticlesActivity.VIEW_PAGER_CONTENT_ARTICLE);
                         startActivityForResult(articleIntent, Constants.SHOW_ACTIVITY_ARTICLES);
                         break;
                     case R.id.actionStepCounterItem:
                         showStepCounterFragment();
                         break;
                     case R.id.actionStatisticsItem:
-                        Intent statisticsIntent = new Intent(ActivityOtherCalculators.this, MainActivity.class);
+                        Intent statisticsIntent = new Intent(MainActivity.this, ArticlesActivity.class);
                         statisticsIntent.putExtra(Constants.SHOW_ACTIVITY_ARTICLES_CONTENT_TYPE,
-                                MainActivity.VIEW_PAGER_CONTENT_STATISTICS);
+                                ArticlesActivity.VIEW_PAGER_CONTENT_STATISTICS);
                         startActivityForResult(statisticsIntent, Constants.SHOW_ACTIVITY_ARTICLES);
                         break;
                     case R.id.ActionIndexBodyWeight:
@@ -219,7 +216,7 @@ public class ActivityOtherCalculators extends AppCompatActivity implements Senso
                         showNeedCaloriesFragment();
                         break;
                     case R.id.ActionCalculateFood:
-                        Intent foodCaloriesCounter = new Intent(ActivityOtherCalculators.this, ActivityCalculateFood.class);
+                        Intent foodCaloriesCounter = new Intent(MainActivity.this, ActivityCalculateFood.class);
                         startActivityForResult(foodCaloriesCounter, Constants.SHOW_ACTIVITY_CALCULATE_FOOD);
                         break;
                     case R.id.actionSettingsItem:
@@ -227,12 +224,12 @@ public class ActivityOtherCalculators extends AppCompatActivity implements Senso
                         Class c = Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB ?
                                 PreferencesOldActivity.class : PreferencesNewActivity.class;
 
-                        Intent intentSettings = new Intent(ActivityOtherCalculators.this, c);
+                        Intent intentSettings = new Intent(MainActivity.this, c);
                         Log.d("Class in intent", c.getName());
                         startActivityForResult(intentSettings, PreferencesNewActivity.SHOW_PREFERENCES);
                         break;
                     case R.id.actionHelpItem:
-                        Intent help = new Intent(ActivityOtherCalculators.this, HelpActivity.class);
+                        Intent help = new Intent(MainActivity.this, HelpActivity.class);
                         startActivityForResult(help, Constants.SHOW_ACTIVITY_HELP_INFO);
                         break;
                 }
@@ -267,10 +264,10 @@ public class ActivityOtherCalculators extends AppCompatActivity implements Senso
         return prefs.getString(CURRENT_ACTION_STRING, "");
     }
     private void deleteCurrentAction(){
-        //”дал€ю значение настройки текущего действи€, которое используетс€ в ActivityOtherCalculators.
+        //”дал€ю значение настройки текущего действи€, которое используетс€ в MainActivity.
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         SharedPreferences.Editor editor = sp.edit();
-        editor.remove(ActivityOtherCalculators.CURRENT_ACTION_STRING);
+        editor.remove(MainActivity.CURRENT_ACTION_STRING);
         editor.apply();
     }
 
@@ -314,28 +311,28 @@ public class ActivityOtherCalculators extends AppCompatActivity implements Senso
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.d("MY_LOGS", "Destroy ActivityOtherCalculators");
+        Log.d("MY_LOGS", "Destroy MainActivity");
         DB.close();
-        Log.d("MY_LOGS", "DB.close() ActivityOtherCalculators");
+        Log.d("MY_LOGS", "DB.close() MainActivity");
         unRegisterSensors();
-        Log.d("MY_LOGS", "unRegisterSensors() ActivityOtherCalculators");
+        Log.d("MY_LOGS", "unRegisterSensors() MainActivity");
         //—охран€ю значение шагомера.
         setStepCount(currentStepValue);
-        Log.d("MY_LOGS", "setStepCount() ActivityOtherCalculators");
+        Log.d("MY_LOGS", "setStepCount() MainActivity");
         deleteCurrentAction();
-        Log.d("MY_LOGS", "deleteCurrentAction() ActivityOtherCalculators");
+        Log.d("MY_LOGS", "deleteCurrentAction() MainActivity");
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        Log.d("MY_LOGS", "Stop ActivityOtherCalculators");
+        Log.d("MY_LOGS", "Stop MainActivity");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        Log.d("MY_LOGS", "Pause ActivityOtherCalculators");
+        Log.d("MY_LOGS", "Pause MainActivity");
     }
 
     @Override

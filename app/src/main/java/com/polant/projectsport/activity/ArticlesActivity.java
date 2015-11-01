@@ -1,4 +1,4 @@
-package com.polant.projectsport;
+package com.polant.projectsport.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,8 +15,9 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 
-import com.polant.projectsport.activity.ActivityOtherCalculators;
-import com.polant.projectsport.activity.HelpActivity;
+import com.polant.projectsport.Constants;
+import com.polant.projectsport.R;
+import com.polant.projectsport.ThemeSettings;
 import com.polant.projectsport.adapter.TabsPagerFragmentAdapter;
 import com.polant.projectsport.adapter.TabsStatisticsFragmentAdapter;
 import com.polant.projectsport.data.Database;
@@ -27,7 +28,7 @@ import com.polant.projectsport.preferences.PreferencesOldActivity;
  * Данная Активити используется для отображения всех статей согласно их категориям,
  * а также статистики потребленной пользователем пищи в виде графиков.
  */
-public class MainActivity extends AppCompatActivity{
+public class ArticlesActivity extends AppCompatActivity{
 
     private static final int LAYOUT = R.layout.activity_main;
 
@@ -117,22 +118,22 @@ public class MainActivity extends AppCompatActivity{
                         break;
                     case R.id.actionStepCounterItem:
                         Intent stepCounterIntent = new Intent();
-                        stepCounterIntent.putExtra(ActivityOtherCalculators.CURRENT_ACTION_STRING,
-                                ActivityOtherCalculators.ACTION_STEP_COUNTER);
+                        stepCounterIntent.putExtra(MainActivity.CURRENT_ACTION_STRING,
+                                MainActivity.ACTION_STEP_COUNTER);
                         setResult(RESULT_OK, stepCounterIntent);
                         finish();
                         break;
                     case R.id.ActionIndexBodyWeight:
                         Intent indexBodyIntent = new Intent();
-                        indexBodyIntent.putExtra(ActivityOtherCalculators.CURRENT_ACTION_STRING,
-                                ActivityOtherCalculators.ACTION_INDEX_BODY);
+                        indexBodyIntent.putExtra(MainActivity.CURRENT_ACTION_STRING,
+                                MainActivity.ACTION_INDEX_BODY);
                         setResult(RESULT_OK, indexBodyIntent);
                         finish();
                         break;
                     case R.id.ActionDayNeedCalories:
                         Intent needCaloriesIntent = new Intent();
-                        needCaloriesIntent.putExtra(ActivityOtherCalculators.CURRENT_ACTION_STRING,
-                                ActivityOtherCalculators.ACTION_NEED_CALORIES);
+                        needCaloriesIntent.putExtra(MainActivity.CURRENT_ACTION_STRING,
+                                MainActivity.ACTION_NEED_CALORIES);
                         setResult(RESULT_OK, needCaloriesIntent);
                         finish();
                         break;
@@ -141,12 +142,12 @@ public class MainActivity extends AppCompatActivity{
                         Class c = Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB ?
                                 PreferencesOldActivity.class : PreferencesNewActivity.class;
 
-                        Intent intent = new Intent(MainActivity.this, c);
+                        Intent intent = new Intent(ArticlesActivity.this, c);
                         Log.d("Class in intent", c.getName());
                         startActivityForResult(intent, PreferencesNewActivity.SHOW_PREFERENCES);
                         break;
                     case R.id.actionHelpItem:
-                        Intent help = new Intent(MainActivity.this, HelpActivity.class);
+                        Intent help = new Intent(ArticlesActivity.this, HelpActivity.class);
                         startActivityForResult(help, Constants.SHOW_ACTIVITY_HELP_INFO);
                         break;
                 }

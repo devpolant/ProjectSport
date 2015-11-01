@@ -19,7 +19,7 @@ import android.widget.Toast;
 
 import com.polant.projectsport.Constants;
 import com.polant.projectsport.R;
-import com.polant.projectsport.activity.ActivityOtherCalculators;
+import com.polant.projectsport.activity.MainActivity;
 import com.polant.projectsport.data.Database;
 import com.polant.projectsport.data.model.UserParametersInfo;
 
@@ -75,7 +75,7 @@ public class IndexBodyFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         //Получаю объект БД, который инициализирован в Активити.
-        DB = ((ActivityOtherCalculators) getActivity()).getDatabase();
+        DB = ((MainActivity) getActivity()).getDatabase();
         initButtonCalculateIndex();
     }
 

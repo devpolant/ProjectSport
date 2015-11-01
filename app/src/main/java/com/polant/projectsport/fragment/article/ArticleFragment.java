@@ -17,7 +17,7 @@ import android.widget.ListView;
 
 import com.polant.projectsport.Constants;
 import com.polant.projectsport.R;
-import com.polant.projectsport.activity.ActivityOtherCalculators;
+import com.polant.projectsport.activity.MainActivity;
 import com.polant.projectsport.activity.ArticleInfoActivity;
 import com.polant.projectsport.adapter.AdapterArticles;
 import com.polant.projectsport.data.Database;
@@ -92,9 +92,9 @@ public class ArticleFragment extends ListFragment implements LoaderManager.Loade
         Context context = getActivity().getApplicationContext();
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
 
-        if (preferences.getInt(ActivityOtherCalculators.DB_ARTICLES_VERSION_KEY, -1) != ActivityOtherCalculators.DBVersion) {
+        if (preferences.getInt(MainActivity.DB_ARTICLES_VERSION_KEY, -1) != MainActivity.DBVersion) {
             SharedPreferences.Editor editor = preferences.edit();
-            editor.putInt(ActivityOtherCalculators.DB_ARTICLES_VERSION_KEY, ActivityOtherCalculators.DBVersion);
+            editor.putInt(MainActivity.DB_ARTICLES_VERSION_KEY, MainActivity.DBVersion);
             editor.apply();
 
             ParserTXT parserTXT = new ParserTXT(DB);

@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import com.polant.projectsport.MainActivity;
+import com.polant.projectsport.activity.ArticlesActivity;
 import com.polant.projectsport.R;
 import com.polant.projectsport.data.Database;
 import com.polant.projectsport.data.model.StatisticsDay;
@@ -24,7 +24,6 @@ import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * Created by Антон on 25.10.2015.
@@ -68,7 +67,7 @@ public class ChartStatisticsFragment extends Fragment {
             interval = getArguments().getInt(STATISTICS_INTERVAL);
         }
         //Получаю объект БД, который инициализирован в Активити.
-        DB = ((MainActivity) getActivity()).getDatabase();
+        DB = ((ArticlesActivity) getActivity()).getDatabase();
 
         initChart();
     }

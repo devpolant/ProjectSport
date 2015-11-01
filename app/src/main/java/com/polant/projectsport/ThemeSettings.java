@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.support.design.widget.TabLayout;
 import android.support.v7.widget.Toolbar;
 
+import com.polant.projectsport.activity.ArticlesActivity;
 import com.polant.projectsport.data.model.UserParametersInfo;
 import com.polant.projectsport.preferences.PreferencesNewActivity;
 
@@ -43,7 +44,7 @@ public class ThemeSettings {
     }
 
     private static void setTabLayoutColor(Activity activity, String theme){
-        if (activity instanceof MainActivity){
+        if (activity instanceof ArticlesActivity){
             TabLayout tabLayout = (TabLayout) activity.findViewById(R.id.tabLayout);
             switch (theme) {
                 case "Light":

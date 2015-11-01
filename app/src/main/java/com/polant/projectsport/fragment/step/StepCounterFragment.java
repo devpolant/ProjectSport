@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
@@ -21,7 +20,7 @@ import android.widget.Toast;
 import com.github.glomadrian.dashedcircularprogress.DashedCircularProgress;
 import com.polant.projectsport.Constants;
 import com.polant.projectsport.R;
-import com.polant.projectsport.activity.ActivityOtherCalculators;
+import com.polant.projectsport.activity.MainActivity;
 import com.polant.projectsport.preferences.PreferencesNewActivity;
 
 import java.util.Formatter;
@@ -87,7 +86,7 @@ public class StepCounterFragment extends Fragment{
         circularProgress = (DashedCircularProgress) view.findViewById(R.id.progressSteps);
 
         //В этой строке получаю текущее значение шагов.
-        progressValue = ((ActivityOtherCalculators) activity).getStepCountValue();
+        progressValue = ((MainActivity) activity).getStepCountValue();
 
         //Устанавливает значение, а не проценты.
         circularProgress.setValue(progressValue);
@@ -142,14 +141,14 @@ public class StepCounterFragment extends Fragment{
         startBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((ActivityOtherCalculators)activity).registerCounter();
+                ((MainActivity)activity).registerCounter();
             }
         });
         Button stopBt = (Button) view.findViewById(R.id.buttonStopStepCounter);
         stopBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((ActivityOtherCalculators) activity).unregisterCounter();
+                ((MainActivity) activity).unregisterCounter();
             }
         });
         Button resetBt = (Button) view.findViewById(R.id.buttonResetStepCounter);
@@ -232,9 +231,9 @@ public class StepCounterFragment extends Fragment{
 
     //Тело обработчика нажатия на положительную кнопку reset buildAlertReset-диалога.
     private void resetBtClick(){
-        ((ActivityOtherCalculators) activity).setBeforeResetCount(progressValue);
+        ((MainActivity) activity).setBeforeResetCount(progressValue);
         progressValue = 0;
-        ((ActivityOtherCalculators) activity).setStepCount(progressValue);
+        ((MainActivity) activity).setStepCount(progressValue);
         updateProgress(maxProgressValue);
     }
 
