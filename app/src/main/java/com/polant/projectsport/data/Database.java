@@ -467,30 +467,30 @@ public class Database {
         public void onCreate(SQLiteDatabase db) {
             Log.d(LOG, "----- Create database  -----");
 
-//            db.execSQL(CREATE_TABLE_USER);
+            db.execSQL(CREATE_TABLE_USER);
             db.execSQL(CREATE_TABLE_FOOD);
             db.execSQL(CREATE_TABLE_SPECIFIC_FOOD);
-//            db.execSQL(CREATE_TABLE_STATISTICS);
+            db.execSQL(CREATE_TABLE_STATISTICS);
             db.execSQL(CREATE_TABLE_ARTICLE);
 
-//            ContentValues cv = new ContentValues();
-//            cv.put(USER_NAME, "Антон");
-//            cv.put(USER_HEIGHT, 184);
-//            cv.put(USER_WEIGHT, 75);
-//            cv.put(USER_AGE, 17);
-//            cv.put(USER_SEX, "M");
-//            db.insert(TABLE_USER, null, cv);
+            ContentValues cv = new ContentValues();
+            cv.put(USER_NAME, "Антон");
+            cv.put(USER_HEIGHT, 184);
+            cv.put(USER_WEIGHT, 75);
+            cv.put(USER_AGE, 17);
+            cv.put(USER_SEX, "M");
+            db.insert(TABLE_USER, null, cv);
         }
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             Log.w(LOG, "Update database from " + oldVersion + " to " + newVersion + ", which will destroy all old data");
 
-//            db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER + ";");
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER + ";");
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_FOOD + ";");
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_SPECIFIC_FOOD + ";");
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_ARTICLE + ";");
-//            db.execSQL("DROP TABLE IF EXISTS " + TABLE_STATISTICS + ";");
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_STATISTICS + ";");
 
             onCreate(db);
         }
