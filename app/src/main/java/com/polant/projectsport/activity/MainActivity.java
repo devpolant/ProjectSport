@@ -57,8 +57,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     public static final String CURRENT_ACTION_STRING = "CURRENT_ACTION_STRING";
     public static final String FIRST_ACTION = "FIRST_ACTION";
 
-
     private String firstCallAction;
+
     private SharedPreferences prefs;
 
     //Сенсоры.
@@ -94,9 +94,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         initNavigationView();
 
         firstCallAction = ACTION_STEP_COUNTER;
-
         //Сохнаняю текущее действие в настройки приложения.
         initSharedPreferences();
+
         //Выбираю необходимый фрагмент, в зависимости от (вызывающего Активити) действия Action.
         replaceFragment(savedInstanceState);
 
@@ -245,7 +245,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     //Данные 3 метода нужны для того, чтобы транзакции фрагментов проходили корректно, даже если
-    //в каком то фрагменте произошел поворот экрана.
+    //в каком то фрагменте произошел ПОВОРОТ ЭКРАНА.
     private void initSharedPreferences(){
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString(FIRST_ACTION, firstCallAction);
