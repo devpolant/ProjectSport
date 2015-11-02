@@ -7,11 +7,11 @@
         android:orderInCategory="1"
         android:icon="@drawable/ic_subject_black_24dp"/>
 
-    <item
+    <!--<item
         android:id="@+id/actionStatisticsItem"
         android:title="@string/nav_menu_item_statistics"
         android:orderInCategory="1"
-        android:icon="@drawable/ic_subject_black_24dp"/>
+        android:icon="@drawable/ic_subject_black_24dp"/>-->
 
 
     <item

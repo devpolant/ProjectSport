@@ -30,7 +30,7 @@ import com.polant.projectsport.preferences.PreferencesOldActivity;
  */
 public class ArticlesActivity extends AppCompatActivity{
 
-    private static final int LAYOUT = R.layout.activity_main;
+    private static final int LAYOUT = R.layout.activity_all_articles;
 
     public static final int VIEW_PAGER_CONTENT_ARTICLE = 1;
     public static final int VIEW_PAGER_CONTENT_STATISTICS = 2;
