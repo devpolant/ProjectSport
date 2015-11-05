@@ -162,10 +162,11 @@ public class Database {
         int month = calendar.get(Calendar.MONTH);
         int year = calendar.get(Calendar.YEAR);
 
-        int monthFrom = month;
+        //int monthFrom = month;
         int yearFrom = year;
         if (month - 1 < 0){
-            monthFrom = 11;
+            //monthFrom = 11;
+            month = 11;
             yearFrom = --year;
         }
         else{
@@ -176,14 +177,15 @@ public class Database {
         };
         String where = "(" + DAY + " >? AND " + MONTH + " >? AND " + YEAR + " >? AND " + YEAR + " <? ) OR ( " +
                 DAY + " >? AND " + MONTH + " >? AND " + YEAR + " =? ) OR ( " +
-                MONTH + "=? AND " + YEAR + "=? )";
-        String[] whereArgs = new String[] {
-                String.valueOf(day - 1), String.valueOf(monthFrom - 1), String.valueOf(yearFrom - 1), String.valueOf(yearFrom + 1),
+                MONTH + ">? AND " + YEAR + "=? )";
 
-                String.valueOf(day - 1), String.valueOf(monthFrom - 1), String.valueOf(year),
+         String[] whereArgs = new String[] {
+                 String.valueOf(day - 1), String.valueOf(month - 1), String.valueOf(yearFrom - 1), String.valueOf(yearFrom + 1),
 
-                String.valueOf(month), String.valueOf(year)
-        };
+                 String.valueOf(day - 1), String.valueOf(month - 1), String.valueOf(year),
+
+                 String.valueOf(month), String.valueOf(year)
+         };
         return sqLiteDatabase.query(TABLE_STATISTICS, projection, where, whereArgs, null, null, null);
     }
 
