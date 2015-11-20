@@ -1,27 +1,26 @@
-package com.polant.projectsport.adapter;
+package com.polant.projectsport.adapter.tab;
 
 import android.app.Activity;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.polant.projectsport.R;
-import com.polant.projectsport.fragment.chart.ChartStatisticsFragment;
+import com.polant.projectsport.fragment.help.HelpFragment;
 
 /**
- * Created by Антон on 25.10.2015.
+ * Created by Антон on 19.11.2015.
  */
-public class TabsStatisticsFragmentAdapter extends FragmentStatePagerAdapter {
+public class TabHelpFragmentAdapter extends FragmentStatePagerAdapter {
 
     private String[] tabs;
 
-    public TabsStatisticsFragmentAdapter(Activity activity, FragmentManager fm) {
+    public TabHelpFragmentAdapter(Activity activity, FragmentManager fm) {
         super(fm);
         //Получаю Активити в конструкторе только для получения доступа к ресурсам проекта.
         tabs = new String[] {
-                activity.getString(R.string.tab_statistics_week),
-                activity.getString(R.string.tab_statistics_month)
+                activity.getString(R.string.tab_help_description),
+                activity.getString(R.string.tab_help_procedure)
         };
     }
 
@@ -29,9 +28,9 @@ public class TabsStatisticsFragmentAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-                return ChartStatisticsFragment.getInstance(ChartStatisticsFragment.STATISTICS_WEEK);
+                return HelpFragment.getInstance(HelpFragment.HELP_DESCRIPTION);
             case 1:
-                return ChartStatisticsFragment.getInstance(ChartStatisticsFragment.STATISTICS_MONTH);
+                return HelpFragment.getInstance(HelpFragment.HELP_PROCEDURE);
             default:
                 return null;
         }
@@ -39,15 +38,15 @@ public class TabsStatisticsFragmentAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getItemPosition(Object object) {
-        ChartStatisticsFragment fragment = (ChartStatisticsFragment) object;
-        int interval = fragment.getArguments().getInt(ChartStatisticsFragment.STATISTICS_INTERVAL);
+        HelpFragment fragment = (HelpFragment) object;
+        String helpType = fragment.getArguments().getString(HelpFragment.HELP_TYPE);
 
         int position = -1;
-        switch (interval){
-            case ChartStatisticsFragment.STATISTICS_WEEK:
+        switch (helpType){
+            case HelpFragment.HELP_DESCRIPTION:
                 position = 0;
                 break;
-            case ChartStatisticsFragment.STATISTICS_MONTH:
+            case HelpFragment.HELP_PROCEDURE:
                 position = 1;
                 break;
         }
@@ -68,4 +67,5 @@ public class TabsStatisticsFragmentAdapter extends FragmentStatePagerAdapter {
     public CharSequence getPageTitle(int position) {
         return tabs[position];
     }
+
 }

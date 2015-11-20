@@ -1,4 +1,4 @@
-package com.polant.projectsport.adapter;
+package com.polant.projectsport.adapter.tab;
 
 import android.app.Activity;
 import android.support.v4.app.Fragment;
@@ -20,7 +20,7 @@ public class TabsPagerFragmentAdapter extends FragmentStatePagerAdapter {
     public TabsPagerFragmentAdapter(Activity activity, FragmentManager fm) {
         super(fm);
         //Получаю Активити в конструкторе только для получения доступа к ресурсам проекта.
-        tabs = new ArrayList<String>();
+        tabs = new ArrayList<>();
         tabs.add(activity.getString(R.string.tab_sport_article));
         tabs.add(activity.getString(R.string.tab_food_article));
         tabs.add(activity.getString(R.string.tab_fitness_article));

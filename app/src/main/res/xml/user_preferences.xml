@@ -6,7 +6,7 @@
 
         <ListPreference
             android:key="PREF_APP_THEME"
-            android:title="Выберите тему оформления"
+            android:title="Тема оформления"
             android:summary="Вы можете выбрать цвет интерфейса приложения"
             android:entries="@array/app_theme_color_options"
             android:entryValues="@array/app_theme_color_values"

@@ -2,10 +2,10 @@ package com.polant.projectsport.activity;
 
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.Html;
-import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ExpandableListView;
@@ -13,13 +13,14 @@ import android.widget.SimpleExpandableListAdapter;
 
 import com.polant.projectsport.R;
 import com.polant.projectsport.ThemeSettings;
+import com.polant.projectsport.adapter.tab.TabHelpFragmentAdapter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Активити помощи пользователю.
+ * Активити помощи пользователю. Использует фрагмент HelpFragment.
  */
 public class HelpActivity extends AppCompatActivity{
 
@@ -32,67 +33,20 @@ public class HelpActivity extends AppCompatActivity{
         setContentView(LAYOUT);
 
         initToolbar();
-        initExpandableListView();
+        initTabLayout();
     }
 
-    private void initExpandableListView() {
-        String[] groups = new String[] {
-                "Калькуляторы", "Шагомер", "Статьи", "Статистика", "Настройки"
-        };
+    private void initTabLayout() {
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
 
-        Map<String, String> map;
-        ArrayList<Map<String, String>> groupDataList = new ArrayList<>();
-
-        for (String group: groups){
-            map = new HashMap<>();
-            map.put("groupName", group);
-            groupDataList.add(map);
-        }
-
-        String[] groupFrom = new String[]{ "groupName" };
-        int[] groupTo = new int[] { android.R.id.text1 };
-
-        //Общая коллекция для коллекций элементов.
-        ArrayList<ArrayList<Map<String, String>>> childDataList = new ArrayList<>();
-
-        ArrayList<Map<String, String>> childDataItemList;
-        for (int i = 0; i < groups.length; i++){
-            childDataItemList = new ArrayList<>();
-            map = new HashMap<>();
-            String info = null;
-            switch (i){
-                case 0:
-                    info = getString(R.string.help_text_calculators);
-                    break;
-                case 1:
-                    info = getString(R.string.help_text_step_counter);
-                    break;
-                case 2:
-                    info = getString(R.string.help_text_articles);
-                    break;
-                case 3:
-                    info = getString(R.string.help_text_statistics);
-                    break;
-                case 4:
-                    info = getString(R.string.help_text_settings);
-                    break;
-            }
-            map.put("itemName", info);
-            childDataItemList.add(map);
-            childDataList.add(childDataItemList);
-        }
-
-        String[] childFrom = new String[]{ "itemName" };
-        int[] childTo = new int[] { R.id.textViewHelpItem };
-
-        SimpleExpandableListAdapter adapter = new SimpleExpandableListAdapter(
-                this, groupDataList,
-                android.R.layout.simple_expandable_list_item_1, groupFrom, groupTo, childDataList,
-                R.layout.list_adapter_help_item, childFrom, childTo
+        TabHelpFragmentAdapter adapter = new TabHelpFragmentAdapter(
+                this,
+                getSupportFragmentManager()
         );
+        viewPager.setAdapter(adapter);
 
-        ExpandableListView listView = (ExpandableListView) findViewById(R.id.expandableListViewHelp);
-        listView.setAdapter(adapter);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        tabLayout.setupWithViewPager(viewPager);
     }
 
 
