@@ -1,4 +1,4 @@
-package com.polant.projectsport.data.model;
+package com.polant.projectsport.model;
 
 import android.content.Context;
 

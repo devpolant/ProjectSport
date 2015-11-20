@@ -20,7 +20,7 @@ import java.util.Map;
  */
 public class HelpFragment extends Fragment{
 
-    private static final int LAYOUT = R.layout.fragment_help_temp;
+    private static final int LAYOUT = R.layout.fragment_help;
 
     //Константа, которая определяет интервал статистики.
     public static final String HELP_TYPE = "HELP_TYPE";

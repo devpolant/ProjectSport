@@ -1,19 +1,18 @@
-package com.polant.projectsport.adapter;
+package com.polant.projectsport.adapter.food;
 
 import android.content.Context;
 import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.CursorAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.polant.projectsport.R;
 import com.polant.projectsport.activity.ActivityCalculateFood;
-import com.polant.projectsport.data.Database;
-import com.polant.projectsport.data.model.SpecificFood;
+import com.polant.projectsport.data.database.Database;
+import com.polant.projectsport.model.SpecificFood;
 
 /**
  * Created by Антон on 05.10.2015.

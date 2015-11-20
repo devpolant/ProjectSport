@@ -1,7 +1,6 @@
-package com.polant.projectsport.data;
+package com.polant.projectsport.data.database;
 
 
-import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -11,13 +10,13 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.polant.projectsport.Constants;
+import com.polant.projectsport.constants.Constants;
 import com.polant.projectsport.R;
-import com.polant.projectsport.ThemeSettings;
-import com.polant.projectsport.data.model.Article;
-import com.polant.projectsport.data.model.SpecificFood;
-import com.polant.projectsport.data.model.StatisticsDay;
-import com.polant.projectsport.data.model.UserParametersInfo;
+import com.polant.projectsport.theme.ThemeSettings;
+import com.polant.projectsport.model.Article;
+import com.polant.projectsport.model.SpecificFood;
+import com.polant.projectsport.model.StatisticsDay;
+import com.polant.projectsport.model.UserParametersInfo;
 import com.polant.projectsport.fragment.chart.ChartStatisticsFragment;
 import com.polant.projectsport.preferences.PreferencesNewActivity;
 

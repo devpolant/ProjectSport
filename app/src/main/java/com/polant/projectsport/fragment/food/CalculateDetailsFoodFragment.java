@@ -9,11 +9,10 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.util.Log;
-import android.widget.CursorAdapter;
 
-import com.polant.projectsport.adapter.AdapterCalculateDetailsFood;
-import com.polant.projectsport.data.Database;
-import com.polant.projectsport.data.model.SpecificFood;
+import com.polant.projectsport.adapter.food.AdapterCalculateDetailsFood;
+import com.polant.projectsport.data.database.Database;
+import com.polant.projectsport.model.SpecificFood;
 
 
 /**

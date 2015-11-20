@@ -11,9 +11,9 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.polant.projectsport.R;
-import com.polant.projectsport.ThemeSettings;
-import com.polant.projectsport.data.Database;
-import com.polant.projectsport.data.model.Article;
+import com.polant.projectsport.theme.ThemeSettings;
+import com.polant.projectsport.data.database.Database;
+import com.polant.projectsport.model.Article;
 
 /**
  * Данная Активити используется для отображения одной, выбранной пользователем из списка, статьи.

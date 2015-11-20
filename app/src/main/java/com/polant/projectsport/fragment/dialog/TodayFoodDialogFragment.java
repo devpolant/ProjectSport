@@ -19,7 +19,7 @@ import android.widget.ListView;
 import com.polant.projectsport.R;
 import com.polant.projectsport.activity.ActivityCalculateFood;
 import com.polant.projectsport.adapter.dialog.AdapterTodayFoodDialog;
-import com.polant.projectsport.data.Database;
+import com.polant.projectsport.data.database.Database;
 
 /**
  * Created by Антон on 11.10.2015.

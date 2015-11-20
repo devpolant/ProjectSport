@@ -15,12 +15,12 @@ import android.support.v4.content.Loader;
 import android.view.View;
 import android.widget.ListView;
 
-import com.polant.projectsport.Constants;
+import com.polant.projectsport.constants.Constants;
 import com.polant.projectsport.R;
 import com.polant.projectsport.activity.MainActivity;
 import com.polant.projectsport.activity.ArticleInfoActivity;
-import com.polant.projectsport.adapter.AdapterArticles;
-import com.polant.projectsport.data.Database;
+import com.polant.projectsport.adapter.article.AdapterArticles;
+import com.polant.projectsport.data.database.Database;
 import com.polant.projectsport.data.parse.ParserTXT;
 
 /**

@@ -19,8 +19,8 @@ import android.widget.TextView;
 
 import com.polant.projectsport.R;
 import com.polant.projectsport.activity.MainActivity;
-import com.polant.projectsport.adapter.AdapterCategoryFood;
-import com.polant.projectsport.data.Database;
+import com.polant.projectsport.adapter.food.AdapterCategoryFood;
+import com.polant.projectsport.data.database.Database;
 import com.polant.projectsport.data.parse.ParserTXT;
 
 /**

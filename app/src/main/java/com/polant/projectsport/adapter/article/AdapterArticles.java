@@ -1,4 +1,4 @@
-package com.polant.projectsport.adapter;
+package com.polant.projectsport.adapter.article;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -9,7 +9,7 @@ import android.widget.CursorAdapter;
 import android.widget.TextView;
 
 import com.polant.projectsport.R;
-import com.polant.projectsport.data.Database;
+import com.polant.projectsport.data.database.Database;
 
 /**
  * Created by Антон on 24.10.2015.

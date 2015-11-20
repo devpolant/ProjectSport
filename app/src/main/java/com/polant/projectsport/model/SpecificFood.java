@@ -1,4 +1,4 @@
-package com.polant.projectsport.data.model;
+package com.polant.projectsport.model;
 
 /**
  * Created by Антон on 05.10.2015.

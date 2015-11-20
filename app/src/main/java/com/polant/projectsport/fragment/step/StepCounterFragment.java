@@ -18,7 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.glomadrian.dashedcircularprogress.DashedCircularProgress;
-import com.polant.projectsport.Constants;
+import com.polant.projectsport.constants.Constants;
 import com.polant.projectsport.R;
 import com.polant.projectsport.activity.MainActivity;
 import com.polant.projectsport.preferences.PreferencesNewActivity;

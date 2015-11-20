@@ -1,12 +1,13 @@
-package com.polant.projectsport;
+package com.polant.projectsport.theme;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.support.design.widget.TabLayout;
 import android.support.v7.widget.Toolbar;
 
+import com.polant.projectsport.R;
 import com.polant.projectsport.activity.ArticlesActivity;
-import com.polant.projectsport.data.model.UserParametersInfo;
+import com.polant.projectsport.model.UserParametersInfo;
 import com.polant.projectsport.preferences.PreferencesNewActivity;
 
 /**

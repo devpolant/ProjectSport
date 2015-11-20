@@ -8,16 +8,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ExpandableListView;
-import android.widget.SimpleExpandableListAdapter;
 
 import com.polant.projectsport.R;
-import com.polant.projectsport.ThemeSettings;
+import com.polant.projectsport.theme.ThemeSettings;
 import com.polant.projectsport.adapter.tab.TabHelpFragmentAdapter;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Активити помощи пользователю. Использует фрагмент HelpFragment.

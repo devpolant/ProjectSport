@@ -19,10 +19,10 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 
-import com.polant.projectsport.Constants;
+import com.polant.projectsport.constants.Constants;
 import com.polant.projectsport.R;
-import com.polant.projectsport.ThemeSettings;
-import com.polant.projectsport.data.Database;
+import com.polant.projectsport.theme.ThemeSettings;
+import com.polant.projectsport.data.database.Database;
 import com.polant.projectsport.fragment.calculator.IndexBodyFragment;
 import com.polant.projectsport.fragment.calculator.NeedCaloriesFragment;
 import com.polant.projectsport.fragment.step.StepCounterFragment;

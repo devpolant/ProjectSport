@@ -12,8 +12,8 @@ import android.widget.LinearLayout;
 
 import com.polant.projectsport.activity.ArticlesActivity;
 import com.polant.projectsport.R;
-import com.polant.projectsport.data.Database;
-import com.polant.projectsport.data.model.StatisticsDay;
+import com.polant.projectsport.data.database.Database;
+import com.polant.projectsport.model.StatisticsDay;
 
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;

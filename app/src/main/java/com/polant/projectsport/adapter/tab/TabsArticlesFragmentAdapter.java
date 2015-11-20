@@ -13,11 +13,11 @@ import java.util.ArrayList;
 /**
  * Created by Антон on 02.10.2015.
  */
-public class TabsPagerFragmentAdapter extends FragmentStatePagerAdapter {
+public class TabsArticlesFragmentAdapter extends FragmentStatePagerAdapter {
 
     private ArrayList<String> tabs;
 
-    public TabsPagerFragmentAdapter(Activity activity, FragmentManager fm) {
+    public TabsArticlesFragmentAdapter(Activity activity, FragmentManager fm) {
         super(fm);
         //Получаю Активити в конструкторе только для получения доступа к ресурсам проекта.
         tabs = new ArrayList<>();

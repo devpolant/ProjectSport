@@ -1,4 +1,4 @@
-package com.polant.projectsport;
+package com.polant.projectsport.constants;
 
 /**
  * Created by Антон on 02.10.2015.

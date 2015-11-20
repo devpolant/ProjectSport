@@ -24,12 +24,12 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.polant.projectsport.Constants;
+import com.polant.projectsport.constants.Constants;
 import com.polant.projectsport.R;
-import com.polant.projectsport.ThemeSettings;
-import com.polant.projectsport.data.Database;
-import com.polant.projectsport.data.model.SpecificFood;
-import com.polant.projectsport.data.model.UserParametersInfo;
+import com.polant.projectsport.theme.ThemeSettings;
+import com.polant.projectsport.data.database.Database;
+import com.polant.projectsport.model.SpecificFood;
+import com.polant.projectsport.model.UserParametersInfo;
 import com.polant.projectsport.fragment.food.CalculateDetailsFoodFragment;
 import com.polant.projectsport.fragment.food.CalculateFoodFragment;
 import com.polant.projectsport.fragment.dialog.TodayFoodDialogFragment;

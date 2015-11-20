@@ -15,12 +15,12 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 
-import com.polant.projectsport.Constants;
+import com.polant.projectsport.constants.Constants;
 import com.polant.projectsport.R;
-import com.polant.projectsport.ThemeSettings;
-import com.polant.projectsport.adapter.tab.TabsPagerFragmentAdapter;
+import com.polant.projectsport.theme.ThemeSettings;
+import com.polant.projectsport.adapter.tab.TabsArticlesFragmentAdapter;
 import com.polant.projectsport.adapter.tab.TabsStatisticsFragmentAdapter;
-import com.polant.projectsport.data.Database;
+import com.polant.projectsport.data.database.Database;
 import com.polant.projectsport.preferences.PreferencesNewActivity;
 import com.polant.projectsport.preferences.PreferencesOldActivity;
 
@@ -164,7 +164,7 @@ public class ArticlesActivity extends AppCompatActivity{
 
         viewPager = (ViewPager) findViewById(R.id.viewPager);
 
-        TabsPagerFragmentAdapter adapter = new TabsPagerFragmentAdapter(
+        TabsArticlesFragmentAdapter adapter = new TabsArticlesFragmentAdapter(
                 this,
                 getSupportFragmentManager()
         );

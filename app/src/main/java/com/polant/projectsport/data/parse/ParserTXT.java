@@ -5,8 +5,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.polant.projectsport.data.Database;
-import com.polant.projectsport.data.model.Article;
+import com.polant.projectsport.data.database.Database;
+import com.polant.projectsport.model.Article;
 
 import java.io.BufferedReader;
 import java.io.IOException;

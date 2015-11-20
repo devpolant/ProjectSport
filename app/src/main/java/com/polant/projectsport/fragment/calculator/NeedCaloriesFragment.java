@@ -19,11 +19,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.polant.projectsport.Constants;
+import com.polant.projectsport.constants.Constants;
 import com.polant.projectsport.R;
 import com.polant.projectsport.activity.MainActivity;
-import com.polant.projectsport.data.Database;
-import com.polant.projectsport.data.model.UserParametersInfo;
+import com.polant.projectsport.data.database.Database;
+import com.polant.projectsport.model.UserParametersInfo;
 
 /**
  * Created by Антон on 17.10.2015.
