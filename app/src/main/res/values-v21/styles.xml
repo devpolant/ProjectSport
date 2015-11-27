@@ -8,4 +8,12 @@
 
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
+
+    <style name="AppDark" parent="AppTheme">
+        <item name="colorPrimary">@color/DarkColorPrimary</item>
+        <item name="colorPrimaryDark">@color/DarkColorPrimaryDark</item>
+        <item name="colorControlNormal">@color/DarkMainBackground</item>
+        <item name="android:navigationBarColor">@color/black</item>
+        <item name="android:colorForeground">@color/foreground_material_light</item>
+    </style>
 </resources>

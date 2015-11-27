@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/rootStepCounterLayout">
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/text_bt_step_counter_target"
+        android:id="@+id/buttonSetStepCounterTarget"
+        android:background="@drawable/ripple_green"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical|center_horizontal"
+        android:layout_margin="10dp"
+        android:layout_weight="4" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/textViewDeltaCaloriesStepCounter"
+        android:gravity="center_vertical|center_horizontal"
+        android:textStyle="bold"
+        android:textColor="#2aa412" />
+
+    <com.github.glomadrian.dashedcircularprogress.DashedCircularProgress
+        android:id="@+id/progressSteps"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        custom:external_color="#000000"
+        custom:base_color="#FF4F00"
+        custom:min="0"
+        custom:max="1000"
+        custom:progress_color="#26ED31"
+        android:layout_weight="2"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginLeft="35dp">
+
+        <RelativeLayout
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/layout_percent_steps"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textSize="40sp"
+                    android:id="@+id/textCurrentProgress"
+                    android:textColor="@android:color/black"
+                    android:text="90"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end" />
+
+                <TextView
+                    android:textSize="40sp"
+                    android:textColor="@android:color/black"
+                    android:text="@string/text_percent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.5" />
+
+            </LinearLayout>
+
+            <TextView
+                android:textSize="30sp"
+                android:layout_centerHorizontal="true"
+                android:paddingTop="5dp"
+                android:layout_below="@+id/layout_percent_steps"
+                android:text="@string/text_step_counter"
+                android:textColor="@android:color/black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal" />
+
+        </RelativeLayout>
+
+    </com.github.glomadrian.dashedcircularprogress.DashedCircularProgress>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="4">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Medium Text"
+            android:id="@+id/textViewStepCounterCurrentValue"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:gravity="center_vertical|center_horizontal"
+            android:layout_gravity="center_vertical" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/text_step_counter_from"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:gravity="center_vertical|center_horizontal"
+            android:layout_gravity="center_vertical" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Medium Text"
+            android:id="@+id/textViewStepCounterTargetValue"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:gravity="center_vertical|center_horizontal"
+            android:layout_gravity="center_vertical" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/text_step_counter_steps"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:gravity="center_vertical|center_horizontal"
+            android:layout_gravity="center_vertical" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="4"
+        android:layout_marginBottom="10dp">
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/text_bt_step_counter_start"
+            android:id="@+id/buttonStartStepCounter"
+            android:background="@drawable/ripple_green"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical|center_horizontal"
+            android:layout_margin="10dp"
+            android:layout_weight="1" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/text_bt_step_counter_stop"
+            android:id="@+id/buttonStopStepCounter"
+            android:background="@drawable/ripple_orange"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical|center_horizontal"
+            android:layout_margin="10dp"
+            android:layout_weight="1" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/text_bt_step_counter_reset"
+            android:id="@+id/buttonResetStepCounter"
+            android:background="@drawable/ripple_blue"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical|center_horizontal"
+            android:layout_margin="10dp"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+
+</LinearLayout>

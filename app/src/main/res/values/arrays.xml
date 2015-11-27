@@ -1,7 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="app_theme_color">
+    <string-array name="app_theme_color_options">
         <item>Светлая</item>
         <item>Темная</item>
     </string-array>
+    <string-array name="app_theme_color_values">
+        <item>Light</item>
+        <item>Dark</item>
+    </string-array>
+    <string-array name="array_life_style">
+        <item>Базовый обмен вешеств</item>
+        <item>Минимальные физ. нагрузки</item>
+        <item>3 раза в неделю</item>
+        <item>5 раз в неделю</item>
+        <item>5 раз в неделю (интенсивно)</item>
+        <item>Каждый день</item>
+        <item>2 раза в день</item>
+        <item>Ежедневная физ. нагрузка + физ. работа</item>
+    </string-array>
+
+    <string-array name="array_user_sex_options">
+        <item>Мужской</item>
+        <item>Женский</item>
+    </string-array>
+    <string-array name="array_user_sex_values">
+        <item>М</item>
+        <item>Ж</item>
+    </string-array>
+
 </resources>

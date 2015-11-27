@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="Ваши физические параметры">
+
+        <ListPreference
+            android:key="PREF_USER_SEX"
+            android:title="Ваш пол"
+            android:summary="Выберите Ваш пол. Он будет использоваться при вычислениях в калькуляторах приложения"
+            android:entries="@array/array_user_sex_options"
+            android:entryValues="@array/array_user_sex_values"
+            android:dialogTitle="Ваш пол"
+            android:defaultValue="Мужской"
+            />
+        <EditTextPreference
+            android:key="PREF_USER_NAME"
+            android:title="Ваше имя"
+            android:hint="Ваше имя"
+            android:inputType="textPersonName"
+            />
+        <EditTextPreference
+            android:key="PREF_USER_WEIGHT"
+            android:summary="Выберите Ваш вес. Он будет использоваться при вычислениях в калькуляторах приложения"
+            android:title="Ваш вес"
+            android:hint="Ваш вес"
+            android:maxLength="5"
+            android:inputType="numberDecimal"
+            />
+        <EditTextPreference
+            android:key="PREF_USER_HEIGHT"
+            android:summary="Выберите Ваш рост. Он будет использоваться при вычислениях в калькуляторах приложения"
+            android:title="Ваш рост"
+            android:hint="Ваш рост"
+            android:maxLength="5"
+            android:inputType="numberDecimal"
+            />
+        <EditTextPreference
+            android:key="PREF_USER_AGE"
+            android:summary="Выберите Ваш возраст. Он будет использоваться при вычислениях в калькуляторах приложения"
+            android:title="Ваш возраст"
+            android:hint="Ваш возраст"
+            android:maxLength="3"
+            android:inputType="number"
+            />
+    </PreferenceCategory>
+
+</PreferenceScreen>

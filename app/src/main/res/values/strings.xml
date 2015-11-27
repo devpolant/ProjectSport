@@ -3,10 +3,407 @@
 
     <string name="search_title">Search</string>
     <string name="nav_menu_item_article">Статьи</string>
+    <string name="nav_menu_item_calories_counter">Калькуляторы</string>
+    <string name="nav_menu_item_index_body_weight">Индекс массы тела</string>
+    <string name="nav_menu_item_day_need_cal">Потребность в калориях</string>
+    <string name="nav_menu_item_calc_food">Пищевой калькулятор</string>
     <string name="nav_menu_item_settings">Настройки</string>
+    <string name="nav_menu_item_step_counter">Шагомер</string>
+    <string name="nav_menu_item_statistics">Моя статистика</string>
+    <string name="nav_menu_item_help">Помощь</string>
+    <string name="nav_menu_item_about_us">О нас</string>
+    <string name="nav_menu_item_additional_info">Доп. информация</string>
+
 
     <string name="navigation_view_open">Open</string>
     <string name="navigation_view_close">Close</string>
 
     <string name="preferences_title">Настройки</string>
+
+    <string name="text_your_height">Рост : </string>
+    <string name="text_your_weight">Вес : </string>
+    <string name="text_your_sex">Пол : </string>
+    <string name="text_your_sex_M">М</string>
+    <string name="text_your_sex_F">Ж</string>
+    <string name="text_your_goal">Цель : </string>
+    <string name="text_your_time">Время : </string>
+    <string name="text_your_age">Возраст :</string>
+    <string name="text_bt_change_your_hw">Изменить параметры</string>
+    <string name="buttonShowListTodayFoodText">Список</string>
+
+    <string name="text_ccal">кКал</string>
+
+    <string name="tag_fragment_article">ArticleFragment</string>
+    <string name="tag_fragment_calculate_food">CalculateFoodFragment</string>
+    <string name="tag_fragment_calculate_details_food">CalculateDetailsFoodFragment</string>
+    <string name="tag_fragment_index_body">IndexBodyFragment</string>
+    <string name="tag_fragment_need_calories">NeedCaloriesFragment</string>
+    <string name="tag_fragment_step_counter">StepCounterFragment</string>
+
+    <string name="temp_text_example_fragment">Здесь будут статьи</string>
+
+    <string name="alertAddFoodTitle">Калькулятор</string>
+    <string name="alertAddFoodMessage">Введите количество пищи:</string>
+    <string name="alertAddFoodPositiveBt">Посчитать</string>
+    <string name="alertAddFoodNegativeBt">Отмена</string>
+    <string name="toastMistake">Введите количество выбранной пищи!</string>
+    <string name="alertAddFoodEditTextHintText">100</string>
+    <string name="alertChangeTodayList">Сегодня :</string>
+
+
+    <string name="alertChangeTodayListCategoryFood">Категория :</string>
+    <string name="alertChangeTodayListNameFood">Название :</string>
+    <string name="alertChangeTodayListDeleteTitle">Удаление записи</string>
+    <string name="alertChangeTodayListDeleteMessage">Удалить запись?</string>
+    <string name="alertChangeTodayListDeleteButtonText">Удалить</string>
+    <string name="alertChangeUserInfoTitle">Ваши физические параметры</string>
+    <string name="alertChangeUserInfoMessage">
+        Введите новые значения пола, возраста, роста и веса:\n\nВозраст от 16 лет, рост от 75 см, вес от 25 кг
+    </string>
+    <string name="alertChangeUserInfoButtonPositive">Подтвердить</string>
+    <string name="alertChangeUserInfoButtonNegative">Отмена</string>
+
+    <string name="hint_weight">Вес в килограммах</string>
+    <string name="hint_height">Рост в сантиметрах</string>
+    <string name="hint_age">Возраст</string>
+    <string name="hint_food_weight">Вес в граммах</string>
+    <string name="hint_target_step_count">Количество шагов</string>
+
+    <string name="title_activity_activity_other_calculators">Фитнес калькулятор</string>
+
+    <string name="text_normal_index_body_min">Минимум</string>
+    <string name="text_normal_index_body_ideal">Идеал</string>
+    <string name="text_normal_index_body_max">Максимум</string>
+    <string name="text_normal_index_body_normal">Индекс массы тела</string>
+    <string name="text_bt_calculate_index">Посчитать индекс</string>
+    <string name="text_normal_index_body_min_value">18</string>
+    <string name="text_normal_index_body_ideal_value">22</string>
+    <string name="text_normal_index_body_max_value">25</string>
+
+    <string name="alertIndexBodyTitle">Индекс массы тела</string>
+    <string name="alertIndexBodyPositiveBt">Посчитать</string>
+    <string name="alertIndexBodyNegativeBt">Отмена</string>
+    <string name="alertIndexBodyMessage">Введите рост и вес:\n\nРост от 75 см, вес от 25 кг</string>
+    <string name="text_user_info_from_DB">Использовать параметры из настроек</string>
+    <string name="text_user_info_new_input_info">Ввести новые данные</string>
+    <string name="text_err_input_index_body">Введите рост и вес!</string>
+    <string name="text_zero">0</string>
+    <string name="text_your_index_body">Ваш индекс массы тела равен:</string>
+    
+    
+    <string name="text_index_body_less_min">
+        Ваш индекс массы тела меньше нормы. Возможно, Вам стоит пересмотреть свой рацион питания,
+        чтобы набрать некоторое количество веса.
+    </string>
+    <string name="text_index_body_min">
+        Ваш индекс массы тела находится на нижней границе нормы. Возможно, если Вы наберете еще несколько
+        килограмм, то почувствуете себя немного лучше и приблизитесь к своему идеальному весу.
+    </string>
+    <string name="text_index_body_ideal">
+        Ваш индекс массы тела практически идеален. Продолжайте в том же духе! Здоровый образ жизни -
+        это действительно правильный выбор!
+    </string>
+    <string name="text_index_body_max">
+        Ваш индекс массы тела находится на верхней границе нормы. Возможно, Вам стоит немного
+        изменить свой рацион питания и Вы приблизитесь к своему идеальному весу.
+    </string>
+    <string name="text_index_body_excess">
+        Ваш индекс массы тела свидетельствует о лишнем весе. Возможно, Вам стоит немного
+        изменить свой рацион питания и Вы вернетесь к своему нормальному весу.
+    </string>
+    <string name="text_index_body_obesity_1">
+        Ваш индекс массы тела свидетельствует о первой стадии ожирения. Вам следует пересмотреть
+        свой рацион питания и, возможно, заняться спортом или фитнессом. Поход в спортзал пойдет
+        Вам на пользу и поможет сбросить вес.
+    </string>
+    <string name="text_index_body_obesity_2">
+        Ваш индекс массы тела свидетельствует о второй стадии ожирения. Вам следует пересмотреть
+        свой рацион питания и обязательно заняться спортом или фитнессом. Поход в спортзал пойдет
+        Вам на пользу и поможет сбросить вес.
+    </string>
+    <string name="text_index_body_obesity_3">
+        Ваш индекс массы тела свидетельствует о третей стадии ожирения. Вам следует срочно
+        пересмотреть свой рацион питания и обязательно заняться спортом или фитнессом. Поход в спортзал пойдет
+        Вам на пользу и поможет сбросить вес.
+    </string>
+
+    <string name="text_need_calories">Ваша суточная норма калорий:</string>
+    <string name="text_bt_calculate_need_calories">Посчитать норму</string>
+    <string name="text_need_calories_title">Норма калорий</string>
+    <string name="text_need_calories_normal">Не изменяя вес:</string>
+    <string name="text_need_calories_loss_weight">Для похудения:</string>
+    <string name="text_need_calories_fast_loss_weight">Для быстрого похудения:</string>
+
+    <string name="text_spinner_life_style_title">Степень физической нагрузки</string>
+
+    <string name="alertChoiceUserInfoMessage">
+        Введите значения пола, роста и веса:\n\nВозраст от 16 лет, рост от 75 см, вес от 25 кг</string>
+    <string name="text_err_input_user_info_need_calories">Введите возраст, рост и вес!</string>
+    <string name="text_need_calories_spinner_title">Выберите Ваш образ жизни:</string>
+
+
+    <string name="text_step_counter">Пройдено</string>
+    <string name="text_step_counter_steps">шагов</string>
+    <string name="text_step_counter_from">из</string>
+    <string name="text_bt_step_counter_start">Старт</string>
+    <string name="text_bt_step_counter_stop">Стоп</string>
+    <string name="text_bt_step_counter_reset">Сбросить</string>
+    <string name="text_bt_step_counter_target">Выбрать цель</string>
+    <string name="text_percent">%</string>
+    <string name="alertTargetStepCountTitle">Ваша цель:</string>
+    <string name="alertTargetStepCountMessage">
+        Введите количество шагов, которое Вы хотите проходить ежедневно.\n\n(От 100 шагов)</string>
+    <string name="alertTargetStepCountPositiveBt">Подтвердить</string>
+    <string name="alertTargetStepCountNegativeBt">Отмена</string>
+    <string name="toast_err_target_step_count">Введите количество шагов</string>
+    <string name="hint_start_step_counter">Нажмите \"Старт\", чтобы включить шагомер</string>
+    <string name="alertResetTitle">Сброс шагомера</string>
+    <string name="alertResetMessage">Вы уверены, что хотите сбросить значение шагомера?</string>
+    <string name="alertResetPositiveBt">Да</string>
+    <string name="alertResetNegativeBt">Отмена</string>
+    <string name="toastMistakeUserInfo">Введите параметры веса, роста и возраста!</string>
+
+
+    <string name="tab_sport_article">Спорт</string>
+    <string name="tab_food_article">Питание</string>
+    <string name="tab_fitness_article">Фитнес</string>
+    <string name="text_your_statistics">Статистика</string>
+
+    <string name="tab_statistics_week">Неделя</string>
+    <string name="tab_statistics_month">Месяц</string>
+    <string name="text_days">Дни</string>
+    <string name="text_your_normal_ccal">Норма</string>
+    <string name="title_articles">Статьи</string>
+    <string name="title_statistics">Моя статистика</string>
+    <string name="toastMistakeMinValuesUserInfo">Введите значения возраста, веса и роста больше чем указанные минимальные значения</string>
+    <string name="toastMistakeMinValuesUserPrefInfo">
+        Введены значения возраста, веса и роста больше чем указанные минимальные значения! Данные не будут применены!</string>
+    <string name="toastMistakeZero">Введите количество выбранной пищи больше 0 !</string>
+    <string name="toastMistakeMinValuesIndexBody">Введите значения веса и роста больше чем указанные минимальные значения!</string>
+    <string name="toast_mistake_min_target_step_count">Введите минимально допустимое значение цели!</string>
+
+    <string name="help_activity_title">Помощь</string>
+    <string name="help_text_calculators">
+        В данном приложении есть 3 вида фитнес-калькуляторов: Пищевой калькулятор и калькуляторы индекса массы тела и
+        потребности в калориях.\n\n
+        Пищевой калькулятор позволяет Вам считать количество калорий, которые Вы потребили вместе с едой.
+        Чтобы посчитать калории с его помощью, Вам необходимо выбрать из списка Вид потребленной пищи, а
+        затем саму пищу, после чего в диалоговом окне ввести количество потребленной пищи.\n
+        В верхней левой части экрана Вы можете просмотреть список потребленной за сегодня пищи, кликнув
+        по кнопке \"Список\", а также поменять свои значения роста, веса, пола и возраста, исходя из которых
+        калькулятор считает Вашу минимальную суточную потребность в калориях, кликнув по кнопке
+        \"Изменить параметры\".\n\n
+    </string>
+    <string name="help_text_step_counter">
+        В данном приложении Вы имеете возможность считать пройденные шаги с помощью шагомера.\n\n
+        Чтобы запустить шагомер нажмите кнопку \"Старт\" в окне шагомера. Соответственно, для остановки и
+        сброса текущего значения шагомера нажмите кнопки \"Стоп\", \"Сбросить\".\n\n
+    </string>
+    <string name="help_text_articles">
+        Выбрав пункт меню \"Статьи\", Вы можете найти очень полезную информацию о спорте, питании и фитнесе,
+        которая поможет Вас вести здоровый образ жизни.\n\n
+    </string>
+    <string name="help_text_statistics">
+        Перейдя в пункт меню \"Моя статистика\", Вы можете наглядно в виде графиков посмотреть статистику потребленной
+        Вами пищи, которую Вы считали с помощью "Пищевого калькулятора".\n\n
+    </string>
+    <string name="help_text_settings">
+        Чтобы перейти в настройки приложения перейдите в пункт меню \"Настройки\".\n\n В данном пункте Вы
+        можете выбрать цветовую тему оформления всего приложения, а также ввести или изменить Ваши
+        параметры пола, возраста, роста и веса, которые используются при различних вычислениях в
+        данном приложении.\n\n
+    </string>
+    <string name="title_activity_scrolling">ScrollingActivity</string>
+    <string name="large_text">
+        "Material is the metaphor.\n\n"
+
+        "A material metaphor is the unifying theory of a rationalized space and a system of motion."
+        "The material is grounded in tactile reality, inspired by the study of paper and ink, yet "
+        "technologically advanced and open to imagination and magic.\n"
+        "Surfaces and edges of the material provide visual cues that are grounded in reality. The "
+        "use of familiar tactile attributes helps users quickly understand affordances. Yet the "
+        "flexibility of the material creates new affordances that supercede those in the physical "
+        "world, without breaking the rules of physics.\n"
+        "The fundamentals of light, surface, and movement are key to conveying how objects move, "
+        "interact, and exist in space and in relation to each other. Realistic lighting shows "
+        "seams, divides space, and indicates moving parts.\n\n"
+
+        "Bold, graphic, intentional.\n\n"
+
+        "The foundational elements of print based design typography, grids, space, scale, color, "
+        "and use of imagery guide visual treatments. These elements do far more than please the "
+        "eye. They create hierarchy, meaning, and focus. Deliberate color choices, edge to edge "
+        "imagery, large scale typography, and intentional white space create a bold and graphic "
+        "interface that immerse the user in the experience.\n"
+        "An emphasis on user actions makes core functionality immediately apparent and provides "
+        "waypoints for the user.\n\n"
+
+        "Motion provides meaning.\n\n"
+
+        "Motion respects and reinforces the user as the prime mover. Primary user actions are "
+        "inflection points that initiate motion, transforming the whole design.\n"
+        "All action takes place in a single environment. Objects are presented to the user without "
+        "breaking the continuity of experience even as they transform and reorganize.\n"
+        "Motion is meaningful and appropriate, serving to focus attention and maintain continuity. "
+        "Feedback is subtle yet clear. Transitions are efﬁcient yet coherent.\n\n"
+
+        "3D world.\n\n"
+
+        "The material environment is a 3D space, which means all objects have x, y, and z "
+        "dimensions. The z-axis is perpendicularly aligned to the plane of the display, with the "
+        "positive z-axis extending towards the viewer. Every sheet of material occupies a single "
+        "position along the z-axis and has a standard 1dp thickness.\n"
+        "On the web, the z-axis is used for layering and not for perspective. The 3D world is "
+        "emulated by manipulating the y-axis.\n\n"
+
+        "Light and shadow.\n\n"
+
+        "Within the material environment, virtual lights illuminate the scene. Key lights create "
+        "directional shadows, while ambient light creates soft shadows from all angles.\n"
+        "Shadows in the material environment are cast by these two light sources. In Android "
+        "development, shadows occur when light sources are blocked by sheets of material at "
+        "various positions along the z-axis. On the web, shadows are depicted by manipulating the "
+        "y-axis only. The following example shows the card with a height of 6dp.\n\n"
+
+        "Resting elevation.\n\n"
+
+        "All material objects, regardless of size, have a resting elevation, or default elevation "
+        "that does not change. If an object changes elevation, it should return to its resting "
+        "elevation as soon as possible.\n\n"
+
+        "Component elevations.\n\n"
+
+        "The resting elevation for a component type is consistent across apps (e.g., FAB elevation "
+        "does not vary from 6dp in one app to 16dp in another app).\n"
+        "Components may have different resting elevations across platforms, depending on the depth "
+        "of the environment (e.g., TV has a greater depth than mobile or desktop).\n\n"
+
+        "Responsive elevation and dynamic elevation offsets.\n\n"
+
+        "Some component types have responsive elevation, meaning they change elevation in response "
+        "to user input (e.g., normal, focused, and pressed) or system events. These elevation "
+        "changes are consistently implemented using dynamic elevation offsets.\n"
+        "Dynamic elevation offsets are the goal elevation that a component moves towards, relative "
+        "to the component’s resting state. They ensure that elevation changes are consistent "
+        "across actions and component types. For example, all components that lift on press have "
+        "the same elevation change relative to their resting elevation.\n"
+        "Once the input event is completed or cancelled, the component will return to its resting "
+        "elevation.\n\n"
+
+        "Avoiding elevation interference.\n\n"
+
+        "Components with responsive elevations may encounter other components as they move between "
+        "their resting elevations and dynamic elevation offsets. Because material cannot pass "
+        "through other material, components avoid interfering with one another any number of ways, "
+        "whether on a per component basis or using the entire app layout.\n"
+        "On a component level, components can move or be removed before they cause interference. "
+        "For example, a floating action button (FAB) can disappear or move off screen before a "
+        "user picks up a card, or it can move if a snackbar appears.\n"
+        "On the layout level, design your app layout to minimize opportunities for interference. "
+        "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
+        "when a user tries to pick up one of cards.\n\n"
+    </string>
+    <string name="action_settings">Settings</string>
+    <string name="tab_help_description">Описание</string>
+    <string name="tab_help_procedure">Действия</string>
+
+    <string name="help_text_calculators_proc">
+        В приложении есть 3 фитнес-калькулятора:\n\n
+
+        1) Калькулятор индекса массы тела;\n
+        2) Калькулятор потребности в калориях;\n
+        3) Пищевой калькулятор;\n\n
+
+                  Калькулятор индекса массы тела:\n\n
+
+        Чтобы посчитать индекс массы тела, выберите пункт меню \"Индекс массы тела\"\n
+        -> Нажмите кнопку \"Посчитать индекс\"\n
+        -> В диалоговом окне введите свой рост в сантиметрах и вес в килограммах,\n
+           предварительно выбрав пункт \"Ввести новые данные\"; также можно выбрать пункт\n
+           \"Использовать параметры из настроек\", чтобы не вводить Ваш рост и вес, а\n
+           посчитать индекс массы тела исходя из Ваших сохраненных в приложении\n
+           данных о росте и весе\n
+        -> Нажать кнопку \"Посчитать\"\n
+        -> На экране появится Ваш индекс массы тела\n\n
+
+                  Калькулятор потребности в калориях:\n\n
+
+        Чтобы посчитать Вашу потребность в калориях, выберите пункт меню \"Потребность в калориях\"\n
+        -> В выпадающем списке выберите Ваш образ жизни\n
+        -> Нажмите кнопку \"Посчитать норму\"\n
+        -> В диалоговом окне введите свой рост в сантиметрах и вес в килограммах, а также,\n
+           пол и возраст предварительно выбрав пункт \"Ввести новые данные\"; также можно\n
+           выбрать пункт \"Использовать параметры из настроек\", чтобы не вводить Ваш рост, вес,\n
+           возраста и пол, а посчитать индекс массы тела исходя из Ваших сохраненных в приложении\n
+           данных о росте, весе, поле и возрасте\n
+        -> Нажать кнопку \"Подтвердить\"\n
+        -> На экране появится Ваша суточная норма калорий не изменяя вес, а также норма для\n
+           нормального и быстрого похудения\n\n
+
+                  Пищевой калькулятор:\n\n
+
+        Чтобы посчитать калорийность потребленной пищи, выберите пункт меню \"Пищевой калькулятор\"\n
+        -> Выберите вид потребленной пищи (фрукты, овощи и т.д.) из списка\n
+        -> Выберите необходимую пищу из появившегося списка\n
+        -> В диалоговом окне введите вес пищи в граммах\n
+        -> Нажмите кнопку \"Посчитать\"\n
+        -> Выбранная пищи добавится в список потребленной Вами пищи за день\n\n
+
+        Чтобы просмотреть потребленную за текущий день пищу, нажмите на кнопку \"Список\" в\n
+        верхнем углу экрана\n
+        -> В диалоговом окне Вы можете увидеть потребленную за день пищу, а также информацию о ней\n\n
+
+        В верхней части экрана Вы можете увидеть Ваши данные о росте, весе, поле и возрасте, которые\n
+        используются для подсчета Вашей минимальной нормы калорий (которая находится в правом\n
+        верхнем углу экрана). Вы можете изменить их, нажав на кнопку \"Изменить параметры\" и\n
+        ввести новые данные в диалоговом окне.\n\n
+
+        Статистику посчитанной Вами пищи в \"Пищевом калькуляторе\" Вы можете\n
+        посмотреть в пункте меню \"Моя статистика\".\n\n
+    </string>
+    <string name="help_text_step_counter_proc">
+        Чтобы открыть шагомер, выберите пункт меню \"Шагомер\".\n\n
+
+        Вы можете проводить с шагомером такие действия:\n
+        -> Нажать кнопку \"Старт\" для запуска шагомера\n
+        -> Нажать кнопку \"Стоп\" для остановки шагомера\n
+        -> Нажать кнопку \"Сбросить\" для сброса текущего\n
+           значения шагомера\n
+        -> Нажать кнопку \"Выбрать цель\", и в появившемся\n
+           диалоговом окне выбрать количество шагов,\n
+           которые Вы хотите пройти (от этого количества)\n
+           будут отсчитываться проценты (степень достижения\n
+           цели), а затем нажать кнопку \"Подтвердить\"\n\n
+    </string>
+    <string name="help_text_articles_proc">
+        Чтобы посмотреть полезные статьи о спорте, питании и фитнесе,\n
+        выберите пункт меню \"Статьи\"\n
+        -> Затем выберите из списка необходимую статью\n\n
+    </string>
+    <string name="help_text_statistics_proc">
+        Чтобы посмотреть статистику посчитанной в \"Пищевом калькуляторе\"\n
+        пищи, выберите пункт меню \"Моя статистика\".\n\n
+
+        В верхней части экрана выберите вкладку \"Неделя\" и \"Месяц\",\n
+        чтобы просмотреть статистику за неделю и месяц соответственно.\n\n
+    </string>
+    <string name="help_text_settings_proc">
+        Чтобы изменить некоторые настройки Вашего приложения, выберите\n
+        пункт меню \"Настройки\".\n\n
+
+        В приложении есть 2 категории настроек:\n\n
+
+        1) Общие настройки приложения\n
+        2) Личные настройки пользователя\n\n
+
+                  Общие настройки приложения:\n\n
+
+        Выбрав данный пункт настроек, Вы можете поменять цветовую\n
+        тему оформления приложения.\n\n
+
+                  Личные настройки пользователя:\n\n
+
+        Выбрав данный пункт настроек, Вы можете установить такие\n
+        данные как Ваш рост, вест, пол, возраст и имя.\n\n
+    </string>
 </resources>
