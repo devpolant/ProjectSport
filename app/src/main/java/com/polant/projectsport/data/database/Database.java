@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -25,7 +26,7 @@ import java.util.Calendar;
 import java.util.Collections;
 
 /**
- * Created by Антон on 05.10.2015.
+ * Обертка базы данных.
  */
 public class Database {
 
@@ -78,8 +79,8 @@ public class Database {
 
                 int tempDay = data.getInt(dayIndex);
                 int currentDay = tempDay;
-                int month = 0;
-                int year = 0;
+                int month =  data.getInt(monthIndex);
+                int year = data.getInt(yearIndex);
                 int sumDayDelta = 0;
 
                 int i = 0;
@@ -96,6 +97,8 @@ public class Database {
                     month = data.getInt(monthIndex);
                     year = data.getInt(yearIndex);
                 }while (data.moveToPrevious() && i <= count);
+                //Добавляю последний элемент.
+                list.add(new StatisticsDay(tempDay, month, year, sumDayDelta));
                 data.close();
             }
             else
@@ -413,10 +416,9 @@ public class Database {
 
         private static final String LOG = SportOpenHelper.class.getName();
 
-        private static final int DATABASE_VERSION = 27;
+        private static final int DATABASE_VERSION = 28;
 
         private static final String DATABASE_NAME = "sport.db";
-
 
         //В данных момент я не связываю таблицу TABLE_USER с другими таблицами.
         private static final String CREATE_TABLE_USER = "Create table " + TABLE_USER + " (" +
@@ -458,7 +460,6 @@ public class Database {
                 ARTICLE_DATE + " TEXT);";
 
 
-
         //конструктор.
         public SportOpenHelper(Context context) {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -475,11 +476,12 @@ public class Database {
             db.execSQL(CREATE_TABLE_ARTICLE);
 
             ContentValues cv = new ContentValues();
-            cv.put(USER_NAME, "Антон");
-            cv.put(USER_HEIGHT, 184);
-            cv.put(USER_WEIGHT, 75);
-            cv.put(USER_AGE, 17);
-            cv.put(USER_SEX, "M");
+            UserParametersInfo user = new UserParametersInfo("Anton", 18, 75, 185, "М");
+            cv.put(USER_NAME, user.getName());
+            cv.put(USER_HEIGHT, user.getHeight());
+            cv.put(USER_WEIGHT, user.getWeight());
+            cv.put(USER_AGE, user.getAge());
+            cv.put(USER_SEX, user.getSex());
             db.insert(TABLE_USER, null, cv);
         }
 

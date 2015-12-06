@@ -21,6 +21,7 @@ import android.view.MenuItem;
 
 import com.polant.projectsport.constants.Constants;
 import com.polant.projectsport.R;
+import com.polant.projectsport.model.UserParametersInfo;
 import com.polant.projectsport.theme.ThemeSettings;
 import com.polant.projectsport.data.database.Database;
 import com.polant.projectsport.fragment.calculator.IndexBodyFragment;
@@ -105,6 +106,23 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         //Текущие значения шагомера.
         currentStepValue = prefs.getInt(PreferencesNewActivity.PREF_CURRENT_STEP_COUNT, 0);
         resetStepValue = prefs.getInt(PreferencesNewActivity.PREF_RESET_STEP_COUNT, 0);
+
+        checkPreferences(prefs);
+    }
+
+    //Заполнение значений по умолчанию, если это первый запуск программы.
+    private void checkPreferences(SharedPreferences sp) {
+        if (sp.getBoolean(PreferencesNewActivity.PREF_IS_FIRST_CALL, true)) {
+            UserParametersInfo user = new UserParametersInfo("Anton", 18, 75, 185, "М");
+            //Заполняю данные о пользователе в настройки.
+            ThemeSettings.setUserParametersInfo(user, sp);
+
+            //Указываю, что заполнил настройки по умолчанию.
+            SharedPreferences.Editor editor = sp.edit();
+            editor.putBoolean(PreferencesNewActivity.PREF_IS_FIRST_CALL, false);
+            editor.putString(PreferencesNewActivity.PREF_APP_THEME, "Light");
+            editor.apply();
+        }
     }
 
 

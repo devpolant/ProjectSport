@@ -26,6 +26,8 @@ public class PreferencesNewActivity extends PreferenceActivity {
     public static final String PREF_CURRENT_STEP_COUNT = "PREF_CURRENT_STEP_COUNT";
     public static final String PREF_RESET_STEP_COUNT = "PREF_RESET_STEP_COUNT";
 
+    public static final String PREF_IS_FIRST_CALL = "PREF_IS_FIRST_CALL";
+
 
     private ArrayList<String> fragmentsNames = new ArrayList<>();
 
