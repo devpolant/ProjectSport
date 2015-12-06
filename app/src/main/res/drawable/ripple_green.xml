@@ -3,7 +3,7 @@
 
     <item android:state_pressed="true">
         <shape>
-            <solid android:color="#1CE35D"/>
+            <solid android:color="@color/step_delta_calories_text_color"/>
             <corners android:radius="5dp"/>
             <padding android:bottom="5dp"
                 android:top="5dp"

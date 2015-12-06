@@ -13,6 +13,11 @@
     <color name="DarkMainBackground">#e2e2e2</color>
 
 
+    <color name="dashed_circular_progress_base">#FF4F00</color>
+    <color name="dashed_circular_progress_fill">#26ED31</color>
+    <color name="step_delta_calories_text_color">#2aa412</color>
+
+
     <color name="black">#000000</color>
     <color name="foreground_material_light">#000000</color>
 

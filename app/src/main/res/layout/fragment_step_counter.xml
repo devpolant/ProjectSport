@@ -26,17 +26,17 @@
         android:id="@+id/textViewDeltaCaloriesStepCounter"
         android:gravity="center_vertical|center_horizontal"
         android:textStyle="bold"
-        android:textColor="#2aa412" />
+        android:textColor="@color/step_delta_calories_text_color" />
 
     <com.github.glomadrian.dashedcircularprogress.DashedCircularProgress
         android:id="@+id/progressSteps"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        custom:external_color="#000000"
-        custom:base_color="#FF4F00"
+        custom:external_color="@android:color/black"
+        custom:base_color="@color/dashed_circular_progress_base"
         custom:min="0"
         custom:max="1000"
-        custom:progress_color="#26ED31"
+        custom:progress_color="@color/dashed_circular_progress_fill"
         android:layout_weight="2"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
